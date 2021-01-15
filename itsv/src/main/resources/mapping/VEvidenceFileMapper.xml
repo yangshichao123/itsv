@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VEvidenceFileMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VEvidenceFile">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="FILE_TYPE" jdbcType="INTEGER" property="fileType" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="REFERENCE_ID" jdbcType="VARCHAR" property="referenceId" />
+    <result column="SERVER_CODE" jdbcType="VARCHAR" property="serverCode" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VEvidenceFile">
+    insert into v_evidence_file (ID, FILE_TYPE, URL, 
+      REFERENCE_ID, SERVER_CODE)
+    values (#{id,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{referenceId,jdbcType=VARCHAR}, #{serverCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VEvidenceFile">
+    insert into v_evidence_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="fileType != null">
+        FILE_TYPE,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="referenceId != null">
+        REFERENCE_ID,
+      </if>
+      <if test="serverCode != null">
+        SERVER_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceId != null">
+        #{referenceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serverCode != null">
+        #{serverCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

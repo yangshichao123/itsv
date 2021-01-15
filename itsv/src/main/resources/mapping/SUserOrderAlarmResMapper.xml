@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.SUserOrderAlarmResMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.SUserOrderAlarmRes">
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="ALARM_RES_ID" jdbcType="VARCHAR" property="alarmResId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.SUserOrderAlarmRes">
+    insert into s_user_order_alarm_res (USER_CODE, ALARM_RES_ID)
+    values (#{userCode,jdbcType=VARCHAR}, #{alarmResId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.SUserOrderAlarmRes">
+    insert into s_user_order_alarm_res
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+      <if test="alarmResId != null">
+        ALARM_RES_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmResId != null">
+        #{alarmResId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

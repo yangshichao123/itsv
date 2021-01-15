@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAssPhoicMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAssPhoic">
+    <result column="ASS_CODE" jdbcType="VARCHAR" property="assCode" />
+    <result column="PHONIC_CODE" jdbcType="VARCHAR" property="phonicCode" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VAssPhoic">
+    insert into v_ass_phoic (ASS_CODE, PHONIC_CODE)
+    values (#{assCode,jdbcType=VARCHAR}, #{phonicCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAssPhoic">
+    insert into v_ass_phoic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="assCode != null">
+        ASS_CODE,
+      </if>
+      <if test="phonicCode != null">
+        PHONIC_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="assCode != null">
+        #{assCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phonicCode != null">
+        #{phonicCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VRoleResSpecialRightMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VRoleResSpecialRight">
+    <result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="RESOURCE_CODE" jdbcType="VARCHAR" property="resourceCode" />
+    <result column="RIGHT" jdbcType="INTEGER" property="right" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VRoleResSpecialRight">
+    insert into v_role_res_special_right (ROLE_ID, RESOURCE_CODE, `RIGHT`, 
+      `TYPE`)
+    values (#{roleId,jdbcType=INTEGER}, #{resourceCode,jdbcType=VARCHAR}, #{right,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VRoleResSpecialRight">
+    insert into v_role_res_special_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="resourceCode != null">
+        RESOURCE_CODE,
+      </if>
+      <if test="right != null">
+        `RIGHT`,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="resourceCode != null">
+        #{resourceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="right != null">
+        #{right,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

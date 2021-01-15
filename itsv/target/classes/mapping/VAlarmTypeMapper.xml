@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAlarmTypeMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAlarmType">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SYSTEM_TYPE" jdbcType="INTEGER" property="systemType" />
+    <result column="ALARM_MAIN_TYPE" jdbcType="VARCHAR" property="alarmMainType" />
+    <result column="ALARM_DETAIL_TYPE" jdbcType="VARCHAR" property="alarmDetailType" />
+    <result column="ALARM_TYPE" jdbcType="VARCHAR" property="alarmType" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SYSTEM_TYPE, ALARM_MAIN_TYPE, ALARM_DETAIL_TYPE, ALARM_TYPE, `NAME`
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_alarm_type
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VAlarmType">
+    insert into v_alarm_type (ID, SYSTEM_TYPE, ALARM_MAIN_TYPE, 
+      ALARM_DETAIL_TYPE, ALARM_TYPE, `NAME`
+      )
+    values (#{id,jdbcType=INTEGER}, #{systemType,jdbcType=INTEGER}, #{alarmMainType,jdbcType=VARCHAR}, 
+      #{alarmDetailType,jdbcType=VARCHAR}, #{alarmType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAlarmType">
+    insert into v_alarm_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="systemType != null">
+        SYSTEM_TYPE,
+      </if>
+      <if test="alarmMainType != null">
+        ALARM_MAIN_TYPE,
+      </if>
+      <if test="alarmDetailType != null">
+        ALARM_DETAIL_TYPE,
+      </if>
+      <if test="alarmType != null">
+        ALARM_TYPE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="systemType != null">
+        #{systemType,jdbcType=INTEGER},
+      </if>
+      <if test="alarmMainType != null">
+        #{alarmMainType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDetailType != null">
+        #{alarmDetailType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null">
+        #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

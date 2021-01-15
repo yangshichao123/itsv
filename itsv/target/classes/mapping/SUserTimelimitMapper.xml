@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.SUserTimelimitMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.SUserTimelimit">
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="STARTDATE" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="ENDDATE" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="STARTSECOND" jdbcType="TIMESTAMP" property="startsecond" />
+    <result column="ENDSECOND" jdbcType="TIMESTAMP" property="endsecond" />
+    <result column="MONDAY" jdbcType="INTEGER" property="monday" />
+    <result column="TUESDAY" jdbcType="INTEGER" property="tuesday" />
+    <result column="WEDNESDAY" jdbcType="INTEGER" property="wednesday" />
+    <result column="THURSDAY" jdbcType="INTEGER" property="thursday" />
+    <result column="FRIDAY" jdbcType="INTEGER" property="friday" />
+    <result column="SATURDAY" jdbcType="INTEGER" property="saturday" />
+    <result column="SUNDAY" jdbcType="INTEGER" property="sunday" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.SUserTimelimit">
+    insert into s_user_timelimit (USER_CODE, STARTDATE, ENDDATE, 
+      STARTSECOND, ENDSECOND, MONDAY, 
+      TUESDAY, WEDNESDAY, THURSDAY, 
+      FRIDAY, SATURDAY, SUNDAY, 
+      MEMO, ID)
+    values (#{userCode,jdbcType=VARCHAR}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{startsecond,jdbcType=TIMESTAMP}, #{endsecond,jdbcType=TIMESTAMP}, #{monday,jdbcType=INTEGER}, 
+      #{tuesday,jdbcType=INTEGER}, #{wednesday,jdbcType=INTEGER}, #{thursday,jdbcType=INTEGER}, 
+      #{friday,jdbcType=INTEGER}, #{saturday,jdbcType=INTEGER}, #{sunday,jdbcType=INTEGER}, 
+      #{memo,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.SUserTimelimit">
+    insert into s_user_timelimit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+      <if test="startdate != null">
+        STARTDATE,
+      </if>
+      <if test="enddate != null">
+        ENDDATE,
+      </if>
+      <if test="startsecond != null">
+        STARTSECOND,
+      </if>
+      <if test="endsecond != null">
+        ENDSECOND,
+      </if>
+      <if test="monday != null">
+        MONDAY,
+      </if>
+      <if test="tuesday != null">
+        TUESDAY,
+      </if>
+      <if test="wednesday != null">
+        WEDNESDAY,
+      </if>
+      <if test="thursday != null">
+        THURSDAY,
+      </if>
+      <if test="friday != null">
+        FRIDAY,
+      </if>
+      <if test="saturday != null">
+        SATURDAY,
+      </if>
+      <if test="sunday != null">
+        SUNDAY,
+      </if>
+      <if test="memo != null">
+        MEMO,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startsecond != null">
+        #{startsecond,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endsecond != null">
+        #{endsecond,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monday != null">
+        #{monday,jdbcType=INTEGER},
+      </if>
+      <if test="tuesday != null">
+        #{tuesday,jdbcType=INTEGER},
+      </if>
+      <if test="wednesday != null">
+        #{wednesday,jdbcType=INTEGER},
+      </if>
+      <if test="thursday != null">
+        #{thursday,jdbcType=INTEGER},
+      </if>
+      <if test="friday != null">
+        #{friday,jdbcType=INTEGER},
+      </if>
+      <if test="saturday != null">
+        #{saturday,jdbcType=INTEGER},
+      </if>
+      <if test="sunday != null">
+        #{sunday,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VMaskplanMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VMaskplan">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PLANNAME" jdbcType="VARCHAR" property="planname" />
+    <result column="IS_EFFECT" jdbcType="INTEGER" property="isEffect" />
+    <result column="STARTTIME" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="MODIFYTIME" jdbcType="TIMESTAMP" property="modifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PLANNAME, IS_EFFECT, STARTTIME, ENDTIME, CREATETIME, MODIFYTIME
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_maskplan
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VMaskplan">
+    insert into v_maskplan (ID, PLANNAME, IS_EFFECT, 
+      STARTTIME, ENDTIME, CREATETIME, 
+      MODIFYTIME)
+    values (#{id,jdbcType=INTEGER}, #{planname,jdbcType=VARCHAR}, #{isEffect,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{modifytime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VMaskplan">
+    insert into v_maskplan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="planname != null">
+        PLANNAME,
+      </if>
+      <if test="isEffect != null">
+        IS_EFFECT,
+      </if>
+      <if test="starttime != null">
+        STARTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="modifytime != null">
+        MODIFYTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="planname != null">
+        #{planname,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffect != null">
+        #{isEffect,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

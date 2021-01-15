@@ -1,0 +1,86 @@
+server:
+  port: 10001
+
+
+spring:
+  datasource:
+    username: root
+    password: 1qaz!QAZ
+    url: jdbc:mysql://127.0.0.1:3307/chuanzang?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  freemarker:
+    request-context-attribute: req  #req访问request
+    suffix: .html  #后缀名
+    content-type: text/html
+    enabled: true
+    cache: false #缓存配置
+    template-loader-path: classpath:/templates/ #模板加载路径 按需配置
+    charset: UTF-8 #编码格式
+    settings:
+      number_format: '0.##'   #数字格式化，无小数点
+  #MQ配置IP 端口
+  rabbitmq:
+    host: 47.92.100.23
+    port: 5673
+    username: admin
+    password: 1qaz!QAZ
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+       acknowledge-mode: manual
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.data.itsv.model
+
+#分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#mapper4 配置
+mapper:
+  mappers: com.data.itsv.base.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: ERROR
+
+
+bootshiro:
+  enableEncryptPassword: false
+
+
+cms:
+  ip: "11030"
+  port: "127.0.0.1"
+
+
+netty:
+  client:
+    #host: "39.103.130.69"
+    host: "127.0.0.1"
+    port: "11029"
+  server:
+    port: "11030"
+
+
+heartbeatTime: "120"
+
+setVideoCode: "01010207013005000135"
+userName: "admin"
+password: "admin"

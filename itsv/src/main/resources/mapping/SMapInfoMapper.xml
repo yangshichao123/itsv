@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.SMapInfoMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.SMapInfo">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="LOCATION2" jdbcType="VARCHAR" property="location2" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.SMapInfo">
+    insert into s_map_info (ID, `NAME`, URL, 
+      DESCRIPTION, `LOCATION`, LOCATION2
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{location2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.SMapInfo">
+    insert into s_map_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="location != null">
+        `LOCATION`,
+      </if>
+      <if test="location2 != null">
+        LOCATION2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="location2 != null">
+        #{location2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

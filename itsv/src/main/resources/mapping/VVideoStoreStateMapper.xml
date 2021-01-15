@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VVideoStoreStateMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VVideoStoreState">
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <result column="EXIST_STORE_PLAN_FLAG" jdbcType="INTEGER" property="existStorePlanFlag" />
+    <result column="PLAN_EXE_STATE" jdbcType="INTEGER" property="planExeState" />
+    <result column="STORE_STATE" jdbcType="INTEGER" property="storeState" />
+    <result column="STORE_EXCEPTION_DESC" jdbcType="VARCHAR" property="storeExceptionDesc" />
+    <result column="STORE_PLAN_TYPE" jdbcType="INTEGER" property="storePlanType" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VVideoStoreState">
+    insert into v_video_store_state (VIDEO_CODE, EXIST_STORE_PLAN_FLAG, PLAN_EXE_STATE, 
+      STORE_STATE, STORE_EXCEPTION_DESC, STORE_PLAN_TYPE
+      )
+    values (#{videoCode,jdbcType=VARCHAR}, #{existStorePlanFlag,jdbcType=INTEGER}, #{planExeState,jdbcType=INTEGER}, 
+      #{storeState,jdbcType=INTEGER}, #{storeExceptionDesc,jdbcType=VARCHAR}, #{storePlanType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VVideoStoreState">
+    insert into v_video_store_state
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="existStorePlanFlag != null">
+        EXIST_STORE_PLAN_FLAG,
+      </if>
+      <if test="planExeState != null">
+        PLAN_EXE_STATE,
+      </if>
+      <if test="storeState != null">
+        STORE_STATE,
+      </if>
+      <if test="storeExceptionDesc != null">
+        STORE_EXCEPTION_DESC,
+      </if>
+      <if test="storePlanType != null">
+        STORE_PLAN_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="existStorePlanFlag != null">
+        #{existStorePlanFlag,jdbcType=INTEGER},
+      </if>
+      <if test="planExeState != null">
+        #{planExeState,jdbcType=INTEGER},
+      </if>
+      <if test="storeState != null">
+        #{storeState,jdbcType=INTEGER},
+      </if>
+      <if test="storeExceptionDesc != null">
+        #{storeExceptionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="storePlanType != null">
+        #{storePlanType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

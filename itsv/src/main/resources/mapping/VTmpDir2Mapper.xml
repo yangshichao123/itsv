@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VTmpDir2Mapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VTmpDir2">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DIR_LEVEL" jdbcType="INTEGER" property="dirLevel" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VTmpDir2">
+    insert into v_tmp_dir2 (ID, `NAME`, DIR_LEVEL, 
+      PARENT_ID, CODE)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{dirLevel,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VTmpDir2">
+    insert into v_tmp_dir2
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="dirLevel != null">
+        DIR_LEVEL,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dirLevel != null">
+        #{dirLevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

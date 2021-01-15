@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VResourceChangeMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VResourceChange">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="OPT" jdbcType="INTEGER" property="opt" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="CHANNEL_TYPE" jdbcType="INTEGER" property="channelType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CODE, `TYPE`, OPT, CREATETIME, CHANNEL_TYPE
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_resource_change
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VResourceChange">
+    insert into v_resource_change (ID, CODE, `TYPE`, 
+      OPT, CREATETIME, CHANNEL_TYPE
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{opt,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{channelType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VResourceChange">
+    insert into v_resource_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="opt != null">
+        OPT,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="channelType != null">
+        CHANNEL_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="opt != null">
+        #{opt,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelType != null">
+        #{channelType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

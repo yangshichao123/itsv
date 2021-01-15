@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VItourMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VItour">
+    <id column="CODE" jdbcType="INTEGER" property="code" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="INTERVAL" jdbcType="INTEGER" property="interval" />
+    <result column="SCREEN" jdbcType="INTEGER" property="screen" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, USER_CODE, `NAME`, DESCS, `INTERVAL`, SCREEN
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_itour
+    where CODE = #{code,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VItour">
+    insert into v_itour (CODE, USER_CODE, `NAME`, 
+      DESCS, `INTERVAL`, SCREEN
+      )
+    values (#{code,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{descs,jdbcType=VARCHAR}, #{interval,jdbcType=INTEGER}, #{screen,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VItour">
+    insert into v_itour
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="interval != null">
+        `INTERVAL`,
+      </if>
+      <if test="screen != null">
+        SCREEN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="interval != null">
+        #{interval,jdbcType=INTEGER},
+      </if>
+      <if test="screen != null">
+        #{screen,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

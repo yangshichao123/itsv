@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAlarmMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAlarm">
+    <id column="ALARMID" jdbcType="VARCHAR" property="alarmid" />
+    <result column="ALARM_RES_CODE" jdbcType="VARCHAR" property="alarmResCode" />
+    <result column="SESSIONID" jdbcType="VARCHAR" property="sessionid" />
+    <result column="ALARMTYPE" jdbcType="VARCHAR" property="alarmtype" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="ALARMLEVEL" jdbcType="INTEGER" property="alarmlevel" />
+    <result column="ALARM_RES_NAME" jdbcType="VARCHAR" property="alarmResName" />
+    <result column="BEGINTIME" jdbcType="TIMESTAMP" property="begintime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="ALARMSTATE" jdbcType="INTEGER" property="alarmstate" />
+    <result column="AFFIRMMAN" jdbcType="VARCHAR" property="affirmman" />
+    <result column="AFFIRM" jdbcType="TIMESTAMP" property="affirm" />
+    <result column="CLEANMAN" jdbcType="VARCHAR" property="cleanman" />
+    <result column="CLEANTIME" jdbcType="TIMESTAMP" property="cleantime" />
+    <result column="ALARM_RES_ID" jdbcType="VARCHAR" property="alarmResId" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VAlarmVo">
+    <id column="ALARMID" jdbcType="VARCHAR" property="alarmid" />
+    <result column="ALARM_RES_CODE" jdbcType="VARCHAR" property="alarmResCode" />
+    <result column="SESSIONID" jdbcType="VARCHAR" property="sessionid" />
+    <result column="ALARMTYPE" jdbcType="VARCHAR" property="alarmtype" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="ALARMLEVEL" jdbcType="INTEGER" property="alarmlevel" />
+    <result column="ALARM_RES_NAME" jdbcType="VARCHAR" property="alarmResName" />
+    <result column="BEGINTIME" jdbcType="TIMESTAMP" property="begintime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="ALARMSTATE" jdbcType="INTEGER" property="alarmstate" />
+    <result column="AFFIRMMAN" jdbcType="VARCHAR" property="affirmman" />
+    <result column="AFFIRM" jdbcType="TIMESTAMP" property="affirm" />
+    <result column="CLEANMAN" jdbcType="VARCHAR" property="cleanman" />
+    <result column="CLEANTIME" jdbcType="TIMESTAMP" property="cleantime" />
+    <result column="ALARM_RES_ID" jdbcType="VARCHAR" property="alarmResId" />
+    <result column="ALARM_TYPE_NAME" jdbcType="VARCHAR" property="alarmTypeName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ALARMID, ALARM_RES_CODE, SESSIONID, ALARMTYPE, DESCRIPTION, ALARMLEVEL, ALARM_RES_NAME, 
+    BEGINTIME, ENDTIME, ALARMSTATE, AFFIRMMAN, AFFIRM, CLEANMAN, CLEANTIME, ALARM_RES_ID
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_alarm
+    where ALARMID = #{alarmid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectValarmVo" parameterType="com.data.itsv.model.vo.VAlarmVo" resultMap="BaseResultMapVo">
+    select
+   T.ALARMID,
+	T.ALARM_RES_CODE,
+	T.SESSIONID,
+	T.ALARMTYPE,
+	T.DESCRIPTION,
+	T.ALARMLEVEL,
+	T.ALARM_RES_NAME,
+	T.BEGINTIME,
+	(case when t.alarmstate = 0 then T.ENDTIME else '' end ) ENDTIME,
+	T.ALARMSTATE,
+	T.AFFIRMMAN,
+	T.AFFIRM,
+	T.CLEANMAN,
+	T.CLEANTIME,
+    at.NAME ALARM_TYPE_NAME
+    from v_alarm t
+    left join V_ALARM_TYPE at ON at.ALARM_TYPE = t.ALARMTYPE
+    <where>
+      <if test="alarmid != null and alarmid != '' ">
+        and t.ALARMID =  #{alarmid,jdbcType=VARCHAR}
+      </if>
+      <if test="alarmType != null and alarmType != '' ">
+        and t.ALARMTYPE =  #{alarmType,jdbcType=VARCHAR}
+      </if>
+      <if test="alarmstate != null and alarmstate != '' ">
+        and t.ALARMSTATE =  #{alarmstate,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VAlarm">
+    insert into v_alarm (ALARMID, ALARM_RES_CODE, SESSIONID, 
+      ALARMTYPE, DESCRIPTION, ALARMLEVEL, 
+      ALARM_RES_NAME, BEGINTIME, ENDTIME, 
+      ALARMSTATE, AFFIRMMAN, AFFIRM, 
+      CLEANMAN, CLEANTIME, ALARM_RES_ID
+      )
+    values (#{alarmid,jdbcType=VARCHAR}, #{alarmResCode,jdbcType=VARCHAR}, #{sessionid,jdbcType=VARCHAR}, 
+      #{alarmtype,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{alarmlevel,jdbcType=INTEGER}, 
+      #{alarmResName,jdbcType=VARCHAR}, #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{alarmstate,jdbcType=INTEGER}, #{affirmman,jdbcType=VARCHAR}, #{affirm,jdbcType=TIMESTAMP}, 
+      #{cleanman,jdbcType=VARCHAR}, #{cleantime,jdbcType=TIMESTAMP}, #{alarmResId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAlarm">
+    insert into v_alarm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmid != null">
+        ALARMID,
+      </if>
+      <if test="alarmResCode != null">
+        ALARM_RES_CODE,
+      </if>
+      <if test="sessionid != null">
+        SESSIONID,
+      </if>
+      <if test="alarmtype != null">
+        ALARMTYPE,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="alarmlevel != null">
+        ALARMLEVEL,
+      </if>
+      <if test="alarmResName != null">
+        ALARM_RES_NAME,
+      </if>
+      <if test="begintime != null">
+        BEGINTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="alarmstate != null">
+        ALARMSTATE,
+      </if>
+      <if test="affirmman != null">
+        AFFIRMMAN,
+      </if>
+      <if test="affirm != null">
+        AFFIRM,
+      </if>
+      <if test="cleanman != null">
+        CLEANMAN,
+      </if>
+      <if test="cleantime != null">
+        CLEANTIME,
+      </if>
+      <if test="alarmResId != null">
+        ALARM_RES_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmid != null">
+        #{alarmid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmResCode != null">
+        #{alarmResCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionid != null">
+        #{sessionid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmtype != null">
+        #{alarmtype,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmlevel != null">
+        #{alarmlevel,jdbcType=INTEGER},
+      </if>
+      <if test="alarmResName != null">
+        #{alarmResName,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmstate != null">
+        #{alarmstate,jdbcType=INTEGER},
+      </if>
+      <if test="affirmman != null">
+        #{affirmman,jdbcType=VARCHAR},
+      </if>
+      <if test="affirm != null">
+        #{affirm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cleanman != null">
+        #{cleanman,jdbcType=VARCHAR},
+      </if>
+      <if test="cleantime != null">
+        #{cleantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmResId != null">
+        #{alarmResId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

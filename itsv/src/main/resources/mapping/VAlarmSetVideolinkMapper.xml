@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAlarmSetVideolinkMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAlarmSetVideolink">
+    <result column="ALARM_SET_ID" jdbcType="VARCHAR" property="alarmSetId" />
+    <result column="RESID" jdbcType="VARCHAR" property="resid" />
+    <result column="ISLINKPTZ" jdbcType="VARCHAR" property="islinkptz" />
+    <result column="PTZPRESENT" jdbcType="INTEGER" property="ptzpresent" />
+    <result column="ISLINKREC" jdbcType="INTEGER" property="islinkrec" />
+    <result column="RECFPS" jdbcType="INTEGER" property="recfps" />
+    <result column="ISLINKPREV" jdbcType="INTEGER" property="islinkprev" />
+    <result column="ISLINKPIC" jdbcType="INTEGER" property="islinkpic" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VAlarmSetVideolink">
+    insert into v_alarm_set_videolink (ALARM_SET_ID, RESID, ISLINKPTZ, 
+      PTZPRESENT, ISLINKREC, RECFPS, 
+      ISLINKPREV, ISLINKPIC)
+    values (#{alarmSetId,jdbcType=VARCHAR}, #{resid,jdbcType=VARCHAR}, #{islinkptz,jdbcType=VARCHAR}, 
+      #{ptzpresent,jdbcType=INTEGER}, #{islinkrec,jdbcType=INTEGER}, #{recfps,jdbcType=INTEGER}, 
+      #{islinkprev,jdbcType=INTEGER}, #{islinkpic,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAlarmSetVideolink">
+    insert into v_alarm_set_videolink
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmSetId != null">
+        ALARM_SET_ID,
+      </if>
+      <if test="resid != null">
+        RESID,
+      </if>
+      <if test="islinkptz != null">
+        ISLINKPTZ,
+      </if>
+      <if test="ptzpresent != null">
+        PTZPRESENT,
+      </if>
+      <if test="islinkrec != null">
+        ISLINKREC,
+      </if>
+      <if test="recfps != null">
+        RECFPS,
+      </if>
+      <if test="islinkprev != null">
+        ISLINKPREV,
+      </if>
+      <if test="islinkpic != null">
+        ISLINKPIC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmSetId != null">
+        #{alarmSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="resid != null">
+        #{resid,jdbcType=VARCHAR},
+      </if>
+      <if test="islinkptz != null">
+        #{islinkptz,jdbcType=VARCHAR},
+      </if>
+      <if test="ptzpresent != null">
+        #{ptzpresent,jdbcType=INTEGER},
+      </if>
+      <if test="islinkrec != null">
+        #{islinkrec,jdbcType=INTEGER},
+      </if>
+      <if test="recfps != null">
+        #{recfps,jdbcType=INTEGER},
+      </if>
+      <if test="islinkprev != null">
+        #{islinkprev,jdbcType=INTEGER},
+      </if>
+      <if test="islinkpic != null">
+        #{islinkpic,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

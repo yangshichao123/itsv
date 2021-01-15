@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VEventMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VEvent">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VEvent">
+    insert into v_event (ID, START_TIME, END_TIME, 
+      `TYPE`, DESCS)
+    values (#{id,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{descs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VEvent">
+    insert into v_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

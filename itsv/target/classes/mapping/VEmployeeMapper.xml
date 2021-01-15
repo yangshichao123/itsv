@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VEmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VEmployee">
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="UNIT_ID" jdbcType="VARCHAR" property="unitId" />
+    <result column="FACE1" jdbcType="VARCHAR" property="face1" />
+    <result column="FACE2" jdbcType="VARCHAR" property="face2" />
+    <result column="FACE3" jdbcType="VARCHAR" property="face3" />
+    <result column="FACE4" jdbcType="VARCHAR" property="face4" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VEmployee">
+    insert into v_employee (ID, CODE, `NAME`, 
+      UNIT_ID, FACE1, FACE2, 
+      FACE3, FACE4)
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{unitId,jdbcType=VARCHAR}, #{face1,jdbcType=VARCHAR}, #{face2,jdbcType=VARCHAR}, 
+      #{face3,jdbcType=VARCHAR}, #{face4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VEmployee">
+    insert into v_employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="unitId != null">
+        UNIT_ID,
+      </if>
+      <if test="face1 != null">
+        FACE1,
+      </if>
+      <if test="face2 != null">
+        FACE2,
+      </if>
+      <if test="face3 != null">
+        FACE3,
+      </if>
+      <if test="face4 != null">
+        FACE4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null">
+        #{unitId,jdbcType=VARCHAR},
+      </if>
+      <if test="face1 != null">
+        #{face1,jdbcType=VARCHAR},
+      </if>
+      <if test="face2 != null">
+        #{face2,jdbcType=VARCHAR},
+      </if>
+      <if test="face3 != null">
+        #{face3,jdbcType=VARCHAR},
+      </if>
+      <if test="face4 != null">
+        #{face4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

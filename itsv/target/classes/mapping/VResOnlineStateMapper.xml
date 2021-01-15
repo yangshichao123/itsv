@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VResOnlineStateMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VResOnlineState">
+    <result column="RES_CODE" jdbcType="VARCHAR" property="resCode" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="ONLINE_STATE" jdbcType="INTEGER" property="onlineState" />
+    <result column="LOGIN_TIME" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="LOGOUT_TIME" jdbcType="TIMESTAMP" property="logoutTime" />
+    <result column="LAST_HEART_BEAT_TIME" jdbcType="TIMESTAMP" property="lastHeartBeatTime" />
+    <result column="REC_STATE" jdbcType="INTEGER" property="recState" />
+    <result column="REC_START_TIME" jdbcType="TIMESTAMP" property="recStartTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VResOnlineState">
+    insert into v_res_online_state (RES_CODE, `TYPE`, ONLINE_STATE, 
+      LOGIN_TIME, LOGOUT_TIME, LAST_HEART_BEAT_TIME, 
+      REC_STATE, REC_START_TIME)
+    values (#{resCode,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{onlineState,jdbcType=INTEGER}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP}, #{lastHeartBeatTime,jdbcType=TIMESTAMP}, 
+      #{recState,jdbcType=INTEGER}, #{recStartTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VResOnlineState">
+    insert into v_res_online_state
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resCode != null">
+        RES_CODE,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="onlineState != null">
+        ONLINE_STATE,
+      </if>
+      <if test="loginTime != null">
+        LOGIN_TIME,
+      </if>
+      <if test="logoutTime != null">
+        LOGOUT_TIME,
+      </if>
+      <if test="lastHeartBeatTime != null">
+        LAST_HEART_BEAT_TIME,
+      </if>
+      <if test="recState != null">
+        REC_STATE,
+      </if>
+      <if test="recStartTime != null">
+        REC_START_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resCode != null">
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="onlineState != null">
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastHeartBeatTime != null">
+        #{lastHeartBeatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recState != null">
+        #{recState,jdbcType=INTEGER},
+      </if>
+      <if test="recStartTime != null">
+        #{recStartTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

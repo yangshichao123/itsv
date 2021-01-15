@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VIgroupMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VIgroup">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="DIR_LEVEL" jdbcType="INTEGER" property="dirLevel" />
+    <result column="FULL_PATH" jdbcType="VARCHAR" property="fullPath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_CODE, `NAME`, DESCS, PARENT_ID, CREATE_TIME, DIR_LEVEL, FULL_PATH
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_igroup
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VIgroup">
+    insert into v_igroup (ID, USER_CODE, `NAME`, 
+      DESCS, PARENT_ID, CREATE_TIME, 
+      DIR_LEVEL, FULL_PATH)
+    values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{descs,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{dirLevel,jdbcType=INTEGER}, #{fullPath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VIgroup">
+    insert into v_igroup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="dirLevel != null">
+        DIR_LEVEL,
+      </if>
+      <if test="fullPath != null">
+        FULL_PATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dirLevel != null">
+        #{dirLevel,jdbcType=INTEGER},
+      </if>
+      <if test="fullPath != null">
+        #{fullPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

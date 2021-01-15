@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VIlayoutMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VIlayout">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="SCREEN_NUM" jdbcType="INTEGER" property="screenNum" />
+    <result column="LAYOUT_NAME" jdbcType="VARCHAR" property="layoutName" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VIlayoutVo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="SCREEN_NUM" jdbcType="INTEGER" property="screenNum" />
+    <result column="LAYOUT_NAME" jdbcType="VARCHAR" property="layoutName" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <collection property="detailList" ofType="com.data.itsv.model.vo.VIlayoutDetailVo">
+      <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+      <result column="LAYOUT_ID" jdbcType="INTEGER" property="layoutId" />
+      <result column="LOCATION_NUM" jdbcType="INTEGER" property="locationNum" />
+      <result column="VIDEO_NAME" jdbcType="INTEGER" property="videoName" />
+    </collection>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_CODE, SCREEN_NUM, LAYOUT_NAME, DESCS
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_ilayout
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectVIlayouVo" parameterType="java.lang.String" resultMap="BaseResultMapVo">
+    select
+    vi.*,V.NAME VIDEO_NAME
+    from v_ilayout vi
+    left join V_ILAYOUT_DETAIL vid on vi.LAYOUT_ID=vi.id
+    left join V_VIDEO vv on vid.VIDEO_CODE = vv.CODE
+    <where >
+      <if test="id != null">
+        and vi.ID = #{layoutId,jdbcType=VARCHAR}
+      </if>
+      <if test="id != null">
+        and vi.USER_CODE = #{id1,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VIlayout">
+    insert into v_ilayout (ID, USER_CODE, SCREEN_NUM, 
+      LAYOUT_NAME, DESCS)
+    values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{screenNum,jdbcType=INTEGER}, 
+      #{layoutName,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="saveVIlayout" useGeneratedKeys="true" keyProperty="id"  parameterType="com.data.itsv.model.VIlayout">
+    insert into v_ilayout ( USER_CODE, SCREEN_NUM,
+      LAYOUT_NAME, DESCS)
+    values ( #{userCode,jdbcType=VARCHAR}, #{screenNum,jdbcType=INTEGER},
+      #{layoutName,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VIlayout">
+    insert into v_ilayout
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userCode != null">
+        USER_CODE,
+      </if>
+      <if test="screenNum != null">
+        SCREEN_NUM,
+      </if>
+      <if test="layoutName != null">
+        LAYOUT_NAME,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="screenNum != null">
+        #{screenNum,jdbcType=INTEGER},
+      </if>
+      <if test="layoutName != null">
+        #{layoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

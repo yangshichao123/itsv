@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAnalyseFdChannelMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAnalyseFdChannel">
+    <id column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="LONGITUDE" jdbcType="INTEGER" property="longitude" />
+    <result column="LATITUDE" jdbcType="INTEGER" property="latitude" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="MODIFYTIME" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="VIDEO_CHANNEL" jdbcType="VARCHAR" property="videoChannel" />
+    <result column="INDEX_NUM" jdbcType="INTEGER" property="indexNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, ID, `NAME`, ADDRESS, LONGITUDE, LATITUDE, DESCS, FD_CODE, CREATETIME, MODIFYTIME, 
+    VIDEO_CHANNEL, INDEX_NUM
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_analyse_fd_channel
+    where CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VAnalyseFdChannel">
+    insert into v_analyse_fd_channel (CODE, ID, `NAME`, 
+      ADDRESS, LONGITUDE, LATITUDE, 
+      DESCS, FD_CODE, CREATETIME, 
+      MODIFYTIME, VIDEO_CHANNEL, INDEX_NUM
+      )
+    values (#{code,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=INTEGER}, #{latitude,jdbcType=INTEGER}, 
+      #{descs,jdbcType=VARCHAR}, #{fdCode,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{modifytime,jdbcType=TIMESTAMP}, #{videoChannel,jdbcType=VARCHAR}, #{indexNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAnalyseFdChannel">
+    insert into v_analyse_fd_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="fdCode != null">
+        FD_CODE,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="modifytime != null">
+        MODIFYTIME,
+      </if>
+      <if test="videoChannel != null">
+        VIDEO_CHANNEL,
+      </if>
+      <if test="indexNum != null">
+        INDEX_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=INTEGER},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="fdCode != null">
+        #{fdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoChannel != null">
+        #{videoChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="indexNum != null">
+        #{indexNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VFdtemplateMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VFdtemplate">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SWVERSION" jdbcType="VARCHAR" property="swversion" />
+    <result column="HDVERSION" jdbcType="VARCHAR" property="hdversion" />
+    <result column="BANDWIDTH" jdbcType="INTEGER" property="bandwidth" />
+    <result column="VIDEOIN_NUM" jdbcType="INTEGER" property="videoinNum" />
+    <result column="AUDIOIN_NUM" jdbcType="INTEGER" property="audioinNum" />
+    <result column="PHONICNUM" jdbcType="CHAR" property="phonicnum" />
+    <result column="ALARMIN_NUM" jdbcType="INTEGER" property="alarminNum" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="FACTORY_CODE" jdbcType="VARCHAR" property="factoryCode" />
+    <result column="FDTYPE_CODE" jdbcType="VARCHAR" property="fdtypeCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, `NAME`, SWVERSION, HDVERSION, BANDWIDTH, VIDEOIN_NUM, AUDIOIN_NUM, PHONICNUM, 
+    ALARMIN_NUM, DESCS, FACTORY_CODE, FDTYPE_CODE
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_fdtemplate
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VFdtemplate">
+    insert into v_fdtemplate (ID, `NAME`, SWVERSION, 
+      HDVERSION, BANDWIDTH, VIDEOIN_NUM, 
+      AUDIOIN_NUM, PHONICNUM, ALARMIN_NUM, 
+      DESCS, FACTORY_CODE, FDTYPE_CODE
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{swversion,jdbcType=VARCHAR}, 
+      #{hdversion,jdbcType=VARCHAR}, #{bandwidth,jdbcType=INTEGER}, #{videoinNum,jdbcType=INTEGER}, 
+      #{audioinNum,jdbcType=INTEGER}, #{phonicnum,jdbcType=CHAR}, #{alarminNum,jdbcType=INTEGER}, 
+      #{descs,jdbcType=VARCHAR}, #{factoryCode,jdbcType=VARCHAR}, #{fdtypeCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VFdtemplate">
+    insert into v_fdtemplate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="swversion != null">
+        SWVERSION,
+      </if>
+      <if test="hdversion != null">
+        HDVERSION,
+      </if>
+      <if test="bandwidth != null">
+        BANDWIDTH,
+      </if>
+      <if test="videoinNum != null">
+        VIDEOIN_NUM,
+      </if>
+      <if test="audioinNum != null">
+        AUDIOIN_NUM,
+      </if>
+      <if test="phonicnum != null">
+        PHONICNUM,
+      </if>
+      <if test="alarminNum != null">
+        ALARMIN_NUM,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="factoryCode != null">
+        FACTORY_CODE,
+      </if>
+      <if test="fdtypeCode != null">
+        FDTYPE_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="swversion != null">
+        #{swversion,jdbcType=VARCHAR},
+      </if>
+      <if test="hdversion != null">
+        #{hdversion,jdbcType=VARCHAR},
+      </if>
+      <if test="bandwidth != null">
+        #{bandwidth,jdbcType=INTEGER},
+      </if>
+      <if test="videoinNum != null">
+        #{videoinNum,jdbcType=INTEGER},
+      </if>
+      <if test="audioinNum != null">
+        #{audioinNum,jdbcType=INTEGER},
+      </if>
+      <if test="phonicnum != null">
+        #{phonicnum,jdbcType=CHAR},
+      </if>
+      <if test="alarminNum != null">
+        #{alarminNum,jdbcType=INTEGER},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryCode != null">
+        #{factoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fdtypeCode != null">
+        #{fdtypeCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

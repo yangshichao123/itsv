@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VMasterSlaveFdMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VMasterSlaveFd">
+    <result column="MASTER_FD_CHANNEL_CODE" jdbcType="VARCHAR" property="masterFdChannelCode" />
+    <result column="MASTER_FD_ACCOUNT" jdbcType="VARCHAR" property="masterFdAccount" />
+    <result column="MASTER_FD_PASSWORD" jdbcType="VARCHAR" property="masterFdPassword" />
+    <result column="MASTER_FD_IP" jdbcType="VARCHAR" property="masterFdIp" />
+    <result column="MASTER_FD_PROT" jdbcType="INTEGER" property="masterFdProt" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VMasterSlaveFd">
+    insert into v_master_slave_fd (MASTER_FD_CHANNEL_CODE, MASTER_FD_ACCOUNT, 
+      MASTER_FD_PASSWORD, MASTER_FD_IP, MASTER_FD_PROT
+      )
+    values (#{masterFdChannelCode,jdbcType=VARCHAR}, #{masterFdAccount,jdbcType=VARCHAR}, 
+      #{masterFdPassword,jdbcType=VARCHAR}, #{masterFdIp,jdbcType=VARCHAR}, #{masterFdProt,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VMasterSlaveFd">
+    insert into v_master_slave_fd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="masterFdChannelCode != null">
+        MASTER_FD_CHANNEL_CODE,
+      </if>
+      <if test="masterFdAccount != null">
+        MASTER_FD_ACCOUNT,
+      </if>
+      <if test="masterFdPassword != null">
+        MASTER_FD_PASSWORD,
+      </if>
+      <if test="masterFdIp != null">
+        MASTER_FD_IP,
+      </if>
+      <if test="masterFdProt != null">
+        MASTER_FD_PROT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="masterFdChannelCode != null">
+        #{masterFdChannelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="masterFdAccount != null">
+        #{masterFdAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="masterFdPassword != null">
+        #{masterFdPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="masterFdIp != null">
+        #{masterFdIp,jdbcType=VARCHAR},
+      </if>
+      <if test="masterFdProt != null">
+        #{masterFdProt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

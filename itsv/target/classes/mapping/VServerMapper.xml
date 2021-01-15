@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VServerMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VServer">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="ACC_PORT" jdbcType="INTEGER" property="accPort" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="MACHINE" jdbcType="VARCHAR" property="machine" />
+    <result column="ORGID" jdbcType="INTEGER" property="orgid" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="FACTURERID" jdbcType="VARCHAR" property="facturerid" />
+    <result column="PROTOCOL_VERSION" jdbcType="VARCHAR" property="protocolVersion" />
+    <result column="SOFTWARE_VERSION" jdbcType="VARCHAR" property="softwareVersion" />
+    <result column="HEART_CYCLE" jdbcType="INTEGER" property="heartCycle" />
+    <result column="LOCAL_FLAG" jdbcType="INTEGER" property="localFlag" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="INSTALL_USER" jdbcType="VARCHAR" property="installUser" />
+    <result column="INSTALL_TIME" jdbcType="TIMESTAMP" property="installTime" />
+    <result column="LONGITUDE" jdbcType="INTEGER" property="longitude" />
+    <result column="LATITUDE" jdbcType="INTEGER" property="latitude" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="AU_CODE" jdbcType="VARCHAR" property="auCode" />
+    <result column="PHONIC_ACC_PORT" jdbcType="INTEGER" property="phonicAccPort" />
+    <result column="PSS_CODE" jdbcType="VARCHAR" property="pssCode" />
+    <result column="ONLINE_TIME" jdbcType="TIMESTAMP" property="onlineTime" />
+    <result column="OFFLINE_TIME" jdbcType="TIMESTAMP" property="offlineTime" />
+    <result column="ONLINE_STATE" jdbcType="INTEGER" property="onlineState" />
+    <result column="SESSION_ID" jdbcType="VARCHAR" property="sessionId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CODE, PARENT_CODE, `NAME`, DESCS, ACC_PORT, `TYPE`, MACHINE, ORGID, ACCOUNT, 
+    `PASSWORD`, FACTURERID, PROTOCOL_VERSION, SOFTWARE_VERSION, HEART_CYCLE, LOCAL_FLAG, 
+    ADDRESS, INSTALL_USER, INSTALL_TIME, LONGITUDE, LATITUDE, CREATE_TIME, UPDATE_TIME, 
+    `STATE`, IP, AU_CODE, PHONIC_ACC_PORT, PSS_CODE, ONLINE_TIME, OFFLINE_TIME, ONLINE_STATE, 
+    SESSION_ID
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_server
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VServer">
+    insert into v_server (ID, CODE, PARENT_CODE, 
+      `NAME`, DESCS, ACC_PORT, 
+      `TYPE`, MACHINE, ORGID, 
+      ACCOUNT, `PASSWORD`, FACTURERID, 
+      PROTOCOL_VERSION, SOFTWARE_VERSION, HEART_CYCLE, 
+      LOCAL_FLAG, ADDRESS, INSTALL_USER, 
+      INSTALL_TIME, LONGITUDE, LATITUDE, 
+      CREATE_TIME, UPDATE_TIME, `STATE`, 
+      IP, AU_CODE, PHONIC_ACC_PORT, 
+      PSS_CODE, ONLINE_TIME, OFFLINE_TIME, 
+      ONLINE_STATE, SESSION_ID)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR}, #{accPort,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{machine,jdbcType=VARCHAR}, #{orgid,jdbcType=INTEGER}, 
+      #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{facturerid,jdbcType=VARCHAR}, 
+      #{protocolVersion,jdbcType=VARCHAR}, #{softwareVersion,jdbcType=VARCHAR}, #{heartCycle,jdbcType=INTEGER}, 
+      #{localFlag,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{installUser,jdbcType=VARCHAR}, 
+      #{installTime,jdbcType=TIMESTAMP}, #{longitude,jdbcType=INTEGER}, #{latitude,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
+      #{ip,jdbcType=VARCHAR}, #{auCode,jdbcType=VARCHAR}, #{phonicAccPort,jdbcType=INTEGER}, 
+      #{pssCode,jdbcType=VARCHAR}, #{onlineTime,jdbcType=TIMESTAMP}, #{offlineTime,jdbcType=TIMESTAMP}, 
+      #{onlineState,jdbcType=INTEGER}, #{sessionId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VServer">
+    insert into v_server
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="accPort != null">
+        ACC_PORT,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="machine != null">
+        MACHINE,
+      </if>
+      <if test="orgid != null">
+        ORGID,
+      </if>
+      <if test="account != null">
+        ACCOUNT,
+      </if>
+      <if test="password != null">
+        `PASSWORD`,
+      </if>
+      <if test="facturerid != null">
+        FACTURERID,
+      </if>
+      <if test="protocolVersion != null">
+        PROTOCOL_VERSION,
+      </if>
+      <if test="softwareVersion != null">
+        SOFTWARE_VERSION,
+      </if>
+      <if test="heartCycle != null">
+        HEART_CYCLE,
+      </if>
+      <if test="localFlag != null">
+        LOCAL_FLAG,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="installUser != null">
+        INSTALL_USER,
+      </if>
+      <if test="installTime != null">
+        INSTALL_TIME,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="state != null">
+        `STATE`,
+      </if>
+      <if test="ip != null">
+        IP,
+      </if>
+      <if test="auCode != null">
+        AU_CODE,
+      </if>
+      <if test="phonicAccPort != null">
+        PHONIC_ACC_PORT,
+      </if>
+      <if test="pssCode != null">
+        PSS_CODE,
+      </if>
+      <if test="onlineTime != null">
+        ONLINE_TIME,
+      </if>
+      <if test="offlineTime != null">
+        OFFLINE_TIME,
+      </if>
+      <if test="onlineState != null">
+        ONLINE_STATE,
+      </if>
+      <if test="sessionId != null">
+        SESSION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="accPort != null">
+        #{accPort,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="machine != null">
+        #{machine,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null">
+        #{orgid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="facturerid != null">
+        #{facturerid,jdbcType=VARCHAR},
+      </if>
+      <if test="protocolVersion != null">
+        #{protocolVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareVersion != null">
+        #{softwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="heartCycle != null">
+        #{heartCycle,jdbcType=INTEGER},
+      </if>
+      <if test="localFlag != null">
+        #{localFlag,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="installUser != null">
+        #{installUser,jdbcType=VARCHAR},
+      </if>
+      <if test="installTime != null">
+        #{installTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="auCode != null">
+        #{auCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phonicAccPort != null">
+        #{phonicAccPort,jdbcType=INTEGER},
+      </if>
+      <if test="pssCode != null">
+        #{pssCode,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null">
+        #{onlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offlineTime != null">
+        #{offlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onlineState != null">
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VPohicMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VPohic">
+    <id column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="AUDIOFORMAT" jdbcType="INTEGER" property="audioformat" />
+    <result column="AUDIOVOLUME" jdbcType="INTEGER" property="audiovolume" />
+    <result column="BANDWIDTH" jdbcType="INTEGER" property="bandwidth" />
+    <result column="NUM" jdbcType="INTEGER" property="num" />
+    <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode" />
+    <result column="LONGITUDE" jdbcType="INTEGER" property="longitude" />
+    <result column="LATITUDE" jdbcType="INTEGER" property="latitude" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, `NAME`, DESCS, AUDIOFORMAT, AUDIOVOLUME, BANDWIDTH, NUM, FD_CODE, LONGITUDE, 
+    LATITUDE
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_pohic
+    where CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VPohic">
+    insert into v_pohic (CODE, `NAME`, DESCS, 
+      AUDIOFORMAT, AUDIOVOLUME, BANDWIDTH, 
+      NUM, FD_CODE, LONGITUDE, 
+      LATITUDE)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR}, 
+      #{audioformat,jdbcType=INTEGER}, #{audiovolume,jdbcType=INTEGER}, #{bandwidth,jdbcType=INTEGER}, 
+      #{num,jdbcType=INTEGER}, #{fdCode,jdbcType=VARCHAR}, #{longitude,jdbcType=INTEGER}, 
+      #{latitude,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VPohic">
+    insert into v_pohic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="audioformat != null">
+        AUDIOFORMAT,
+      </if>
+      <if test="audiovolume != null">
+        AUDIOVOLUME,
+      </if>
+      <if test="bandwidth != null">
+        BANDWIDTH,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+      <if test="fdCode != null">
+        FD_CODE,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="audioformat != null">
+        #{audioformat,jdbcType=INTEGER},
+      </if>
+      <if test="audiovolume != null">
+        #{audiovolume,jdbcType=INTEGER},
+      </if>
+      <if test="bandwidth != null">
+        #{bandwidth,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="fdCode != null">
+        #{fdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

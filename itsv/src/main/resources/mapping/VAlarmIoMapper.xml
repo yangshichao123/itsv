@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAlarmIoMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAlarmIo">
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode" />
+    <result column="INDEX_NUM" jdbcType="INTEGER" property="indexNum" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="LONGITUDE" jdbcType="INTEGER" property="longitude" />
+    <result column="LATITUDE" jdbcType="INTEGER" property="latitude" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VAlarmIo">
+    insert into v_alarm_io (CODE, `NAME`, FD_CODE, 
+      INDEX_NUM, `TYPE`, LONGITUDE, 
+      LATITUDE)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{fdCode,jdbcType=VARCHAR}, 
+      #{indexNum,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{longitude,jdbcType=INTEGER}, 
+      #{latitude,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAlarmIo">
+    insert into v_alarm_io
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="fdCode != null">
+        FD_CODE,
+      </if>
+      <if test="indexNum != null">
+        INDEX_NUM,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fdCode != null">
+        #{fdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="indexNum != null">
+        #{indexNum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=INTEGER},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

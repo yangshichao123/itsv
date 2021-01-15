@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VItourVideoMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VItourVideo">
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <result column="TOUR_CODE" jdbcType="INTEGER" property="tourCode" />
+    <result column="NUM" jdbcType="INTEGER" property="num" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VItourVideo">
+    insert into v_itour_video (VIDEO_CODE, TOUR_CODE, NUM
+      )
+    values (#{videoCode,jdbcType=VARCHAR}, #{tourCode,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VItourVideo">
+    insert into v_itour_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="tourCode != null">
+        TOUR_CODE,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tourCode != null">
+        #{tourCode,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

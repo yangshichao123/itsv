@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VIlayoutDetailMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VIlayoutDetail">
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <result column="LAYOUT_ID" jdbcType="INTEGER" property="layoutId" />
+    <result column="LOCATION_NUM" jdbcType="INTEGER" property="locationNum" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VIlayoutDetail">
+    insert into v_ilayout_detail (VIDEO_CODE, LAYOUT_ID, LOCATION_NUM
+      )
+    values (#{videoCode,jdbcType=VARCHAR}, #{layoutId,jdbcType=INTEGER}, #{locationNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VIlayoutDetail">
+    insert into v_ilayout_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="layoutId != null">
+        LAYOUT_ID,
+      </if>
+      <if test="locationNum != null">
+        LOCATION_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="layoutId != null">
+        #{layoutId,jdbcType=INTEGER},
+      </if>
+      <if test="locationNum != null">
+        #{locationNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

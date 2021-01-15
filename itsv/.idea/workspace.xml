@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8464c2f0-1f33-4e06-8abd-dff909e7e977" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1mGPpveVPdnQ6AWW0fIqDhoa3Y6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/data/itsv/model" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.10693877" />
+    <property name="project.structure.side.proportion" value="0.32818183" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.data.itsv.netty.client" />
+      <recent name="com.data.itsv.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace\newChuanzang\itsv\src\main\java\com\data\itsv\model" />
+      <recent name="D:\workspace\newChuanzang\itsv\src\main\java\com\data\itsv\netty" />
+      <recent name="D:\workspace\newChuanzang\itsv\src\main\java\com\data\itsv\netty\server" />
+      <recent name="D:\workspace\newChuanzang\itsv\src\main\java\com\data\itsv\service" />
+      <recent name="D:\workspace\newChuanzang\itsv\src\main\java\com\data\itsv\netty\vo" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.data.itsv.model" />
+      <recent name="com.data.itsv.service" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.data.itsv.netty" />
+      <recent name="com.data.itsv.service" />
+      <recent name="com.data.itsv.model.vo" />
+      <recent name="com.data.itsv.service.impl" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.DirServiceImpl">
+    <configuration name="DirServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.data.itsv.service.impl.DirServiceImpl" />
+      <module name="itsv" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.data.itsv.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StartUp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.data.itsv.StartUp" />
+      <module name="itsv" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.data.itsv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MuApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="itsv" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.data.itsv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.data.itsv.MuApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DirServiceImpl" />
+        <item itemvalue="Spring Boot.MuApplication" />
+        <item itemvalue="Application.StartUp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_PROPERTIES" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8464c2f0-1f33-4e06-8abd-dff909e7e977" name="Default Changelist" comment="" />
+      <created>1609117140598</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1609117140598</updated>
+      <workItem from="1609117141911" duration="48000" />
+      <workItem from="1609117205606" duration="1200000" />
+      <workItem from="1609118453853" duration="33000" />
+      <workItem from="1609118580741" duration="67000" />
+      <workItem from="1609118655004" duration="30000" />
+      <workItem from="1609118691426" duration="223000" />
+      <workItem from="1609118950974" duration="19151000" />
+      <workItem from="1609202265444" duration="23899000" />
+      <workItem from="1609288739083" duration="17821000" />
+      <workItem from="1609374757415" duration="17342000" />
+      <workItem from="1609720130554" duration="17903000" />
+      <workItem from="1609810387643" duration="21599000" />
+      <workItem from="1609895413294" duration="9157000" />
+      <workItem from="1610006216582" duration="8006000" />
+      <workItem from="1610067495403" duration="10843000" />
+      <workItem from="1610325076786" duration="20018000" />
+      <workItem from="1610411203837" duration="1198000" />
+      <workItem from="1610412548597" duration="16051000" />
+      <workItem from="1610498550289" duration="15310000" />
+      <workItem from="1610527165043" duration="2991000" />
+      <workItem from="1610670523003" duration="546000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="179" y="254" key="#SQL_Dialects" timestamp="1609837219700">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="179" y="254" key="#SQL_Dialects/0.0.1536.824@0.0.1536.824" timestamp="1609837219700" />
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser" timestamp="1610525742097">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1610525742097" />
+    <state x="499" y="188" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1609836997533">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="188" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1609836997533" />
+    <state x="544" y="275" width="448" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1610524729355">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="544" y="275" width="448" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1610524729355" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610525371831">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1610525371831" />
+    <state width="436" height="466" key="DebuggerActiveHint" timestamp="1609236411257">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="436" height="466" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1609236411257" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1610007356264">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1610007356264" />
+    <state width="1493" height="168" key="GridCell.Tab.0.bottom" timestamp="1609236936370">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609236936370" />
+    <state width="1493" height="168" key="GridCell.Tab.0.center" timestamp="1609236936370">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609236936370" />
+    <state width="1493" height="168" key="GridCell.Tab.0.left" timestamp="1609236936370">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609236936370" />
+    <state width="1493" height="168" key="GridCell.Tab.0.right" timestamp="1609236936370">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609236936370" />
+    <state width="1493" height="168" key="GridCell.Tab.1.bottom" timestamp="1609236932174">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609236932174" />
+    <state width="1493" height="168" key="GridCell.Tab.1.center" timestamp="1609236932174">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1609236932174" />
+    <state width="1493" height="168" key="GridCell.Tab.1.left" timestamp="1609236932174">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1609236932174" />
+    <state width="1493" height="168" key="GridCell.Tab.1.right" timestamp="1609236932174">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1609236932174" />
+    <state width="1493" height="168" key="GridCell.Tab.2.bottom" timestamp="1609236920433">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609236920433" />
+    <state width="1493" height="168" key="GridCell.Tab.2.center" timestamp="1609236920433">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1609236920433" />
+    <state width="1493" height="168" key="GridCell.Tab.2.left" timestamp="1609236920433">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1609236920433" />
+    <state width="1493" height="168" key="GridCell.Tab.2.right" timestamp="1609236920433">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="168" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1609236920433" />
+    <state x="349" y="227" key="Registry" timestamp="1610350772538">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="349" y="227" key="Registry/0.0.1536.824@0.0.1536.824" timestamp="1610350772538" />
+    <state x="249" y="0" key="SettingsEditor" timestamp="1610501446631">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1610501446631" />
+    <state x="499" y="161" key="extract.method.dialog" timestamp="1609924290941">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="161" key="extract.method.dialog/0.0.1536.824@0.0.1536.824" timestamp="1609924290941" />
+    <state x="781" y="150" width="600" height="594" key="find.popup" timestamp="1610506767559">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="781" y="150" width="600" height="594" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1610506767559" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/data/itsv/netty/client/nettyThread.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/data/itsv/netty/client/BootNettyChannelInboundHandlerAdapter.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/data/itsv/netty/client/MyDecoder.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/data/itsv/service/impl/DirServiceImpl.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

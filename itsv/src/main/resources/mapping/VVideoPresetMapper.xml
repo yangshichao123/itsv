@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VVideoPresetMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VVideoPreset">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="KEEP_WATCH_FLAG" jdbcType="INTEGER" property="keepWatchFlag" />
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="INDEX_NUM" jdbcType="INTEGER" property="indexNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, KEEP_WATCH_FLAG, VIDEO_CODE, `NAME`, INDEX_NUM
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_video_preset
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VVideoPreset" useGeneratedKeys="true" keyProperty="id" >
+    insert into v_video_preset ( KEEP_WATCH_FLAG, VIDEO_CODE,
+      `NAME`, INDEX_NUM)
+    values ( #{keepWatchFlag,jdbcType=INTEGER}, #{videoCode,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{indexNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="saveVideoPreset" parameterType="com.data.itsv.model.VVideoPreset">
+    insert into v_video_preset (ID, KEEP_WATCH_FLAG, VIDEO_CODE,
+      `NAME`, INDEX_NUM)
+    values (#{id,jdbcType=INTEGER}, #{keepWatchFlag,jdbcType=INTEGER}, #{videoCode,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{indexNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VVideoPreset">
+    insert into v_video_preset
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="keepWatchFlag != null">
+        KEEP_WATCH_FLAG,
+      </if>
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="indexNum != null">
+        INDEX_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="keepWatchFlag != null">
+        #{keepWatchFlag,jdbcType=INTEGER},
+      </if>
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="indexNum != null">
+        #{indexNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

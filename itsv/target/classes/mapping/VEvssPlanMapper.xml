@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VEvssPlanMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VEvssPlan">
+    <id column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <id column="EVSS_SERVER_CODE" jdbcType="VARCHAR" property="evssServerCode" />
+    <result column="PRERECORD_TIME" jdbcType="INTEGER" property="prerecordTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    VIDEO_CODE, EVSS_SERVER_CODE, PRERECORD_TIME
+  </sql>
+  <select id="selectByPrimaryId" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_evss_plan
+    where VIDEO_CODE = #{videoCode,jdbcType=VARCHAR}
+      and EVSS_SERVER_CODE = #{evssServerCode,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VEvssPlan">
+    insert into v_evss_plan (VIDEO_CODE, EVSS_SERVER_CODE, PRERECORD_TIME
+      )
+    values (#{videoCode,jdbcType=VARCHAR}, #{evssServerCode,jdbcType=VARCHAR}, #{prerecordTime,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VEvssPlan">
+    insert into v_evss_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="evssServerCode != null">
+        EVSS_SERVER_CODE,
+      </if>
+      <if test="prerecordTime != null">
+        PRERECORD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="evssServerCode != null">
+        #{evssServerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prerecordTime != null">
+        #{prerecordTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

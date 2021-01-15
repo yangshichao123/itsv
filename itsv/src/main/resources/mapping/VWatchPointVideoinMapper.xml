@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VWatchPointVideoinMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VWatchPointVideoin">
+    <result column="WATCH_POINT_ID" jdbcType="INTEGER" property="watchPointId" />
+    <result column="VIDEOIN_CODE" jdbcType="VARCHAR" property="videoinCode" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VWatchPointVideoin">
+    insert into v_watch_point_videoin (WATCH_POINT_ID, VIDEOIN_CODE)
+    values (#{watchPointId,jdbcType=INTEGER}, #{videoinCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VWatchPointVideoin">
+    insert into v_watch_point_videoin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="watchPointId != null">
+        WATCH_POINT_ID,
+      </if>
+      <if test="videoinCode != null">
+        VIDEOIN_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="watchPointId != null">
+        #{watchPointId,jdbcType=INTEGER},
+      </if>
+      <if test="videoinCode != null">
+        #{videoinCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

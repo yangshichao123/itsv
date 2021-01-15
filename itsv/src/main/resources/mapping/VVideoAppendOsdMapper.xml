@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VVideoAppendOsdMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VVideoAppendOsd">
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <result column="X" jdbcType="INTEGER" property="x" />
+    <result column="Y" jdbcType="INTEGER" property="y" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="ENABLE_HIDE" jdbcType="INTEGER" property="enableHide" />
+    <result column="POS" jdbcType="INTEGER" property="pos" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VVideoAppendOsd">
+    insert into v_video_append_osd (VIDEO_CODE, X, Y, 
+      CONTENT, ENABLE_HIDE, POS
+      )
+    values (#{videoCode,jdbcType=VARCHAR}, #{x,jdbcType=INTEGER}, #{y,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{enableHide,jdbcType=INTEGER}, #{pos,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VVideoAppendOsd">
+    insert into v_video_append_osd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="x != null">
+        X,
+      </if>
+      <if test="y != null">
+        Y,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="enableHide != null">
+        ENABLE_HIDE,
+      </if>
+      <if test="pos != null">
+        POS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="x != null">
+        #{x,jdbcType=INTEGER},
+      </if>
+      <if test="y != null">
+        #{y,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="enableHide != null">
+        #{enableHide,jdbcType=INTEGER},
+      </if>
+      <if test="pos != null">
+        #{pos,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

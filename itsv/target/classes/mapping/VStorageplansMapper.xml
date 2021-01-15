@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VStorageplansMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VStorageplans">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+    <result column="BPLANSTORE" jdbcType="INTEGER" property="bplanstore" />
+    <result column="CYCLE" jdbcType="INTEGER" property="cycle" />
+    <result column="BEVENTSTORE" jdbcType="INTEGER" property="beventstore" />
+    <result column="EVENT_CONVER_CYCLE" jdbcType="INTEGER" property="eventConverCycle" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="MODIFYTIME" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="STARTTIME" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="CODETYPE" jdbcType="INTEGER" property="codetype" />
+    <result column="FRAMERATE" jdbcType="INTEGER" property="framerate" />
+    <result column="AHEAD" jdbcType="INTEGER" property="ahead" />
+    <result column="LAG" jdbcType="INTEGER" property="lag" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+    <result column="DETAIL" jdbcType="VARCHAR" property="detail" />
+    <result column="PLAN_STARTTIME" jdbcType="TIMESTAMP" property="planStarttime" />
+    <result column="PLAN_ENDTIME" jdbcType="TIMESTAMP" property="planEndtime" />
+    <result column="CONVER_CYCLE" jdbcType="INTEGER" property="converCycle" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, VIDEO_CODE, BPLANSTORE, `CYCLE`, BEVENTSTORE, EVENT_CONVER_CYCLE, CREATETIME, 
+    MODIFYTIME, STARTTIME, ENDTIME, CODETYPE, FRAMERATE, AHEAD, LAG, `NAME`, DESCS, DETAIL, 
+    PLAN_STARTTIME, PLAN_ENDTIME, CONVER_CYCLE, `STATE`
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_storageplans
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VStorageplans">
+    insert into v_storageplans (ID, VIDEO_CODE, BPLANSTORE, 
+      `CYCLE`, BEVENTSTORE, EVENT_CONVER_CYCLE, 
+      CREATETIME, MODIFYTIME, STARTTIME, 
+      ENDTIME, CODETYPE, FRAMERATE, 
+      AHEAD, LAG, `NAME`, DESCS, 
+      DETAIL, PLAN_STARTTIME, PLAN_ENDTIME, 
+      CONVER_CYCLE, `STATE`)
+    values (#{id,jdbcType=INTEGER}, #{videoCode,jdbcType=VARCHAR}, #{bplanstore,jdbcType=INTEGER}, 
+      #{cycle,jdbcType=INTEGER}, #{beventstore,jdbcType=INTEGER}, #{eventConverCycle,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{codetype,jdbcType=INTEGER}, #{framerate,jdbcType=INTEGER}, 
+      #{ahead,jdbcType=INTEGER}, #{lag,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{planStarttime,jdbcType=TIMESTAMP}, #{planEndtime,jdbcType=TIMESTAMP}, 
+      #{converCycle,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VStorageplans">
+    insert into v_storageplans
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+      <if test="bplanstore != null">
+        BPLANSTORE,
+      </if>
+      <if test="cycle != null">
+        `CYCLE`,
+      </if>
+      <if test="beventstore != null">
+        BEVENTSTORE,
+      </if>
+      <if test="eventConverCycle != null">
+        EVENT_CONVER_CYCLE,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="modifytime != null">
+        MODIFYTIME,
+      </if>
+      <if test="starttime != null">
+        STARTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="codetype != null">
+        CODETYPE,
+      </if>
+      <if test="framerate != null">
+        FRAMERATE,
+      </if>
+      <if test="ahead != null">
+        AHEAD,
+      </if>
+      <if test="lag != null">
+        LAG,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="detail != null">
+        DETAIL,
+      </if>
+      <if test="planStarttime != null">
+        PLAN_STARTTIME,
+      </if>
+      <if test="planEndtime != null">
+        PLAN_ENDTIME,
+      </if>
+      <if test="converCycle != null">
+        CONVER_CYCLE,
+      </if>
+      <if test="state != null">
+        `STATE`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bplanstore != null">
+        #{bplanstore,jdbcType=INTEGER},
+      </if>
+      <if test="cycle != null">
+        #{cycle,jdbcType=INTEGER},
+      </if>
+      <if test="beventstore != null">
+        #{beventstore,jdbcType=INTEGER},
+      </if>
+      <if test="eventConverCycle != null">
+        #{eventConverCycle,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="codetype != null">
+        #{codetype,jdbcType=INTEGER},
+      </if>
+      <if test="framerate != null">
+        #{framerate,jdbcType=INTEGER},
+      </if>
+      <if test="ahead != null">
+        #{ahead,jdbcType=INTEGER},
+      </if>
+      <if test="lag != null">
+        #{lag,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="planStarttime != null">
+        #{planStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planEndtime != null">
+        #{planEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="converCycle != null">
+        #{converCycle,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

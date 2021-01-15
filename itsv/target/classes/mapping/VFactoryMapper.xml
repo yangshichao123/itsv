@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VFactoryMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VFactory">
+    <id column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CONTACT_USER" jdbcType="VARCHAR" property="contactUser" />
+    <result column="CONTACT_USER_TELNO" jdbcType="VARCHAR" property="contactUserTelno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, ID, `NAME`, CONTACT_USER, CONTACT_USER_TELNO
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_factory
+    where CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VFactory">
+    insert into v_factory (CODE, ID, `NAME`, 
+      CONTACT_USER, CONTACT_USER_TELNO)
+    values (#{code,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{contactUser,jdbcType=VARCHAR}, #{contactUserTelno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VFactory">
+    insert into v_factory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="contactUser != null">
+        CONTACT_USER,
+      </if>
+      <if test="contactUserTelno != null">
+        CONTACT_USER_TELNO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="contactUser != null">
+        #{contactUser,jdbcType=VARCHAR},
+      </if>
+      <if test="contactUserTelno != null">
+        #{contactUserTelno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

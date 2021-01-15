@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAlarmProMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VAlarmPro">
+    <id column="ALARMID" jdbcType="VARCHAR" property="alarmid" />
+    <result column="DEALSTATUS" jdbcType="INTEGER" property="dealstatus" />
+    <result column="DEALTIME" jdbcType="TIMESTAMP" property="dealtime" />
+    <result column="DEALER" jdbcType="VARCHAR" property="dealer" />
+    <result column="UNALARMTIME" jdbcType="TIMESTAMP" property="unalarmtime" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ALARMID, DEALSTATUS, DEALTIME, DEALER, UNALARMTIME, DESCS
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from v_alarm_pro
+    where ALARMID = #{alarmid,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.VAlarmPro">
+    insert into v_alarm_pro (ALARMID, DEALSTATUS, DEALTIME, 
+      DEALER, UNALARMTIME, DESCS
+      )
+    values (#{alarmid,jdbcType=VARCHAR}, #{dealstatus,jdbcType=INTEGER}, #{dealtime,jdbcType=TIMESTAMP}, 
+      #{dealer,jdbcType=VARCHAR}, #{unalarmtime,jdbcType=TIMESTAMP}, #{descs,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VAlarmPro">
+    insert into v_alarm_pro
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmid != null">
+        ALARMID,
+      </if>
+      <if test="dealstatus != null">
+        DEALSTATUS,
+      </if>
+      <if test="dealtime != null">
+        DEALTIME,
+      </if>
+      <if test="dealer != null">
+        DEALER,
+      </if>
+      <if test="unalarmtime != null">
+        UNALARMTIME,
+      </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmid != null">
+        #{alarmid,jdbcType=VARCHAR},
+      </if>
+      <if test="dealstatus != null">
+        #{dealstatus,jdbcType=INTEGER},
+      </if>
+      <if test="dealtime != null">
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealer != null">
+        #{dealer,jdbcType=VARCHAR},
+      </if>
+      <if test="unalarmtime != null">
+        #{unalarmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

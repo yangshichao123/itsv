@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VFdeviceMapper">
+    <resultMap id="BaseResultMap" type="com.data.itsv.model.VFdevice">
+        <id column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="FDTEMPLETE_ID" jdbcType="INTEGER" property="fdtempleteId"/>
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="IP" jdbcType="VARCHAR" property="ip"/>
+        <result column="PORT" jdbcType="INTEGER" property="port"/>
+        <result column="CREATE_USERCODE" jdbcType="VARCHAR" property="createUsercode"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_USERCODE" jdbcType="VARCHAR" property="updateUsercode"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <result column="SERVER_CODE" jdbcType="VARCHAR" property="serverCode"/>
+        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
+        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
+        <result column="ONLINE_TIME" jdbcType="TIMESTAMP" property="onlineTime"/>
+        <result column="OFFLINE_TIME" jdbcType="TIMESTAMP" property="offlineTime"/>
+        <result column="ONLINE_STATE" jdbcType="INTEGER" property="onlineState"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VFdeviceVo">
+        <id column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="FDTEMPLETE_ID" jdbcType="INTEGER" property="fdtempleteId"/>
+        <result column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="IP" jdbcType="VARCHAR" property="ip"/>
+        <result column="PORT" jdbcType="INTEGER" property="port"/>
+        <result column="CREATE_USERCODE" jdbcType="VARCHAR" property="createUsercode"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_USERCODE" jdbcType="VARCHAR" property="updateUsercode"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <result column="SERVER_CODE" jdbcType="VARCHAR" property="serverCode"/>
+        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
+        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
+        <result column="ONLINE_TIME" jdbcType="TIMESTAMP" property="onlineTime"/>
+        <result column="OFFLINE_TIME" jdbcType="TIMESTAMP" property="offlineTime"/>
+        <result column="ONLINE_STATE" jdbcType="INTEGER" property="onlineState"/>
+        <result column="PAGNAME" jdbcType="VARCHAR" property="pagNmae"/>
+        <collection property="fdTemplate" ofType="com.data.itsv.model.vo.VFdtemplateVo">
+            <id column="FDTEMPLETE_ID_id" jdbcType="INTEGER" property="id"/>
+            <result column="FDTEMPLETE_NAME" jdbcType="VARCHAR" property="name"/>
+            <result column="SWVERSION" jdbcType="VARCHAR" property="swversion"/>
+            <result column="HDVERSION" jdbcType="VARCHAR" property="hdversion"/>
+            <result column="BANDWIDTH" jdbcType="INTEGER" property="bandwidth"/>
+            <result column="VIDEOIN_NUM" jdbcType="INTEGER" property="videoinNum"/>
+            <result column="AUDIOIN_NUM" jdbcType="INTEGER" property="audioinNum"/>
+            <result column="PHONICNUM" jdbcType="CHAR" property="phonicnum"/>
+            <result column="ALARMIN_NUM" jdbcType="INTEGER" property="alarminNum"/>
+            <result column="DESCS" jdbcType="VARCHAR" property="descs"/>
+            <result column="FACTORY_CODE" jdbcType="VARCHAR" property="factoryCode"/>
+            <result column="FDTYPE_CODE" jdbcType="VARCHAR" property="fdtypeCode"/>
+
+        </collection>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.data.itsv.model.VFdevice">
+        <result column="NAME" jdbcType="LONGVARCHAR" property="name"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    CODE, FDTEMPLETE_ID, ID, ACCOUNT, `PASSWORD`, IP, PORT, CREATE_USERCODE, CREATE_TIME, 
+    UPDATE_USERCODE, UPDATE_TIME, ADDRESS, SERVER_CODE, LONGITUDE, LATITUDE, ONLINE_TIME, 
+    OFFLINE_TIME, ONLINE_STATE
+  </sql>
+    <sql id="Blob_Column_List">
+    `NAME`
+  </sql>
+    <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from v_fdevice
+        where CODE = #{code,jdbcType=VARCHAR}
+    </select>
+    <select id="getFD" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+   	SELECT
+        T.FDTEMPLETE_ID,
+        T.LONGITUDE,
+        T.LATITUDE,
+        T.ID,
+        T.CODE,
+        T.ACCOUNT,
+        T.PASSWORD,
+        T. IP,
+        T. PORT,
+        T.CREATE_USERCODE,
+        T.CREATE_TIME,
+        T.UPDATE_USERCODE,
+        T.UPDATE_TIME,
+        T.ADDRESS,
+        T.NAME,
+		 T.ONLINE_TIME,
+		 T.OFFLINE_TIME,
+		 T.ONLINE_STATE,
+		 (case when T.ONLINE_STATE =0 THEN '下线' when 1 then '上线' else  '未定义' end) ONLINE_STATES,
+        T.SERVER_CODE,
+        FT.NAME FDTEMPLETE_NAME,
+        T.FDTEMPLETE_ID FDTEMPLETE_ID_id,
+        FT.SWVERSION,
+        FT.HDVERSION,
+        FT.BANDWIDTH,
+        FT.VIDEOIN_NUM,
+        FT.AUDIOIN_NUM,
+        FT.PHONICNUM,
+        FT.ALARMIN_NUM,
+        FT.FDTYPE_CODE,
+        S.NAME PAGNAME
+			FROM V_FDEVICE T
+			LEFT JOIN V_FDTEMPLATE FT ON t.FDTEMPLETE_ID = FT.ID
+			LEFT JOIN V_SERVER S ON t.SERVER_CODE = S.CODE
+			<where>
+                <if test="fdTemplateCode != null ">
+                  and   t.FDTEMPLETE_ID =#{fdTemplateCode,jdbcType=INTEGER}
+                </if>
+                <if test="code != null and code != '' ">
+                  and   t.CODE =#{code,jdbcType=VARCHAR}
+                </if>
+                <if test="serverCode != null and serverCode != '' ">
+                  and   t.SERVER_CODE =#{serverCode,jdbcType=VARCHAR}
+                </if>
+            </where>
+  </select>
+    <insert id="insert" parameterType="com.data.itsv.model.VFdevice">
+    insert into v_fdevice (CODE, FDTEMPLETE_ID, ID, 
+      ACCOUNT, `PASSWORD`, IP, 
+      PORT, CREATE_USERCODE, CREATE_TIME, 
+      UPDATE_USERCODE, UPDATE_TIME, ADDRESS, 
+      SERVER_CODE, LONGITUDE, LATITUDE, 
+      ONLINE_TIME, OFFLINE_TIME, ONLINE_STATE, 
+      `NAME`)
+    values (#{code,jdbcType=VARCHAR}, #{fdtempleteId,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, 
+      #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{port,jdbcType=INTEGER}, #{createUsercode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUsercode,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{serverCode,jdbcType=VARCHAR}, #{longitude,jdbcType=INTEGER}, #{latitude,jdbcType=INTEGER}, 
+      #{onlineTime,jdbcType=TIMESTAMP}, #{offlineTime,jdbcType=TIMESTAMP}, #{onlineState,jdbcType=INTEGER}, 
+      #{name,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.data.itsv.model.VFdevice">
+        insert into v_fdevice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                CODE,
+            </if>
+            <if test="fdtempleteId != null">
+                FDTEMPLETE_ID,
+            </if>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="account != null">
+                ACCOUNT,
+            </if>
+            <if test="password != null">
+                `PASSWORD`,
+            </if>
+            <if test="ip != null">
+                IP,
+            </if>
+            <if test="port != null">
+                PORT,
+            </if>
+            <if test="createUsercode != null">
+                CREATE_USERCODE,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateUsercode != null">
+                UPDATE_USERCODE,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="serverCode != null">
+                SERVER_CODE,
+            </if>
+            <if test="longitude != null">
+                LONGITUDE,
+            </if>
+            <if test="latitude != null">
+                LATITUDE,
+            </if>
+            <if test="onlineTime != null">
+                ONLINE_TIME,
+            </if>
+            <if test="offlineTime != null">
+                OFFLINE_TIME,
+            </if>
+            <if test="onlineState != null">
+                ONLINE_STATE,
+            </if>
+            <if test="name != null">
+                `NAME`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="fdtempleteId != null">
+                #{fdtempleteId,jdbcType=INTEGER},
+            </if>
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="port != null">
+                #{port,jdbcType=INTEGER},
+            </if>
+            <if test="createUsercode != null">
+                #{createUsercode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUsercode != null">
+                #{updateUsercode,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="serverCode != null">
+                #{serverCode,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=INTEGER},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=INTEGER},
+            </if>
+            <if test="onlineTime != null">
+                #{onlineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="offlineTime != null">
+                #{offlineTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="onlineState != null">
+                #{onlineState,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

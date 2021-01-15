@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VDirectoryResMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VDirectoryRes">
+    <result column="RES_CODE" jdbcType="VARCHAR" property="resCode" />
+    <result column="DIRECTORY_ID" jdbcType="INTEGER" property="directoryId" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VDirectoryRes">
+    insert into v_directory_res (RES_CODE, DIRECTORY_ID, `TYPE`
+      )
+    values (#{resCode,jdbcType=VARCHAR}, #{directoryId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VDirectoryRes">
+    insert into v_directory_res
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resCode != null">
+        RES_CODE,
+      </if>
+      <if test="directoryId != null">
+        DIRECTORY_ID,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resCode != null">
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="directoryId != null">
+        #{directoryId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VVideoAnalysisServerVideoMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VVideoAnalysisServerVideo">
+    <result column="SERVER_CODE" jdbcType="VARCHAR" property="serverCode" />
+    <result column="VIDEO_CODE" jdbcType="VARCHAR" property="videoCode" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VVideoAnalysisServerVideo">
+    insert into v_video_analysis_server_video (SERVER_CODE, VIDEO_CODE)
+    values (#{serverCode,jdbcType=VARCHAR}, #{videoCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VVideoAnalysisServerVideo">
+    insert into v_video_analysis_server_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serverCode != null">
+        SERVER_CODE,
+      </if>
+      <if test="videoCode != null">
+        VIDEO_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serverCode != null">
+        #{serverCode,jdbcType=VARCHAR},
+      </if>
+      <if test="videoCode != null">
+        #{videoCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

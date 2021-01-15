@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VMaskcameraMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.VMaskcamera">
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="VIDEOINPUT_CODE" jdbcType="VARCHAR" property="videoinputCode" />
+    <result column="MASKPLANID" jdbcType="INTEGER" property="maskplanid" />
+  </resultMap>
+  <insert id="insert" parameterType="com.data.itsv.model.VMaskcamera">
+    insert into v_maskcamera (CREATETIME, VIDEOINPUT_CODE, MASKPLANID
+      )
+    values (#{createtime,jdbcType=TIMESTAMP}, #{videoinputCode,jdbcType=VARCHAR}, #{maskplanid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VMaskcamera">
+    insert into v_maskcamera
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="videoinputCode != null">
+        VIDEOINPUT_CODE,
+      </if>
+      <if test="maskplanid != null">
+        MASKPLANID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="videoinputCode != null">
+        #{videoinputCode,jdbcType=VARCHAR},
+      </if>
+      <if test="maskplanid != null">
+        #{maskplanid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

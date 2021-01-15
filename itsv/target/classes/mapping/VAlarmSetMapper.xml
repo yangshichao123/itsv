@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.VAlarmSetMapper">
+    <resultMap id="BaseResultMap" type="com.data.itsv.model.VAlarmSet">
+        <id column="ALARM_RES_ID" jdbcType="VARCHAR" property="alarmResId"/>
+        <result column="ALARM_TYPE" jdbcType="VARCHAR" property="alarmType"/>
+        <result column="DESCS" jdbcType="VARCHAR" property="descs"/>
+        <result column="ALARM_LEVEL" jdbcType="INTEGER" property="alarmLevel"/>
+        <result column="ISLINKMAP" jdbcType="INTEGER" property="islinkmap"/>
+        <result column="ISARMING" jdbcType="INTEGER" property="isarming"/>
+        <result column="ISLINKSOUD" jdbcType="INTEGER" property="islinksoud"/>
+        <result column="SOUND" jdbcType="VARCHAR" property="sound"/>
+        <result column="ALARM_SET_ID" jdbcType="VARCHAR" property="alarmSetId"/>
+        <result column="RES_TYPE" jdbcType="INTEGER" property="resType"/>
+        <result column="CHANNEL_NUM" jdbcType="INTEGER" property="channelNum"/>
+        <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode"/>
+        <result column="CHANNEL_NAME" jdbcType="VARCHAR" property="channelName"/>
+        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
+        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VAlarmSetVo">
+        <id column="ALARM_RES_ID" jdbcType="VARCHAR" property="alarmResId"/>
+        <result column="ALARM_TYPE" jdbcType="VARCHAR" property="alarmType"/>
+        <result column="DESCS" jdbcType="VARCHAR" property="descs"/>
+        <result column="ALARM_LEVEL" jdbcType="INTEGER" property="alarmLevel"/>
+        <result column="ISLINKMAP" jdbcType="INTEGER" property="islinkmap"/>
+        <result column="ISARMING" jdbcType="INTEGER" property="isarming"/>
+        <result column="ISLINKSOUD" jdbcType="INTEGER" property="islinksoud"/>
+        <result column="SOUND" jdbcType="VARCHAR" property="sound"/>
+        <result column="ALARM_SET_ID" jdbcType="VARCHAR" property="alarmSetId"/>
+        <result column="RES_TYPE" jdbcType="INTEGER" property="resType"/>
+        <result column="CHANNEL_NUM" jdbcType="INTEGER" property="channelNum"/>
+        <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode"/>
+        <result column="CHANNEL_NAME" jdbcType="VARCHAR" property="channelName"/>
+        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
+        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
+        <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="FD_IP" jdbcType="VARCHAR" property="fdIp"/>
+        <result column="FD_PORT" jdbcType="VARCHAR" property="fdPort"/>
+        <result column="ALARM_TYPES" jdbcType="VARCHAR" property="alarmTypes"/>
+        <result column="START_TIME" jdbcType="VARCHAR" property="startTime"/>
+        <result column="END_TIME" jdbcType="VARCHAR" property="endTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ALARM_RES_ID, ALARM_TYPE, DESCS, ALARM_LEVEL, ISLINKMAP, ISARMING, ISLINKSOUD, SOUND, 
+    ALARM_SET_ID, RES_TYPE, CHANNEL_NUM, FD_CODE, CHANNEL_NAME, LONGITUDE, LATITUDE
+  </sql>
+    <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from v_alarm_set
+        where ALARM_RES_ID = #{alarmResId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.data.itsv.model.VAlarmSet">
+    insert into v_alarm_set (ALARM_RES_ID, ALARM_TYPE, DESCS, 
+      ALARM_LEVEL, ISLINKMAP, ISARMING, 
+      ISLINKSOUD, SOUND, ALARM_SET_ID, 
+      RES_TYPE, CHANNEL_NUM, FD_CODE, 
+      CHANNEL_NAME, LONGITUDE, LATITUDE
+      )
+    values (#{alarmResId,jdbcType=VARCHAR}, #{alarmType,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR}, 
+      #{alarmLevel,jdbcType=INTEGER}, #{islinkmap,jdbcType=INTEGER}, #{isarming,jdbcType=INTEGER}, 
+      #{islinksoud,jdbcType=INTEGER}, #{sound,jdbcType=VARCHAR}, #{alarmSetId,jdbcType=VARCHAR}, 
+      #{resType,jdbcType=INTEGER}, #{channelNum,jdbcType=INTEGER}, #{fdCode,jdbcType=VARCHAR}, 
+      #{channelName,jdbcType=VARCHAR}, #{longitude,jdbcType=INTEGER}, #{latitude,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.data.itsv.model.VAlarmSet">
+        insert into v_alarm_set
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="alarmResId != null">
+                ALARM_RES_ID,
+            </if>
+            <if test="alarmType != null">
+                ALARM_TYPE,
+            </if>
+            <if test="descs != null">
+                DESCS,
+            </if>
+            <if test="alarmLevel != null">
+                ALARM_LEVEL,
+            </if>
+            <if test="islinkmap != null">
+                ISLINKMAP,
+            </if>
+            <if test="isarming != null">
+                ISARMING,
+            </if>
+            <if test="islinksoud != null">
+                ISLINKSOUD,
+            </if>
+            <if test="sound != null">
+                SOUND,
+            </if>
+            <if test="alarmSetId != null">
+                ALARM_SET_ID,
+            </if>
+            <if test="resType != null">
+                RES_TYPE,
+            </if>
+            <if test="channelNum != null">
+                CHANNEL_NUM,
+            </if>
+            <if test="fdCode != null">
+                FD_CODE,
+            </if>
+            <if test="channelName != null">
+                CHANNEL_NAME,
+            </if>
+            <if test="longitude != null">
+                LONGITUDE,
+            </if>
+            <if test="latitude != null">
+                LATITUDE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="alarmResId != null">
+                #{alarmResId,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmType != null">
+                #{alarmType,jdbcType=VARCHAR},
+            </if>
+            <if test="descs != null">
+                #{descs,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmLevel != null">
+                #{alarmLevel,jdbcType=INTEGER},
+            </if>
+            <if test="islinkmap != null">
+                #{islinkmap,jdbcType=INTEGER},
+            </if>
+            <if test="isarming != null">
+                #{isarming,jdbcType=INTEGER},
+            </if>
+            <if test="islinksoud != null">
+                #{islinksoud,jdbcType=INTEGER},
+            </if>
+            <if test="sound != null">
+                #{sound,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmSetId != null">
+                #{alarmSetId,jdbcType=VARCHAR},
+            </if>
+            <if test="resType != null">
+                #{resType,jdbcType=INTEGER},
+            </if>
+            <if test="channelNum != null">
+                #{channelNum,jdbcType=INTEGER},
+            </if>
+            <if test="fdCode != null">
+                #{fdCode,jdbcType=VARCHAR},
+            </if>
+            <if test="channelName != null">
+                #{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=INTEGER},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getAlarmResByUserCode" parameterType="java.lang.String" resultMap="BaseResultMapVo">
+   select
+    vas.ALARM_RES_ID,
+    vas.ALARM_TYPE,
+    vas.DESCS,
+    vas.ALARM_LEVEL,
+   (CASE WHEN vas.ALARM_LEVEL = 0 THEN '一般告警' WHEN 1 then '次要告警' WHEN 2 then '重要告警' else '严重告警' end) ALARM_LEVELS,
+    vas.ISLINKMAP,
+    vas.ISARMING,
+    vas.ISLINKSOUD,
+    vas.SOUND,
+    vas.ALARM_SET_ID,
+    vas.RES_TYPE,
+    vas.CHANNEL_NUM,
+    vas.FD_CODE,
+    vas.CHANNEL_NAME,
+    vas.LONGITUDE,
+    vas.LATITUDE,
+    vf.ACCOUNT,
+	vf.PASSWORD,
+	vf.IP FD_IP,
+	vf.PORT FD_PORT,
+	vat.NAME ALARM_TYPES,
+	vast.START_TIME,
+	vast.END_TIME,
+
+    from v_alarm_set vas
+    left join
+    (select *
+    from s_user_order_alarm_res
+     where USER_CODE = #{userCode,jdbcType=VARCHAR}) auoar on auoar.ALARM_RES_ID=vas.ALARM_RES_ID
+    left join V_FDEVICE vf on vas.FD_CODE = vf.CODE
+    left join V_ALARM_TYPE vat  on vas.ALARM_TYPE = vat.ALARM_TYPE
+    left join V_ALARM_SET_TIME vast on vas.ALARM_RES_ID=vast.ALARM_RES_ID
+
+  </select>
+</mapper>

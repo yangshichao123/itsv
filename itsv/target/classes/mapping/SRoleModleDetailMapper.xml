@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.SRoleModleDetailMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.SRoleModleDetail">
+    <result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="MODLE_CODE" jdbcType="INTEGER" property="modleCode" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.data.itsv.model.SRoleModleDetail">
+    <result column="PRIVILEGE" jdbcType="LONGVARCHAR" property="privilege" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    PRIVILEGE
+  </sql>
+  <insert id="insert" parameterType="com.data.itsv.model.SRoleModleDetail">
+    insert into s_role_modle_detail (ROLE_ID, MODLE_CODE, PRIVILEGE
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{modleCode,jdbcType=INTEGER}, #{privilege,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.SRoleModleDetail">
+    insert into s_role_modle_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="modleCode != null">
+        MODLE_CODE,
+      </if>
+      <if test="privilege != null">
+        PRIVILEGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="modleCode != null">
+        #{modleCode,jdbcType=INTEGER},
+      </if>
+      <if test="privilege != null">
+        #{privilege,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

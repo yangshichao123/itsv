@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.data.itsv.mapper.SUserMapper">
+  <resultMap id="BaseResultMap" type="com.data.itsv.model.SUser">
+    <id column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="ORG_ID" jdbcType="INTEGER" property="orgId" />
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="JOB_ID" jdbcType="INTEGER" property="jobId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="TEL_PHONE" jdbcType="VARCHAR" property="telPhone" />
+    <result column="LOGIN_STATE" jdbcType="INTEGER" property="loginState" />
+    <result column="LOGIN_TIME" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="LOGOUT_TIME" jdbcType="TIMESTAMP" property="logoutTime" />
+    <result column="LEVELI" jdbcType="INTEGER" property="leveli" />
+    <result column="ACTIVE_STATE" jdbcType="INTEGER" property="activeState" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="TIME_LIMIT_STATE" jdbcType="INTEGER" property="timeLimitState" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="LOGIN_COUNT" jdbcType="INTEGER" property="loginCount" />
+    <result column="PRIVILEGE" jdbcType="VARCHAR" property="funcPrivilege" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, ORG_ID, ID, JOB_ID, `NAME`, ACCOUNT, `PASSWORD`, ADDRESS, PHONE, TEL_PHONE, 
+    LOGIN_STATE, LOGIN_TIME, LOGOUT_TIME, LEVELI, ACTIVE_STATE, EMAIL, CREATETIME, TIME_LIMIT_STATE, 
+    IP, LOGIN_COUNT
+  </sql>
+  <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_user
+    where CODE = #{code,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAP" parameterType="com.data.itsv.model.SUser" resultMap="BaseResultMap">
+    select
+    s.*,GROUP_CONCAT(srf.PRIVILEGE SEPARATOR ';') PRIVILEGE
+
+    from s_user s
+    left  join  S_ROLE_USER sru on sru.USER_CODE = s.code
+    left  join  S_ROLE  sr on  sru.ROLE_ID = sr.ID
+    left  join  S_ROLE_FUNC srf on sru.ROLE_ID = srf.ROLE_ID
+    where   s.ACCOUNT = #{account,jdbcType=VARCHAR} and s.`PASSWORD` =  #{password,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getUsersByAlarmResId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    s.*
+
+    from s_user s
+    left  join  S_USER_ORDER_ALARM_RES suoar on suoar.USER_CODE = s.code
+    where suoar.ALARM_RES_ID  = #{alarmResId,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.data.itsv.model.SUser">
+    insert into s_user (CODE, ORG_ID, ID, 
+      JOB_ID, `NAME`, ACCOUNT, 
+      `PASSWORD`, ADDRESS, PHONE, 
+      TEL_PHONE, LOGIN_STATE, LOGIN_TIME, 
+      LOGOUT_TIME, LEVELI, ACTIVE_STATE, 
+      EMAIL, CREATETIME, TIME_LIMIT_STATE, 
+      IP, LOGIN_COUNT)
+    values (#{code,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, 
+      #{jobId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{telPhone,jdbcType=VARCHAR}, #{loginState,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{logoutTime,jdbcType=TIMESTAMP}, #{leveli,jdbcType=INTEGER}, #{activeState,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{timeLimitState,jdbcType=INTEGER}, 
+      #{ip,jdbcType=VARCHAR}, #{loginCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.data.itsv.model.SUser">
+    insert into s_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="orgId != null">
+        ORG_ID,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="jobId != null">
+        JOB_ID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="account != null">
+        ACCOUNT,
+      </if>
+      <if test="password != null">
+        `PASSWORD`,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="telPhone != null">
+        TEL_PHONE,
+      </if>
+      <if test="loginState != null">
+        LOGIN_STATE,
+      </if>
+      <if test="loginTime != null">
+        LOGIN_TIME,
+      </if>
+      <if test="logoutTime != null">
+        LOGOUT_TIME,
+      </if>
+      <if test="leveli != null">
+        LEVELI,
+      </if>
+      <if test="activeState != null">
+        ACTIVE_STATE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="timeLimitState != null">
+        TIME_LIMIT_STATE,
+      </if>
+      <if test="ip != null">
+        IP,
+      </if>
+      <if test="loginCount != null">
+        LOGIN_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null">
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="telPhone != null">
+        #{telPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="loginState != null">
+        #{loginState,jdbcType=INTEGER},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leveli != null">
+        #{leveli,jdbcType=INTEGER},
+      </if>
+      <if test="activeState != null">
+        #{activeState,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeLimitState != null">
+        #{timeLimitState,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="loginCount != null">
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
