@@ -29,13 +29,11 @@
   </select>
   <select id="getDirByUserId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
+        d.*
     from v_directory d
     left join S_ROLE_DIR_PRIVILEGE srdp on  d.id = srdp.DIR_ID
-    left  join S_ROLE_USER sru on sru.ROLE_ID=srdp.ROLE_ID
-    where sru.USER_CODE = #{userId,jdbcType=VARCHAR}
+    left  join auth_user_role sru on sru.ROLE_ID=srdp.ROLE_ID
+    where sru.USER_ID = #{userId,jdbcType=VARCHAR}
     ORDER BY d.DIR_LEVEL,d.ID
   </select>
   <insert id="insert" parameterType="com.data.itsv.model.VDirectory">

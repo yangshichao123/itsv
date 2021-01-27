@@ -77,8 +77,11 @@ netty:
   host: "127.0.0.1"
   port: "11029"
 
+heartbeatTime: "120"
 
-
+setVideoCode: "01010207013005000135"
+userName: "admin"
+password: "admin"
 
 
 

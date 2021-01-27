@@ -62,27 +62,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean authorityUserRole(String uid, int roleId) throws DataAccessException {
+    public boolean authorityUserRole(String id, int roleId) throws DataAccessException {
         AuthUserRole authUserRole = new AuthUserRole();
         authUserRole.setRoleId(roleId);
-        authUserRole.setUserId(uid);
+        authUserRole.setUserId(Integer.parseInt(id));
         authUserRole.setCreateTime(new Date());
         authUserRole.setUpdateTime(new Date());
         return authUserRoleMapper.insert(authUserRole) == 1? Boolean.TRUE :Boolean.FALSE;
     }
 
     @Override
-    public boolean deleteAuthorityUserRole(String uid, int roleId) throws DataAccessException {
+    public boolean deleteAuthorityUserRole(String id, int roleId) throws DataAccessException {
         AuthUserRole authUserRole = new AuthUserRole();
-        authUserRole.setUserId(uid);
+        authUserRole.setUserId(Integer.parseInt(id));
         authUserRole.setRoleId(roleId);
         return authUserRoleMapper.deleteByUniqueKey(authUserRole) == 1? Boolean.TRUE : Boolean.FALSE;
     }
 
     @Override
-    public AuthUser getUserByAppId(String appId) throws DataAccessException {
+    public AuthUser getUserByAppId(String userName) throws DataAccessException {
 
-        return userMapper.selectByUniqueKey(appId);
+        return userMapper.selectByUniqueKey(userName);
     }
 
     @Override

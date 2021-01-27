@@ -23,30 +23,33 @@ public class AccountServiceImpl implements AccountService {
     private UserService userService;
 
     @Override
-    public Account loadAccount(String appId) throws DataAccessException {
-        AuthUser user = userMapper.selectByUniqueKey(appId);
+    public Account loadAccount(String userName) throws DataAccessException {
+        AuthUser user = userMapper.selectByUniqueKey(userName);
         return user != null ? new Account(user.getUsername(),user.getPassword(),user.getSalt()) : null;
     }
 
     @Override
-    public boolean isAccountExistByUid(String uid) {
-        AuthUser user = userMapper.selectByPrimaryKey(uid);
+    public boolean isAccountExistByUid(String userName) {
+        AuthUser authUser=new AuthUser();
+        authUser.setUsername(userName);
+        AuthUser user = userMapper.selectOne(authUser);
         return user != null ? Boolean.TRUE : Boolean.FALSE;
     }
 
     @Override
     public boolean registerAccount(AuthUser account) throws DataAccessException {
 
+        int i = userMapper.insertSelective(account);
         // 给新用户授权访客角色
-        userService.authorityUserRole(account.getUid(),103);
+        boolean b = userService.authorityUserRole(account.getId() + "", 103);
 
-        return userMapper.insertSelective(account) ==1 ? Boolean.TRUE : Boolean.FALSE;
+        return  b;
     }
 
     @Override
-    public String loadAccountRole(String appId) throws DataAccessException {
+    public String loadAccountRole(String userName) throws DataAccessException {
 
-        return userMapper.selectUserRoles(appId);
+        return userMapper.selectUserRoles(userName);
     }
 
 

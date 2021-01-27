@@ -1,55 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.data.itsv.mapper.VVideoMapper">
-  <resultMap id="BaseResultMap" type="com.data.itsv.model.VVideo">
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="CODE" jdbcType="VARCHAR" property="code" />
-    <result column="CAMERA_TYPE_CODE" jdbcType="INTEGER" property="cameraTypeCode" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
-    <result column="LONGITUDE" jdbcType="INTEGER" property="longitude" />
-    <result column="LATITUDE" jdbcType="INTEGER" property="latitude" />
-    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
-    <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode" />
-    <result column="CODEFORMAT" jdbcType="INTEGER" property="codeformat" />
-    <result column="ANALYSISTYPE" jdbcType="INTEGER" property="analysistype" />
-    <result column="REALRES" jdbcType="INTEGER" property="realres" />
-    <result column="REALCODETYPE" jdbcType="INTEGER" property="realcodetype" />
-    <result column="REALIMAGEQUALITY" jdbcType="INTEGER" property="realimagequality" />
-    <result column="REALCODEMODLE" jdbcType="INTEGER" property="realcodemodle" />
-    <result column="REALTRANSMODLE" jdbcType="INTEGER" property="realtransmodle" />
-    <result column="RECRES" jdbcType="INTEGER" property="recres" />
-    <result column="RECCODETYPE" jdbcType="INTEGER" property="reccodetype" />
-    <result column="RECIMAGEQUALITY" jdbcType="INTEGER" property="recimagequality" />
-    <result column="RECCODEMODLE" jdbcType="INTEGER" property="reccodemodle" />
-    <result column="RECTRANSMODLE" jdbcType="INTEGER" property="rectransmodle" />
-    <result column="TARGET" jdbcType="VARCHAR" property="target" />
-    <result column="VCHANNEL" jdbcType="INTEGER" property="vchannel" />
-    <result column="ACHANNEL" jdbcType="INTEGER" property="achannel" />
-    <result column="PTZ" jdbcType="INTEGER" property="ptz" />
-    <result column="PTZPROTOCOL" jdbcType="INTEGER" property="ptzprotocol" />
-    <result column="OSD" jdbcType="VARCHAR" property="osd" />
-    <result column="BLOCAL" jdbcType="INTEGER" property="blocal" />
-    <result column="SHOWOSD" jdbcType="INTEGER" property="showosd" />
-    <result column="OSDX" jdbcType="INTEGER" property="osdx" />
-    <result column="OSDY" jdbcType="INTEGER" property="osdy" />
-    <result column="SHOWTIME" jdbcType="INTEGER" property="showtime" />
-    <result column="TIMEX" jdbcType="INTEGER" property="timex" />
-    <result column="TIMEY" jdbcType="INTEGER" property="timey" />
-    <result column="SHOWREALSTATUS" jdbcType="INTEGER" property="showrealstatus" />
-    <result column="REALSTATUSX" jdbcType="INTEGER" property="realstatusx" />
-    <result column="REALSTATUSY" jdbcType="INTEGER" property="realstatusy" />
-    <result column="SHOWRECSTATUS" jdbcType="INTEGER" property="showrecstatus" />
-    <result column="RECSTATUSX" jdbcType="INTEGER" property="recstatusx" />
-    <result column="RECSTATUSY" jdbcType="INTEGER" property="recstatusy" />
-    <result column="SHOWANALYSISSTATUS" jdbcType="INTEGER" property="showanalysisstatus" />
-    <result column="ANALYSISSTATUSX" jdbcType="INTEGER" property="analysisstatusx" />
-    <result column="ANALYSISSTATUSY" jdbcType="INTEGER" property="analysisstatusy" />
-    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
-    <result column="MODIFYTIME" jdbcType="TIMESTAMP" property="modifytime" />
-    <result column="RESERVE" jdbcType="VARCHAR" property="reserve" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.data.itsv.model.VVideo">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="CAMERA_TYPE_CODE" jdbcType="INTEGER" property="cameraTypeCode"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
+        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
+        <result column="DESCS" jdbcType="VARCHAR" property="descs"/>
+        <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode"/>
+        <result column="CODEFORMAT" jdbcType="INTEGER" property="codeformat"/>
+        <result column="ANALYSISTYPE" jdbcType="INTEGER" property="analysistype"/>
+        <result column="REALRES" jdbcType="INTEGER" property="realres"/>
+        <result column="REALCODETYPE" jdbcType="INTEGER" property="realcodetype"/>
+        <result column="REALIMAGEQUALITY" jdbcType="INTEGER" property="realimagequality"/>
+        <result column="REALCODEMODLE" jdbcType="INTEGER" property="realcodemodle"/>
+        <result column="REALTRANSMODLE" jdbcType="INTEGER" property="realtransmodle"/>
+        <result column="RECRES" jdbcType="INTEGER" property="recres"/>
+        <result column="RECCODETYPE" jdbcType="INTEGER" property="reccodetype"/>
+        <result column="RECIMAGEQUALITY" jdbcType="INTEGER" property="recimagequality"/>
+        <result column="RECCODEMODLE" jdbcType="INTEGER" property="reccodemodle"/>
+        <result column="RECTRANSMODLE" jdbcType="INTEGER" property="rectransmodle"/>
+        <result column="TARGET" jdbcType="VARCHAR" property="target"/>
+        <result column="VCHANNEL" jdbcType="INTEGER" property="vchannel"/>
+        <result column="ACHANNEL" jdbcType="INTEGER" property="achannel"/>
+        <result column="PTZ" jdbcType="INTEGER" property="ptz"/>
+        <result column="PTZPROTOCOL" jdbcType="INTEGER" property="ptzprotocol"/>
+        <result column="OSD" jdbcType="VARCHAR" property="osd"/>
+        <result column="BLOCAL" jdbcType="INTEGER" property="blocal"/>
+        <result column="SHOWOSD" jdbcType="INTEGER" property="showosd"/>
+        <result column="OSDX" jdbcType="INTEGER" property="osdx"/>
+        <result column="OSDY" jdbcType="INTEGER" property="osdy"/>
+        <result column="SHOWTIME" jdbcType="INTEGER" property="showtime"/>
+        <result column="TIMEX" jdbcType="INTEGER" property="timex"/>
+        <result column="TIMEY" jdbcType="INTEGER" property="timey"/>
+        <result column="SHOWREALSTATUS" jdbcType="INTEGER" property="showrealstatus"/>
+        <result column="REALSTATUSX" jdbcType="INTEGER" property="realstatusx"/>
+        <result column="REALSTATUSY" jdbcType="INTEGER" property="realstatusy"/>
+        <result column="SHOWRECSTATUS" jdbcType="INTEGER" property="showrecstatus"/>
+        <result column="RECSTATUSX" jdbcType="INTEGER" property="recstatusx"/>
+        <result column="RECSTATUSY" jdbcType="INTEGER" property="recstatusy"/>
+        <result column="SHOWANALYSISSTATUS" jdbcType="INTEGER" property="showanalysisstatus"/>
+        <result column="ANALYSISSTATUSX" jdbcType="INTEGER" property="analysisstatusx"/>
+        <result column="ANALYSISSTATUSY" jdbcType="INTEGER" property="analysisstatusy"/>
+        <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="MODIFYTIME" jdbcType="TIMESTAMP" property="modifytime"/>
+        <result column="RESERVE" jdbcType="VARCHAR" property="reserve"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VVideoVo">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="CAMERA_TYPE_CODE" jdbcType="INTEGER" property="cameraTypeCode"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
+        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
+        <result column="DESCS" jdbcType="VARCHAR" property="descs"/>
+        <result column="FD_CODE" jdbcType="VARCHAR" property="fdCode"/>
+        <result column="CODEFORMAT" jdbcType="INTEGER" property="codeformat"/>
+        <result column="ANALYSISTYPE" jdbcType="INTEGER" property="analysistype"/>
+        <result column="REALRES" jdbcType="INTEGER" property="realres"/>
+        <result column="REALCODETYPE" jdbcType="INTEGER" property="realcodetype"/>
+        <result column="REALIMAGEQUALITY" jdbcType="INTEGER" property="realimagequality"/>
+        <result column="REALCODEMODLE" jdbcType="INTEGER" property="realcodemodle"/>
+        <result column="REALTRANSMODLE" jdbcType="INTEGER" property="realtransmodle"/>
+        <result column="RECRES" jdbcType="INTEGER" property="recres"/>
+        <result column="RECCODETYPE" jdbcType="INTEGER" property="reccodetype"/>
+        <result column="RECIMAGEQUALITY" jdbcType="INTEGER" property="recimagequality"/>
+        <result column="RECCODEMODLE" jdbcType="INTEGER" property="reccodemodle"/>
+        <result column="RECTRANSMODLE" jdbcType="INTEGER" property="rectransmodle"/>
+        <result column="TARGET" jdbcType="VARCHAR" property="target"/>
+        <result column="VCHANNEL" jdbcType="INTEGER" property="vchannel"/>
+        <result column="ACHANNEL" jdbcType="INTEGER" property="achannel"/>
+        <result column="PTZ" jdbcType="INTEGER" property="ptz"/>
+        <result column="PTZPROTOCOL" jdbcType="INTEGER" property="ptzprotocol"/>
+        <result column="OSD" jdbcType="VARCHAR" property="osd"/>
+        <result column="BLOCAL" jdbcType="INTEGER" property="blocal"/>
+        <result column="SHOWOSD" jdbcType="INTEGER" property="showosd"/>
+        <result column="OSDX" jdbcType="INTEGER" property="osdx"/>
+        <result column="OSDY" jdbcType="INTEGER" property="osdy"/>
+        <result column="SHOWTIME" jdbcType="INTEGER" property="showtime"/>
+        <result column="TIMEX" jdbcType="INTEGER" property="timex"/>
+        <result column="TIMEY" jdbcType="INTEGER" property="timey"/>
+        <result column="SHOWREALSTATUS" jdbcType="INTEGER" property="showrealstatus"/>
+        <result column="REALSTATUSX" jdbcType="INTEGER" property="realstatusx"/>
+        <result column="REALSTATUSY" jdbcType="INTEGER" property="realstatusy"/>
+        <result column="SHOWRECSTATUS" jdbcType="INTEGER" property="showrecstatus"/>
+        <result column="RECSTATUSX" jdbcType="INTEGER" property="recstatusx"/>
+        <result column="RECSTATUSY" jdbcType="INTEGER" property="recstatusy"/>
+        <result column="SHOWANALYSISSTATUS" jdbcType="INTEGER" property="showanalysisstatus"/>
+        <result column="ANALYSISSTATUSX" jdbcType="INTEGER" property="analysisstatusx"/>
+        <result column="ANALYSISSTATUSY" jdbcType="INTEGER" property="analysisstatusy"/>
+        <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="MODIFYTIME" jdbcType="TIMESTAMP" property="modifytime"/>
+        <result column="RESERVE" jdbcType="VARCHAR" property="reserve"/>
+
+        <result column="CAMERA_TYPE_NAME" jdbcType="VARCHAR" property="cameraTypeName"/>
+        <result column="STATE" jdbcType="VARCHAR" property="state"/>
+        <result column="CHANNEL_IP" jdbcType="VARCHAR" property="channelIp"/>
+        <result column="CHANNEL_TYPE" jdbcType="VARCHAR" property="channelType"/>
+        <result column="CHANNEL_TYPES" jdbcType="VARCHAR" property="channelTypes"/>
+        <result column="PLAN_EXE_STATE" jdbcType="VARCHAR" property="planExeState"/>
+        <result column="PLAN_EXE_STATES" jdbcType="VARCHAR" property="planExeStates"/>
+        <result column="STORE_STATE" jdbcType="VARCHAR" property="storeState"/>
+        <result column="STORE_STATES" jdbcType="VARCHAR" property="storeStates"/>
+        <result column="STORE_EXCEPTION_DESC" jdbcType="VARCHAR" property="storeExceptionDesc"/>
+        <result column="STORE_PLAN_TYPE" jdbcType="VARCHAR" property="storePlanType"/>
+        <result column="STORE_PLAN_TYPES" jdbcType="VARCHAR" property="storePlanTypes"/>
+        <result column="pag_name" jdbcType="VARCHAR" property="pagName"/>
+        <result column="pag_code" jdbcType="VARCHAR" property="pagCode"/>
+        <result column="vtdu_name" jdbcType="VARCHAR" property="vtduCode"/>
+        <result column="vtdu_code" jdbcType="VARCHAR" property="vtduName"/>
+        <result column="cms_name" jdbcType="VARCHAR" property="cmsName"/>
+        <result column="cms_code" jdbcType="VARCHAR" property="cmsCode"/>
+        <result column="FDTYPE_CODE" jdbcType="VARCHAR" property="cmsCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, CODE, CAMERA_TYPE_CODE, `NAME`, ADDRESS, LONGITUDE, LATITUDE, DESCS, FD_CODE, 
     CODEFORMAT, ANALYSISTYPE, REALRES, REALCODETYPE, REALIMAGEQUALITY, REALCODEMODLE, 
     REALTRANSMODLE, RECRES, RECCODETYPE, RECIMAGEQUALITY, RECCODEMODLE, RECTRANSMODLE, 
@@ -58,13 +126,318 @@
     RECSTATUSY, SHOWANALYSISSTATUS, ANALYSISSTATUSX, ANALYSISSTATUSY, CREATETIME, MODIFYTIME, 
     RESERVE
   </sql>
-  <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from v_video
-    where ID = #{id,jdbcType=INTEGER}
+    <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from v_video
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectChannelNum" parameterType="com.data.itsv.model.VVideo" resultMap="BaseResultMap">
+        select
+        max(v.ACHANNEL) ACHANNEL
+
+        from v_video v
+        <where>
+            <if test="fdCode != null and fdCode !='' ">
+                and FD_CODE = #{fdCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+
+    </select>
+    <select id="getVideo" parameterType="com.data.itsv.model.VVideo" resultMap="BaseResultMap">
+        SELECT
+        AA.*,
+        CT.NAME CAMERA_TYPE_NAME,
+
+        concat( CT.CODE ,(CASE WHEN VSTA.ONLINE_STATE is null THEN 0 ELSE VSTA.ONLINE_STATE end)
+        ,(CASE WHEN VSTA.REC_STATE is null THEN 0 ELSE VSTA.REC_STATE end),0) STATE,
+
+
+        MS.MASTER_FD_IP CHANNEL_IP,
+        (CASE WHEN MS.MASTER_FD_IP is null THEN 0 ELSE MS.MASTER_FD_IP end) CHANNEL_TYPE,
+        (CASE WHEN MS.MASTER_FD_IP is null THEN '模拟通道' ELSE 'IPC通道' end ) CHANNEL_TYPES,
+
+        VVST.PLAN_EXE_STATE,
+        (CASE WHEN VVST.EXIST_STORE_PLAN_FLAG = 0 THEN '' else
+        (case when VVST.PLAN_EXE_STATE = 1 then '未开始' when 2 then '开始' when 3 then '结束' ELSE '未定义' end) end )
+        PLAN_EXE_STATES,
+
+        VVST.STORE_STATE,
+        (CASE WHEN VVST.EXIST_STORE_PLAN_FLAG = 0 THEN '' else
+        (case when VVST.STORE_STATE = 1 then '正常' when 2 then '断流' ELSE '未定义' end) end ) STORE_STATES,
+
+        VVST.STORE_EXCEPTION_DESC,
+        VVST.STORE_PLAN_TYPE,
+        (case when VVST.STORE_PLAN_TYPE =1 then '前端存储' when 2 then '中心存储' else '未定义' end ) STORE_PLAN_TYPES,
+        PAG.name pag_name,
+        pag.code pag_code,
+        vtdu.name vtdu_name,
+        vtdu.code vtdu_code,
+        cms.name cms_name,
+        cms.code cms_code,
+        vfp.FDTYPE_CODE
+        FROM (SELECT
+            T.ID,
+            T.CODE,
+            T.CAMERA_TYPE_CODE,
+            T.NAME,
+            T.ADDRESS,
+            T.LONGITUDE,
+            T.LATITUDE,
+            T.DESCS,
+            T.FD_CODE,
+            T.CODEFORMAT,
+            T.ANALYSISTYPE,
+            T.REALRES,
+            T.REALCODETYPE,
+            T.REALIMAGEQUALITY,
+            T.REALCODEMODLE,
+            T.REALTRANSMODLE,
+            T.RECRES,
+            T.RECCODETYPE,
+            T.RECIMAGEQUALITY,
+            T.RECCODEMODLE,
+            T.RECTRANSMODLE,
+            T.TARGET,
+            T.VCHANNEL,
+            T.ACHANNEL,
+            T.PTZ,
+            T.PTZPROTOCOL,
+            T.OSD,
+            T.BLOCAL,
+            T.SHOWOSD,
+            T.OSDX,
+            T.OSDY,
+            T.SHOWTIME,
+            T.TIMEX,
+            T.TIMEY,
+            T.SHOWREALSTATUS,
+            T.REALSTATUSX,
+            T.REALSTATUSY,
+            T.SHOWRECSTATUS,
+            T.RECSTATUSX,
+            T.RECSTATUSY,
+            T.SHOWANALYSISSTATUS,
+            T.ANALYSISSTATUSX,
+            T.ANALYSISSTATUSY,
+            T.CREATETIME,
+            T.MODIFYTIME
+            from
+        V_VIDEO T
+        <where>
+            <if test="fdCode != null and fdCode !='' ">
+                and t.FD_CODE = #{fdCode,jdbcType=VARCHAR}
+            </if>
+            <if test="code != null and code !='' ">
+                and t.code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name !='' ">
+                and T.NAME like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="cameraTypeCode != null and cameraTypeCode !='' ">
+                and T.CAMERA_TYPE_CODE = #{cameraTypeCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) AA
+
+        LEFT JOIN V_CAMERA_TYPE CT ON CT.CODE = AA.CAMERA_TYPE_CODE
+        LEFT JOIN V_VSS_VIDEO VST ON AA.CODE = VST.VIDEO_CODE
+
+        LEFT JOIN V_RES_ONLINE_STATE VSTA ON AA.CODE = VSTA.RES_CODE
+        LEFT JOIN V_MASTER_SLAVE_FD MS ON AA.CODE =MS.MASTER_FD_CHANNEL_CODE
+        LEFT JOIN V_VIDEO_STORE_STATE VVST ON AA.CODE = VVST.VIDEO_CODE
+        left join V_FDEVICE vf on vf.CODE = aa.FD_CODE
+        left join v_server PAG on PAG.type=2 and vf.SERVER_CODE = PAG.CODE
+        left join v_server vtdu on vtdu.type=3 and pag.PARENT_CODE = vtdu.code
+        left join v_server cms on cms.type=1 and vtdu.PARENT_CODE = cms.CODE
+        left join  v_fdtemplate	vfp on vfp.id=vf.fdtemplete_id
+        ORDER BY AA.NAME;
+    </select>
+    <select id="getVideoByUidDirId" parameterType="java.lang.String" resultMap="BaseResultMapVo">
+    SELECT AA.*,
+
+						 CT.NAME CAMERA_TYPE_NAME,
+
+						concat( CT.CODE ,(CASE WHEN VSTA.ONLINE_STATE is null  THEN 0 ELSE VSTA.ONLINE_STATE end)
+						,(CASE WHEN VSTA.REC_STATE is null  THEN 0 ELSE VSTA.REC_STATE end),0) STATE,
+
+
+						 MS.MASTER_FD_IP CHANNEL_IP,
+						 (CASE WHEN MS.MASTER_FD_IP is null  THEN 0 ELSE MS.MASTER_FD_IP end) CHANNEL_TYPE,
+						 (CASE WHEN MS.MASTER_FD_IP is null  THEN '模拟通道' ELSE 'IPC通道' end ) CHANNEL_TYPES,
+
+						 VVST.PLAN_EXE_STATE,
+						 (CASE WHEN VVST.EXIST_STORE_PLAN_FLAG = 0  THEN ''  else
+						 (case when VVST.PLAN_EXE_STATE = 1 then '未开始' when 2 then '开始' when 3 then '结束'  ELSE '未定义' end) end ) PLAN_EXE_STATES,
+
+						 VVST.STORE_STATE,
+						 (CASE WHEN VVST.EXIST_STORE_PLAN_FLAG = 0  THEN ''  else
+						 (case when VVST.STORE_STATE = 1  then '正常' when 2 then '断流'   ELSE '未定义' end) end )  STORE_STATES,
+
+						 VVST.STORE_EXCEPTION_DESC,
+						 VVST.STORE_PLAN_TYPE,
+						 (case when VVST.STORE_PLAN_TYPE =1 then '前端存储' when 2 then '中心存储' else '未定义' end ) STORE_PLAN_TYPES
+
+
+
+				FROM (SELECT
+															 T.ID,
+															 T.CODE,
+															 T.CAMERA_TYPE_CODE,
+															 T.NAME,
+															 T.ADDRESS,
+															 T.LONGITUDE,
+															 T.LATITUDE,
+															 T.DESCS,
+															 T.FD_CODE,
+															 T.CODEFORMAT,
+															 T.ANALYSISTYPE,
+															 T.REALRES,
+															 T.REALCODETYPE,
+															 T.REALIMAGEQUALITY,
+															 T.REALCODEMODLE,
+															 T.REALTRANSMODLE,
+															 T.RECRES,
+															 T.RECCODETYPE,
+															 T.RECIMAGEQUALITY,
+															 T.RECCODEMODLE,
+															 T.RECTRANSMODLE,
+															 T.TARGET,
+															 T.VCHANNEL,
+															 T.ACHANNEL,
+															 T.PTZ,
+															 T.PTZPROTOCOL,
+															 T.OSD,
+															 T.BLOCAL,
+															 T.SHOWOSD,
+															 T.OSDX,
+															 T.OSDY,
+															 T.SHOWTIME,
+															 T.TIMEX,
+															 T.TIMEY,
+															 T.SHOWREALSTATUS,
+															 T.REALSTATUSX,
+															 T.REALSTATUSY,
+															 T.SHOWRECSTATUS,
+															 T.RECSTATUSX,
+															 T.RECSTATUSY,
+															 T.SHOWANALYSISSTATUS,
+															 T.ANALYSISSTATUSX,
+															 T.ANALYSISSTATUSY,
+															 T.CREATETIME,
+															 T.MODIFYTIME
+
+																FROM (SELECT DISTINCT NT.RES_CODE
+																				FROM V_DIRECTORY_RES      NT,
+																						 S_ROLE_USER          SU,
+																						 S_ROLE_DIR_PRIVILEGE RD
+																			 WHERE NT.DIRECTORY_ID = #{dirId,jdbcType=VARCHAR}
+																				 AND RD.DIR_ID = #{dirId,jdbcType=VARCHAR}
+																				 AND SU.ROLE_ID = RD.ROLE_ID
+																				 AND NT.TYPE = #{type,jdbcType=VARCHAR}) TTT
+																LEFT JOIN V_VIDEO T ON TTT.RES_CODE = T.CODE
+
+															) AA
+
+				LEFT JOIN V_CAMERA_TYPE CT ON CT.CODE = AA.CAMERA_TYPE_CODE
+				LEFT JOIN V_VSS_VIDEO VST ON AA.CODE = VST.VIDEO_CODE
+
+				LEFT JOIN V_RES_ONLINE_STATE VSTA ON AA.CODE = VSTA.RES_CODE
+				LEFT JOIN V_MASTER_SLAVE_FD MS ON AA.CODE =MS.MASTER_FD_CHANNEL_CODE
+				LEFT JOIN V_VIDEO_STORE_STATE VVST ON AA.CODE = VVST.VIDEO_CODE
+			 ORDER BY AA.NAME;
   </select>
-  <insert id="insert" parameterType="com.data.itsv.model.VVideo">
+    <select id="getVideoByTourId" parameterType="java.lang.String" resultMap="BaseResultMapVo">
+    SELECT AA.*,
+
+						 CT.NAME CAMERA_TYPE_NAME,
+
+						concat( CT.CODE ,(CASE WHEN VSTA.ONLINE_STATE is null  THEN 0 ELSE VSTA.ONLINE_STATE end)
+						,(CASE WHEN VSTA.REC_STATE is null  THEN 0 ELSE VSTA.REC_STATE end),0) STATE,
+
+
+						 MS.MASTER_FD_IP CHANNEL_IP,
+						 (CASE WHEN MS.MASTER_FD_IP is null  THEN 0 ELSE MS.MASTER_FD_IP end) CHANNEL_TYPE,
+						 (CASE WHEN MS.MASTER_FD_IP is null  THEN '模拟通道' ELSE 'IPC通道' end ) CHANNEL_TYPES,
+
+						 VVST.PLAN_EXE_STATE,
+						 (CASE WHEN VVST.EXIST_STORE_PLAN_FLAG = 0  THEN ''  else
+						 (case when VVST.PLAN_EXE_STATE = 1 then '未开始' when 2 then '开始' when 3 then '结束'  ELSE '未定义' end) end ) PLAN_EXE_STATES,
+
+						 VVST.STORE_STATE,
+						 (CASE WHEN VVST.EXIST_STORE_PLAN_FLAG = 0  THEN ''  else
+						 (case when VVST.STORE_STATE = 1  then '正常' when 2 then '断流'   ELSE '未定义' end) end )  STORE_STATES,
+
+						 VVST.STORE_EXCEPTION_DESC,
+						 VVST.STORE_PLAN_TYPE,
+						 (case when VVST.STORE_PLAN_TYPE =1 then '前端存储' when 2 then '中心存储' else '未定义' end ) STORE_PLAN_TYPES
+
+
+
+				FROM (SELECT
+															 T.ID,
+															 T.CODE,
+															 T.CAMERA_TYPE_CODE,
+															 T.NAME,
+															 T.ADDRESS,
+															 T.LONGITUDE,
+															 T.LATITUDE,
+															 T.DESCS,
+															 T.FD_CODE,
+															 T.CODEFORMAT,
+															 T.ANALYSISTYPE,
+															 T.REALRES,
+															 T.REALCODETYPE,
+															 T.REALIMAGEQUALITY,
+															 T.REALCODEMODLE,
+															 T.REALTRANSMODLE,
+															 T.RECRES,
+															 T.RECCODETYPE,
+															 T.RECIMAGEQUALITY,
+															 T.RECCODEMODLE,
+															 T.RECTRANSMODLE,
+															 T.TARGET,
+															 T.VCHANNEL,
+															 T.ACHANNEL,
+															 T.PTZ,
+															 T.PTZPROTOCOL,
+															 T.OSD,
+															 T.BLOCAL,
+															 T.SHOWOSD,
+															 T.OSDX,
+															 T.OSDY,
+															 T.SHOWTIME,
+															 T.TIMEX,
+															 T.TIMEY,
+															 T.SHOWREALSTATUS,
+															 T.REALSTATUSX,
+															 T.REALSTATUSY,
+															 T.SHOWRECSTATUS,
+															 T.RECSTATUSX,
+															 T.RECSTATUSY,
+															 T.SHOWANALYSISSTATUS,
+															 T.ANALYSISSTATUSX,
+															 T.ANALYSISSTATUSY,
+															 T.CREATETIME,
+															 T.MODIFYTIME
+
+																FROM (SELECT DISTINCT NT.VIDEO_CODE RES_CODE,
+																											NUM
+																				FROM V_ITOUR_VIDEO NT
+																			 WHERE NT.TOUR_CODE =  #{tourId,jdbcType=VARCHAR}) TTT
+																LEFT JOIN V_VIDEO T ON TTT.RES_CODE = T.CODE
+
+															) AA
+
+				LEFT JOIN V_CAMERA_TYPE CT ON CT.CODE = AA.CAMERA_TYPE_CODE
+				LEFT JOIN V_VSS_VIDEO VST ON AA.CODE = VST.VIDEO_CODE
+
+				LEFT JOIN V_RES_ONLINE_STATE VSTA ON AA.CODE = VSTA.RES_CODE
+				LEFT JOIN V_MASTER_SLAVE_FD MS ON AA.CODE =MS.MASTER_FD_CHANNEL_CODE
+				LEFT JOIN V_VIDEO_STORE_STATE VVST ON AA.CODE = VVST.VIDEO_CODE
+			 ORDER BY AA.NAME;
+  </select>
+    <insert id="insert" parameterType="com.data.itsv.model.VVideo">
     insert into v_video (ID, CODE, CAMERA_TYPE_CODE, 
       `NAME`, ADDRESS, LONGITUDE, 
       LATITUDE, DESCS, FD_CODE, 
@@ -98,287 +471,287 @@
       #{analysisstatusy,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, 
       #{reserve,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.data.itsv.model.VVideo">
-    insert into v_video
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="code != null">
-        CODE,
-      </if>
-      <if test="cameraTypeCode != null">
-        CAMERA_TYPE_CODE,
-      </if>
-      <if test="name != null">
-        `NAME`,
-      </if>
-      <if test="address != null">
-        ADDRESS,
-      </if>
-      <if test="longitude != null">
-        LONGITUDE,
-      </if>
-      <if test="latitude != null">
-        LATITUDE,
-      </if>
-      <if test="descs != null">
-        DESCS,
-      </if>
-      <if test="fdCode != null">
-        FD_CODE,
-      </if>
-      <if test="codeformat != null">
-        CODEFORMAT,
-      </if>
-      <if test="analysistype != null">
-        ANALYSISTYPE,
-      </if>
-      <if test="realres != null">
-        REALRES,
-      </if>
-      <if test="realcodetype != null">
-        REALCODETYPE,
-      </if>
-      <if test="realimagequality != null">
-        REALIMAGEQUALITY,
-      </if>
-      <if test="realcodemodle != null">
-        REALCODEMODLE,
-      </if>
-      <if test="realtransmodle != null">
-        REALTRANSMODLE,
-      </if>
-      <if test="recres != null">
-        RECRES,
-      </if>
-      <if test="reccodetype != null">
-        RECCODETYPE,
-      </if>
-      <if test="recimagequality != null">
-        RECIMAGEQUALITY,
-      </if>
-      <if test="reccodemodle != null">
-        RECCODEMODLE,
-      </if>
-      <if test="rectransmodle != null">
-        RECTRANSMODLE,
-      </if>
-      <if test="target != null">
-        TARGET,
-      </if>
-      <if test="vchannel != null">
-        VCHANNEL,
-      </if>
-      <if test="achannel != null">
-        ACHANNEL,
-      </if>
-      <if test="ptz != null">
-        PTZ,
-      </if>
-      <if test="ptzprotocol != null">
-        PTZPROTOCOL,
-      </if>
-      <if test="osd != null">
-        OSD,
-      </if>
-      <if test="blocal != null">
-        BLOCAL,
-      </if>
-      <if test="showosd != null">
-        SHOWOSD,
-      </if>
-      <if test="osdx != null">
-        OSDX,
-      </if>
-      <if test="osdy != null">
-        OSDY,
-      </if>
-      <if test="showtime != null">
-        SHOWTIME,
-      </if>
-      <if test="timex != null">
-        TIMEX,
-      </if>
-      <if test="timey != null">
-        TIMEY,
-      </if>
-      <if test="showrealstatus != null">
-        SHOWREALSTATUS,
-      </if>
-      <if test="realstatusx != null">
-        REALSTATUSX,
-      </if>
-      <if test="realstatusy != null">
-        REALSTATUSY,
-      </if>
-      <if test="showrecstatus != null">
-        SHOWRECSTATUS,
-      </if>
-      <if test="recstatusx != null">
-        RECSTATUSX,
-      </if>
-      <if test="recstatusy != null">
-        RECSTATUSY,
-      </if>
-      <if test="showanalysisstatus != null">
-        SHOWANALYSISSTATUS,
-      </if>
-      <if test="analysisstatusx != null">
-        ANALYSISSTATUSX,
-      </if>
-      <if test="analysisstatusy != null">
-        ANALYSISSTATUSY,
-      </if>
-      <if test="createtime != null">
-        CREATETIME,
-      </if>
-      <if test="modifytime != null">
-        MODIFYTIME,
-      </if>
-      <if test="reserve != null">
-        RESERVE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="cameraTypeCode != null">
-        #{cameraTypeCode,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="longitude != null">
-        #{longitude,jdbcType=INTEGER},
-      </if>
-      <if test="latitude != null">
-        #{latitude,jdbcType=INTEGER},
-      </if>
-      <if test="descs != null">
-        #{descs,jdbcType=VARCHAR},
-      </if>
-      <if test="fdCode != null">
-        #{fdCode,jdbcType=VARCHAR},
-      </if>
-      <if test="codeformat != null">
-        #{codeformat,jdbcType=INTEGER},
-      </if>
-      <if test="analysistype != null">
-        #{analysistype,jdbcType=INTEGER},
-      </if>
-      <if test="realres != null">
-        #{realres,jdbcType=INTEGER},
-      </if>
-      <if test="realcodetype != null">
-        #{realcodetype,jdbcType=INTEGER},
-      </if>
-      <if test="realimagequality != null">
-        #{realimagequality,jdbcType=INTEGER},
-      </if>
-      <if test="realcodemodle != null">
-        #{realcodemodle,jdbcType=INTEGER},
-      </if>
-      <if test="realtransmodle != null">
-        #{realtransmodle,jdbcType=INTEGER},
-      </if>
-      <if test="recres != null">
-        #{recres,jdbcType=INTEGER},
-      </if>
-      <if test="reccodetype != null">
-        #{reccodetype,jdbcType=INTEGER},
-      </if>
-      <if test="recimagequality != null">
-        #{recimagequality,jdbcType=INTEGER},
-      </if>
-      <if test="reccodemodle != null">
-        #{reccodemodle,jdbcType=INTEGER},
-      </if>
-      <if test="rectransmodle != null">
-        #{rectransmodle,jdbcType=INTEGER},
-      </if>
-      <if test="target != null">
-        #{target,jdbcType=VARCHAR},
-      </if>
-      <if test="vchannel != null">
-        #{vchannel,jdbcType=INTEGER},
-      </if>
-      <if test="achannel != null">
-        #{achannel,jdbcType=INTEGER},
-      </if>
-      <if test="ptz != null">
-        #{ptz,jdbcType=INTEGER},
-      </if>
-      <if test="ptzprotocol != null">
-        #{ptzprotocol,jdbcType=INTEGER},
-      </if>
-      <if test="osd != null">
-        #{osd,jdbcType=VARCHAR},
-      </if>
-      <if test="blocal != null">
-        #{blocal,jdbcType=INTEGER},
-      </if>
-      <if test="showosd != null">
-        #{showosd,jdbcType=INTEGER},
-      </if>
-      <if test="osdx != null">
-        #{osdx,jdbcType=INTEGER},
-      </if>
-      <if test="osdy != null">
-        #{osdy,jdbcType=INTEGER},
-      </if>
-      <if test="showtime != null">
-        #{showtime,jdbcType=INTEGER},
-      </if>
-      <if test="timex != null">
-        #{timex,jdbcType=INTEGER},
-      </if>
-      <if test="timey != null">
-        #{timey,jdbcType=INTEGER},
-      </if>
-      <if test="showrealstatus != null">
-        #{showrealstatus,jdbcType=INTEGER},
-      </if>
-      <if test="realstatusx != null">
-        #{realstatusx,jdbcType=INTEGER},
-      </if>
-      <if test="realstatusy != null">
-        #{realstatusy,jdbcType=INTEGER},
-      </if>
-      <if test="showrecstatus != null">
-        #{showrecstatus,jdbcType=INTEGER},
-      </if>
-      <if test="recstatusx != null">
-        #{recstatusx,jdbcType=INTEGER},
-      </if>
-      <if test="recstatusy != null">
-        #{recstatusy,jdbcType=INTEGER},
-      </if>
-      <if test="showanalysisstatus != null">
-        #{showanalysisstatus,jdbcType=INTEGER},
-      </if>
-      <if test="analysisstatusx != null">
-        #{analysisstatusx,jdbcType=INTEGER},
-      </if>
-      <if test="analysisstatusy != null">
-        #{analysisstatusy,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifytime != null">
-        #{modifytime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="reserve != null">
-        #{reserve,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.data.itsv.model.VVideo">
+        insert into v_video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="code != null">
+                CODE,
+            </if>
+            <if test="cameraTypeCode != null">
+                CAMERA_TYPE_CODE,
+            </if>
+            <if test="name != null">
+                `NAME`,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="longitude != null">
+                LONGITUDE,
+            </if>
+            <if test="latitude != null">
+                LATITUDE,
+            </if>
+            <if test="descs != null">
+                DESCS,
+            </if>
+            <if test="fdCode != null">
+                FD_CODE,
+            </if>
+            <if test="codeformat != null">
+                CODEFORMAT,
+            </if>
+            <if test="analysistype != null">
+                ANALYSISTYPE,
+            </if>
+            <if test="realres != null">
+                REALRES,
+            </if>
+            <if test="realcodetype != null">
+                REALCODETYPE,
+            </if>
+            <if test="realimagequality != null">
+                REALIMAGEQUALITY,
+            </if>
+            <if test="realcodemodle != null">
+                REALCODEMODLE,
+            </if>
+            <if test="realtransmodle != null">
+                REALTRANSMODLE,
+            </if>
+            <if test="recres != null">
+                RECRES,
+            </if>
+            <if test="reccodetype != null">
+                RECCODETYPE,
+            </if>
+            <if test="recimagequality != null">
+                RECIMAGEQUALITY,
+            </if>
+            <if test="reccodemodle != null">
+                RECCODEMODLE,
+            </if>
+            <if test="rectransmodle != null">
+                RECTRANSMODLE,
+            </if>
+            <if test="target != null">
+                TARGET,
+            </if>
+            <if test="vchannel != null">
+                VCHANNEL,
+            </if>
+            <if test="achannel != null">
+                ACHANNEL,
+            </if>
+            <if test="ptz != null">
+                PTZ,
+            </if>
+            <if test="ptzprotocol != null">
+                PTZPROTOCOL,
+            </if>
+            <if test="osd != null">
+                OSD,
+            </if>
+            <if test="blocal != null">
+                BLOCAL,
+            </if>
+            <if test="showosd != null">
+                SHOWOSD,
+            </if>
+            <if test="osdx != null">
+                OSDX,
+            </if>
+            <if test="osdy != null">
+                OSDY,
+            </if>
+            <if test="showtime != null">
+                SHOWTIME,
+            </if>
+            <if test="timex != null">
+                TIMEX,
+            </if>
+            <if test="timey != null">
+                TIMEY,
+            </if>
+            <if test="showrealstatus != null">
+                SHOWREALSTATUS,
+            </if>
+            <if test="realstatusx != null">
+                REALSTATUSX,
+            </if>
+            <if test="realstatusy != null">
+                REALSTATUSY,
+            </if>
+            <if test="showrecstatus != null">
+                SHOWRECSTATUS,
+            </if>
+            <if test="recstatusx != null">
+                RECSTATUSX,
+            </if>
+            <if test="recstatusy != null">
+                RECSTATUSY,
+            </if>
+            <if test="showanalysisstatus != null">
+                SHOWANALYSISSTATUS,
+            </if>
+            <if test="analysisstatusx != null">
+                ANALYSISSTATUSX,
+            </if>
+            <if test="analysisstatusy != null">
+                ANALYSISSTATUSY,
+            </if>
+            <if test="createtime != null">
+                CREATETIME,
+            </if>
+            <if test="modifytime != null">
+                MODIFYTIME,
+            </if>
+            <if test="reserve != null">
+                RESERVE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="cameraTypeCode != null">
+                #{cameraTypeCode,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=INTEGER},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=INTEGER},
+            </if>
+            <if test="descs != null">
+                #{descs,jdbcType=VARCHAR},
+            </if>
+            <if test="fdCode != null">
+                #{fdCode,jdbcType=VARCHAR},
+            </if>
+            <if test="codeformat != null">
+                #{codeformat,jdbcType=INTEGER},
+            </if>
+            <if test="analysistype != null">
+                #{analysistype,jdbcType=INTEGER},
+            </if>
+            <if test="realres != null">
+                #{realres,jdbcType=INTEGER},
+            </if>
+            <if test="realcodetype != null">
+                #{realcodetype,jdbcType=INTEGER},
+            </if>
+            <if test="realimagequality != null">
+                #{realimagequality,jdbcType=INTEGER},
+            </if>
+            <if test="realcodemodle != null">
+                #{realcodemodle,jdbcType=INTEGER},
+            </if>
+            <if test="realtransmodle != null">
+                #{realtransmodle,jdbcType=INTEGER},
+            </if>
+            <if test="recres != null">
+                #{recres,jdbcType=INTEGER},
+            </if>
+            <if test="reccodetype != null">
+                #{reccodetype,jdbcType=INTEGER},
+            </if>
+            <if test="recimagequality != null">
+                #{recimagequality,jdbcType=INTEGER},
+            </if>
+            <if test="reccodemodle != null">
+                #{reccodemodle,jdbcType=INTEGER},
+            </if>
+            <if test="rectransmodle != null">
+                #{rectransmodle,jdbcType=INTEGER},
+            </if>
+            <if test="target != null">
+                #{target,jdbcType=VARCHAR},
+            </if>
+            <if test="vchannel != null">
+                #{vchannel,jdbcType=INTEGER},
+            </if>
+            <if test="achannel != null">
+                #{achannel,jdbcType=INTEGER},
+            </if>
+            <if test="ptz != null">
+                #{ptz,jdbcType=INTEGER},
+            </if>
+            <if test="ptzprotocol != null">
+                #{ptzprotocol,jdbcType=INTEGER},
+            </if>
+            <if test="osd != null">
+                #{osd,jdbcType=VARCHAR},
+            </if>
+            <if test="blocal != null">
+                #{blocal,jdbcType=INTEGER},
+            </if>
+            <if test="showosd != null">
+                #{showosd,jdbcType=INTEGER},
+            </if>
+            <if test="osdx != null">
+                #{osdx,jdbcType=INTEGER},
+            </if>
+            <if test="osdy != null">
+                #{osdy,jdbcType=INTEGER},
+            </if>
+            <if test="showtime != null">
+                #{showtime,jdbcType=INTEGER},
+            </if>
+            <if test="timex != null">
+                #{timex,jdbcType=INTEGER},
+            </if>
+            <if test="timey != null">
+                #{timey,jdbcType=INTEGER},
+            </if>
+            <if test="showrealstatus != null">
+                #{showrealstatus,jdbcType=INTEGER},
+            </if>
+            <if test="realstatusx != null">
+                #{realstatusx,jdbcType=INTEGER},
+            </if>
+            <if test="realstatusy != null">
+                #{realstatusy,jdbcType=INTEGER},
+            </if>
+            <if test="showrecstatus != null">
+                #{showrecstatus,jdbcType=INTEGER},
+            </if>
+            <if test="recstatusx != null">
+                #{recstatusx,jdbcType=INTEGER},
+            </if>
+            <if test="recstatusy != null">
+                #{recstatusy,jdbcType=INTEGER},
+            </if>
+            <if test="showanalysisstatus != null">
+                #{showanalysisstatus,jdbcType=INTEGER},
+            </if>
+            <if test="analysisstatusx != null">
+                #{analysisstatusx,jdbcType=INTEGER},
+            </if>
+            <if test="analysisstatusy != null">
+                #{analysisstatusy,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reserve != null">
+                #{reserve,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

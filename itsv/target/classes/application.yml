@@ -3,4 +3,6 @@ spring:
     active: dev
   jackson:
     time-zone: GMT+8
+cxf:
+  path: /ITSV/services
 

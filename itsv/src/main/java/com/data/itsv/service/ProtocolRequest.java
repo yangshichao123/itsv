@@ -37,21 +37,21 @@ public interface ProtocolRequest {
 	 * */
 	public BaseMsg keepAlive(String keepAlivePeriod);
 
-	/**
+/*	*//**
 	 * @author ghj
 	 * @说明 存储计划变更
-	 * */
-	public BaseMsg changeStoragePlan(String opt,ArrayList<StroePlanModel> sp);
+	 * *//*
+	public BaseMsg changeStoragePlan(String opt,ArrayList<StroePlanModel> sp);*/
 	/**
 	 * @author ghj
 	 * @说明 服务资源变更
-	 * */
-	public BaseMsg changeServiceResource(String opt,ArrayList<ServiceModel> sp);
+	 * *//*
+	public BaseMsg changeServiceResource(String opt,ArrayList<ServiceModel> sp);*/
 	/**
 	 * @author ghj
 	 * @说明 设备资源更新变更
-	 * */
-	public BaseMsg changeDeviceResource(String opt,ArrayList<FDModel> sp);
+	 * *//*
+	public BaseMsg changeDeviceResource(String opt,ArrayList<FDModel> sp);*/
 	/**
 	 * @author ghj
 	 * @说明 镜头资源更新变更
@@ -60,13 +60,13 @@ public interface ProtocolRequest {
 	/**
 	 * @author ghj
 	 * @说明 告警资源更新变更
-	 * */
-	public BaseMsg changeAlarmResource(String opt,ArrayList<AlarmResModel> sp);
+	 * *//*
+	public BaseMsg changeAlarmResource(String opt,ArrayList<AlarmResModel> sp);*/
 	/**
 	 * @author ghj
 	 * @说明 语音资源更新变更
-	 * */
-	public BaseMsg changeVoiceResource(String opt,ArrayList<PhonicsModel> sp);
+	 * *//*
+	public BaseMsg changeVoiceResource(String opt,ArrayList<PhonicsModel> sp);*/
 	/**
 	 * @author ghj
 	 * @说明 视频流上大屏
@@ -141,21 +141,21 @@ public interface ProtocolRequest {
 	 *@param cameraOSDList 摄像机OSD信息
 	 * */
 
-	public BaseMsg requestSetCameraOSD(ArrayList<CameraOSDInfoModel> cameraOSDList);
+	//public BaseMsg requestSetCameraOSD(ArrayList<CameraOSDInfoModel> cameraOSDList);
 	/**
 	 *开始实时录像
 	 *@author gaohe
 	 *@param requestList 请求录像集合
 	 * */
 
-	public BaseMsg requestStartRecord4RealTimeVideo(ArrayList<VideoRecordFileModel> requestList);
+	//public BaseMsg requestStartRecord4RealTimeVideo(ArrayList<VideoRecordFileModel> requestList);
 	/**
 	 *停止实时录像
 	 *@author gaohe
 	 *@param requestList 请求录像集合
 	 * */
 
-	public BaseMsg requestStopRecord4RealTimeVideo(ArrayList<VideoRecordFileModel> requestList);
+	//public BaseMsg requestStopRecord4RealTimeVideo(ArrayList<VideoRecordFileModel> requestList);
 	/**
 	 * 上报告警字符串协议信息
 	 * @author ghj
@@ -231,10 +231,10 @@ public interface ProtocolRequest {
 	 * 摄像机算法配置
 	 * @author ghj
 	 * */
-	public BaseMsg changeVideoAlgorithm(int opt,ArrayList<VideoAlgorithmModel> list);
+	//public BaseMsg changeVideoAlgorithm(int opt,ArrayList<VideoAlgorithmModel> list);
 	/**
 	 * 人脸信息变更
 	 * @author ghj
 	 * */
-	public BaseMsg changeEmployee(String serverCode,int opt,ArrayList<EmployeeModel> list);
+	//public BaseMsg changeEmployee(String serverCode,int opt,ArrayList<EmployeeModel> list);
 }

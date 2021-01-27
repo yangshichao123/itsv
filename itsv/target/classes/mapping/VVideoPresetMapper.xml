@@ -17,10 +17,16 @@
     from v_video_preset
     where ID = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insert" parameterType="com.data.itsv.model.VVideoPreset">
-    insert into v_video_preset (ID, KEEP_WATCH_FLAG, VIDEO_CODE, 
+  <insert id="insert" parameterType="com.data.itsv.model.VVideoPreset" useGeneratedKeys="true" keyProperty="id" >
+    insert into v_video_preset ( KEEP_WATCH_FLAG, VIDEO_CODE,
       `NAME`, INDEX_NUM)
-    values (#{id,jdbcType=INTEGER}, #{keepWatchFlag,jdbcType=INTEGER}, #{videoCode,jdbcType=VARCHAR}, 
+    values ( #{keepWatchFlag,jdbcType=INTEGER}, #{videoCode,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{indexNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="saveVideoPreset" parameterType="com.data.itsv.model.VVideoPreset">
+    insert into v_video_preset (ID, KEEP_WATCH_FLAG, VIDEO_CODE,
+      `NAME`, INDEX_NUM)
+    values (#{id,jdbcType=INTEGER}, #{keepWatchFlag,jdbcType=INTEGER}, #{videoCode,jdbcType=VARCHAR},
       #{name,jdbcType=VARCHAR}, #{indexNum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.data.itsv.model.VVideoPreset">

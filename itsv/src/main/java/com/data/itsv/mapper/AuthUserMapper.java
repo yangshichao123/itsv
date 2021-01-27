@@ -10,11 +10,11 @@ public interface AuthUserMapper extends BaseMapper<AuthUser> {
 
     int insertSelective(AuthUser record);
 
-    AuthUser selectByPrimaryId(String uid);
+    AuthUser selectByPrimaryId(String id);
 
-    AuthUser selectByUniqueKey(String appId);
+    AuthUser selectByUniqueKey(String userName);
 
-    String selectUserRoles(String appId);
+    String selectUserRoles(String userName);
 
     List<AuthUser> selectUserList();
 

@@ -13,9 +13,9 @@ public interface AccountProvider {
     /**
      * description 数据库用户密码账户提供
      *
-     * @param appId 1
+     * @param userName 1
      * @return com.usthe.bootshiro.domain.vo.Account
      */
-    Account loadAccount(String appId);
+    Account loadAccount(String userName);
 
 }

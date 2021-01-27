@@ -18,7 +18,7 @@ public class AuthUserRole implements Serializable {
     /**
      * 用户UID
      */
-    private String userId;
+    private Integer userId;
 
     /**
      * 角色ID

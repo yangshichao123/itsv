@@ -20,7 +20,7 @@ public class AccountProviderImpl implements AccountProvider {
       private AccountService accountService;
 
     @Override
-    public Account loadAccount(String appId) {
-        return accountService.loadAccount(appId);
+    public Account loadAccount(String userName) {
+        return accountService.loadAccount(userName);
     }
 }

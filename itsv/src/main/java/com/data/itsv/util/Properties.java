@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class Properties {
 
+    public Properties() {
+        System.out.println("Properties   开始执行");
+    }
+
     /**
      * nettyHost url
      */
@@ -20,6 +24,7 @@ public class Properties {
      * nettyPost 端口
      */
     private static String nettyServerPost;
+
 
 
 

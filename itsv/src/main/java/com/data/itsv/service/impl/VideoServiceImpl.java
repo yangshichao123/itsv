@@ -24,7 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Date;
 
 @Slf4j
 @Service("VideoService")
@@ -42,7 +46,6 @@ public class VideoServiceImpl implements VideoService {
     private VVideoAppendOsdMapper videoAppendOsdMapper;
     @Autowired
     private VMasterSlaveFdMapper vMasterSlaveFdMapper;
-    @Autowired
 
     @Override
     public void reportCameraState(ArrayList<AMQDeviceStateModel> list) {
@@ -98,7 +101,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public boolean getCameraOSD(String userCode, String fdCode,
                                 String videoCode, String channelNum) {
-        BootNettyChannelInboundHandlerAdapter.ctx.write(protocolRequest.requestGetCameraOSD(fdCode, videoCode,
+        BootNettyChannelInboundHandlerAdapter.sendData(protocolRequest.requestGetCameraOSD(fdCode, videoCode,
                 channelNum));
         log.info("调用接口getCameraOSD，传入参数为：userCode=" + userCode + ",fdCode="
                 + fdCode + ",videoCode=" + videoCode + ",channelNum="
@@ -205,7 +208,7 @@ public class VideoServiceImpl implements VideoService {
         BaseMsg bm = protocolRequest.changeCamResource(opt, list);
         // 发送到CMS
         try {
-            BootNettyChannelInboundHandlerAdapter.ctx.write(bm);
+            BootNettyChannelInboundHandlerAdapter.sendData(bm);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -286,7 +289,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     public void deleteNVRChannelInfo(String userId, ArrayList<NVRChannelInfoModel> ipcList) {
-        BootNettyChannelInboundHandlerAdapter.ctx.write(protocolRequest.requestDeleteNVRChannelInfo(ipcList));
+        BootNettyChannelInboundHandlerAdapter.sendData(protocolRequest.requestDeleteNVRChannelInfo(ipcList));
         log.info("调用接口deleteNVRChannelInfo，传入参数为：userCode=" + userId
                 + ",ipcList=" + ipcList.size() + ",结果：result=true");
     }

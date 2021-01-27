@@ -52,13 +52,18 @@ public class PasswordFilter extends AccessControlFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) {
 
+        if(isOPTINSGet(request)){
+            return true;
+        }
+
         // 判断若为获取登录注册加密动态秘钥请求
         if (isPasswordTokenGet(request)) {
             //动态生成秘钥，redis存储秘钥供之后秘钥验证使用，设置有效期5秒用完即丢弃
             String tokenKey = CommonUtil.getRandomString(16);
             String userKey = CommonUtil.getRandomString(6);
             try {
-                redisTemplate.opsForValue().set("TOKEN_KEY_"+ IpUtil.getIpFromRequest(WebUtils.toHttp(request)).toUpperCase()+userKey.toUpperCase(),tokenKey,5, TimeUnit.SECONDS);
+                String ip = IpUtil.getIpFromRequest(WebUtils.toHttp(request));
+                redisTemplate.opsForValue().set("TOKEN_KEY_"+ ip.toUpperCase()+userKey.toUpperCase(),tokenKey,5, TimeUnit.SECONDS);
                 // 动态秘钥response返回给前端
                 Message message = new Message();
                 message.ok("success","")
@@ -117,6 +122,11 @@ public class PasswordFilter extends AccessControlFilter {
         return false;
     }
 
+    private boolean isOPTINSGet(ServletRequest request) {
+        return (request instanceof HttpServletRequest)
+                && "OPTIONS".equals(((HttpServletRequest) request).getMethod().toUpperCase());
+    }
+
     private boolean isPasswordTokenGet(ServletRequest request) {
 
         String tokenKey = RequestResponseUtil.getParameter(request,"tokenKey");
@@ -132,34 +142,32 @@ public class PasswordFilter extends AccessControlFilter {
         String password = map.get("password");
         String timestamp = map.get("timestamp");
         String methodName = map.get("methodName");
-        String appId = map.get("appId");
+        String userName = map.get("userName");
         return (request instanceof HttpServletRequest)
                 && "POST".equals(((HttpServletRequest) request).getMethod().toUpperCase())
                 && null != password
                 && null != timestamp
-                && null != appId
+                && null != userName
                 && "login".equals(methodName);
     }
 
     private boolean isAccountRegisterPost(ServletRequest request) {
 
         Map<String ,String> map = RequestResponseUtil.getRequestBodyMap(request);
-        String uid = map.get("uid");
-        String username = map.get("username");
+        String username = map.get("userName");
         String methodName = map.get("methodName");
         String password = map.get("password");
         return (request instanceof HttpServletRequest)
                 && "POST".equals(((HttpServletRequest) request).getMethod().toUpperCase())
                 && null != username
                 && null != password
-                && null != uid
                 && "register".equals(methodName);
     }
 
     private AuthenticationToken createPasswordToken(ServletRequest request) throws Exception {
 
         Map<String ,String> map = RequestResponseUtil.getRequestBodyMap(request);
-        String appId = map.get("appId");
+        String userName = map.get("userName");
         String timestamp = map.get("timestamp");
         String password = map.get("password");
         String host = IpUtil.getIpFromRequest(WebUtils.toHttp(request));
@@ -168,7 +176,7 @@ public class PasswordFilter extends AccessControlFilter {
             String tokenKey = redisTemplate.opsForValue().get("TOKEN_KEY_"+host.toUpperCase()+userKey);
             password = AesUtil.aesDecode(password,tokenKey);
         }
-        return new PasswordToken(appId,password,timestamp,host);
+        return new PasswordToken(userName,password,timestamp,host);
     }
 
     public void setRedisTemplate(StringRedisTemplate redisTemplate) {

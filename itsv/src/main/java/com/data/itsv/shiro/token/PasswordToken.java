@@ -1,36 +1,33 @@
 package com.data.itsv.shiro.token;
 
+import lombok.Data;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * @author tomsun28
  * @date 12:34 2018/2/27
  */
+@Data
 public class PasswordToken implements AuthenticationToken {
 
     private static final long serialVersionUID = 1L;
-    private String appId;
+    private String userName;
     private String password;
     private String timestamp;
     private String host;
 
     public PasswordToken(String appId, String password, String timestamp, String host) {
-        this.appId = appId;
+        this.userName = appId;
         this.timestamp = timestamp;
         this.host = host;
         this.password = password;
 
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getPassword() {
-        return this.password;
-    }
+
 
     @Override
     public Object getPrincipal() {
-        return this.appId;
+        return this.userName;
     }
 
     @Override
@@ -38,27 +35,5 @@ public class PasswordToken implements AuthenticationToken {
         return this.password;
     }
 
-    public String getAppId() {
-        return appId;
-    }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
 }

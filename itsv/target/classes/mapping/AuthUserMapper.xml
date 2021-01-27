@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.data.itsv.mapper.AuthUserMapper">
   <resultMap id="BaseResultMap" type="com.data.itsv.model.AuthUser">
-    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
@@ -17,32 +19,35 @@
     <result column="CREATE_WHERE" jdbcType="TINYINT" property="createWhere" />
   </resultMap>
   <sql id="Base_Column_List">
-    `uid`, username, `password`, salt, real_name, avatar, phone, email, sex, `status`, 
+    id,code,user_level, username, `password`, salt, real_name, avatar, phone, email, sex, `status`,
     CREATE_TIME, UPDATE_TIME, CREATE_WHERE
   </sql>
   <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from auth_user
-    where `uid` = #{uid,jdbcType=VARCHAR}
+    where `uid` = #{id,jdbcType=VARCHAR}
   </select>
   <insert id="insert" parameterType="com.data.itsv.model.AuthUser">
-    insert into auth_user (`uid`, username, `password`, 
+    insert into auth_user (code,user_level, username, `password`,
       salt, real_name, avatar, 
       phone, email, sex, 
       `status`, CREATE_TIME, UPDATE_TIME, 
       CREATE_WHERE)
-    values (#{uid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{code,jdbcType=VARCHAR},#{userLevel,jdbcType=TINYINT},  #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{salt,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
       #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createWhere,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.data.itsv.model.AuthUser">
+  <insert id="insertSelective" parameterType="com.data.itsv.model.AuthUser" useGeneratedKeys="true" keyProperty="id" >
     insert into auth_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        `uid`,
+      <if test="code != null">
+        code,
+      </if>
+      <if test="userLevel != null">
+        user_level
       </if>
       <if test="username != null">
         username,
@@ -82,8 +87,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        #{uid,jdbcType=VARCHAR},
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
@@ -128,36 +136,36 @@
   <select id="selectUserRoles" parameterType="java.lang.String" resultType="java.lang.String">
     SELECT GROUP_CONCAT(rol.CODE) AS Roles
     FROM auth_user usr
-    JOIN auth_user_role uro ON usr.uid = uro.USER_ID
+    JOIN auth_user_role uro ON usr.id = uro.USER_ID
     JOIN auth_role rol ON uro.ROLE_ID = rol.ID
-    WHERE usr.uid = #{uid,jdbcType=VARCHAR}
+    WHERE usr.username = #{userName,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByUniqueKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT uid, username, password, salt, real_name, avatar, phone, email, sex, status, CREATE_TIME,
+    SELECT id, username, password, salt, real_name, avatar, phone, email, sex, status, CREATE_TIME,
     UPDATE_TIME, CREATE_WHERE
     FROM auth_user user
-    WHERE user.uid = #{appId,jdbcType=VARCHAR} or user.phone = #{appId,jdbcType=VARCHAR} or user.email = #{appId,jdbcType=VARCHAR}
+    WHERE user.username = #{appId,jdbcType=VARCHAR} or user.phone = #{appId,jdbcType=VARCHAR} or user.email = #{appId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectUserList" resultMap="BaseResultMap">
-    select uid,username,"" as password,"" as salt,real_name,avatar,phone,email,sex,status,create_time,update_time,create_where
+    select id,username,"" as password,"" as salt,real_name,avatar,phone,email,sex,status,create_time,update_time,create_where
     from auth_user
   </select>
 
   <select id="selectUserListByRoleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select b.uid,b.username,"" as password,"" as salt,b.real_name,b.avatar,b.phone,b.email,b.sex,b.status,b.create_time,b.update_time,b.create_where
+    select b.id,b.username,"" as password,"" as salt,b.real_name,b.avatar,b.phone,b.email,b.sex,b.status,b.create_time,b.update_time,b.create_where
     from auth_user_role a
-    join auth_user b on a.user_id = b.uid
+    join auth_user b on a.user_id = b.id
     where a.role_id = #{roleId}
   </select>
 
   <select id="selectUserListExtendByRoleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select b.uid,b.username,"" as password,"" as salt,b.real_name,b.avatar,b.phone,b.email,b.sex,b.status,b.create_time,b.update_time,b.create_where
+    select b.id,b.username,"" as password,"" as salt,b.real_name,b.avatar,b.phone,b.email,b.sex,b.status,b.create_time,b.update_time,b.create_where
     from auth_user b
 	where not exists (
   	   select 1 from auth_user_role c
-  	   where b.uid = c.user_id and c.role_id = #{roleId,jdbcType=INTEGER}
+  	   where b.id = c.user_id and c.role_id = #{roleId,jdbcType=INTEGER}
 	)
   </select>
 

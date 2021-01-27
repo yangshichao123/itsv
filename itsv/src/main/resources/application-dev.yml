@@ -1,5 +1,5 @@
 server:
-  port: 10001
+  port: 8888
 
 
 spring:
@@ -39,6 +39,28 @@ spring:
         acknowledge-mode: manual
       simple:
        acknowledge-mode: manual
+  redis:
+    # 数据库索引，默认0
+    database: 0
+    #    # 服务器IP地址
+    host: 127.0.0.1
+    #    # 连接端口
+    port: 6379
+    #    # Redis服务器连接密码（默认为空）
+    #    password:
+
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 800
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000
+        # 连接池中的最大空闲连接
+        max-idle: 20
+        # 连接池中的最小空闲连接
+        min-idle: 2
+    # 连接超时时间（毫秒）
+    timeout: 30000
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.data.itsv.model
@@ -62,21 +84,21 @@ logging:
 
 
 bootshiro:
-  enableEncryptPassword: false
+  enableEncryptPassword: true
 
 
 cms:
-  ip: "11030"
-  port: "127.0.0.1"
+  ip: "127.0.0.1"
+  port: "9001"
 
 
 netty:
   client:
     #host: "39.103.130.69"
-    host: "127.0.0.1"
-    port: "11029"
+    host: "172.23.37.86"
+    port: "9001"
   server:
-    port: "11030"
+    port: "30002"
 
 
 heartbeatTime: "120"

@@ -10,10 +10,19 @@ import java.util.Date;
 @Data
 public class AuthUser implements Serializable {
     /**
-     * uid,用户账号,主键
+     * 主键
      */
     @Id
-    private String uid;
+    private String id;
+    /**
+     * 用户标识
+     */
+    private String code;
+    /**
+     * 用户级别
+     */
+    private String userLevel;
+
 
     /**
      * 用户名(nick_name)

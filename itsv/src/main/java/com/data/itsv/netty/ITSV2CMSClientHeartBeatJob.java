@@ -25,7 +25,7 @@ public class ITSV2CMSClientHeartBeatJob extends Thread {
 				if(heartBeatFlag){
 					BootNettyChannelInboundHandlerAdapter.heartBeat();
 				}
-				
+
 				Thread.sleep(BootNettyChannelInboundHandlerAdapter.keepAlivePeriod*1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

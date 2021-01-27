@@ -24,7 +24,7 @@ public class BootNettyChannelInitializer<SocketChannel> extends ChannelInitializ
          * 自定义ChannelInboundHandlerAdapter
          */
         ch.pipeline().addLast(new BootNettyChannelInboundHandlerAdapter());
-        ch.pipeline().addLast(new IdleStateHandler(61, 30, 0, TimeUnit.SECONDS));
+      //  ch.pipeline().addLast(new IdleStateHandler(61, 30, 0, TimeUnit.SECONDS));
     }
 
 }

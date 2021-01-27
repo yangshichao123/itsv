@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  *   post新增,get读取,put完整更新,patch部分更新,delete删除
@@ -35,7 +37,9 @@ import java.util.UUID;
 public class AccountController extends BaseAction {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
-    private static final String STR_USERNAME = "username";
+    private static final String STR_USERNAME = "userName";
+    private static final String STR_CODE = "code";
+    private static final String STR_LEVEL = "userLevel";
     private static final String STR_REALNAME = "realName";
     private static final String STR_AVATAR = "avatar";
     private static final String STR_PHONE = "phone";
@@ -69,21 +73,22 @@ public class AccountController extends BaseAction {
      */
     //@ApiOperation(value = "用户登录", notes = "POST用户登录签发JWT")
     @PostMapping("/login")
+    @CrossOrigin
     public Message accountLogin(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> params = RequestResponseUtil.getRequestBodyMap(request);
-        String appId = params.get("appId");
+        String userName = params.get(STR_USERNAME);
         // 根据appId获取其对应所拥有的角色(这里设计为角色对应资源，没有权限对应资源)
-        String roles = accountService.loadAccountRole(appId);
+        String roles = accountService.loadAccountRole(userName);
         // 时间以秒计算,token有效刷新时间是token有效过期时间的2倍
-        long refreshPeriodTime = 1000L;
-        String jwt = JsonWebTokenUtil.issueJWT(UUID.randomUUID().toString(), appId,
-                "token-server", refreshPeriodTime, roles, null, SignatureAlgorithm.HS512);
+        long refreshPeriodTime = 10000000L;
+        String jwt = JsonWebTokenUtil.issueJWT(UUID.randomUUID().toString(), userName,
+                "token-server", refreshPeriodTime << 1, roles, null, SignatureAlgorithm.HS512);
         // 将签发的JWT存储到Redis： {JWT-SESSION-{appID} , jwt}
-       // redisTemplate.opsForValue().set("JWT-SESSION-" + appId, jwt, refreshPeriodTime, TimeUnit.SECONDS);
-        AuthUser authUser = userService.getUserByAppId(appId);
+       // redisTemplate.opsForValue().set("JWT-SESSION-" + userName, jwt, refreshPeriodTime, TimeUnit.SECONDS);
+        AuthUser authUser = userService.getUserByAppId(userName);
         authUser.setPassword(null);
         authUser.setSalt(null);
-        LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog("accountLogin", "1", IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "登录成功"));
+        LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1, IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "登录成功"));
 
         return new Message().ok("success","").addData("jwt", jwt).addData("user", authUser);
     }
@@ -97,23 +102,24 @@ public class AccountController extends BaseAction {
      */
    // @ApiOperation(value = "用户注册", notes = "POST用户注册")
     @PostMapping("/register")
+    @CrossOrigin
     public Message accountRegister(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, String> params = RequestResponseUtil.getRequestBodyMap(request);
         AuthUser authUser = new AuthUser();
-        String uid = params.get("uid");
+        String username = params.get("userName");
         String password = params.get("password");
         String userKey = params.get("userKey");
-        if (StringUtils.isEmpty(uid) || StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             // 必须信息缺一不可,返回注册账号信息缺失
             return new Message().error( "账户信息缺失");
         }
-        if (accountService.isAccountExistByUid(uid)) {
+        if (accountService.isAccountExistByUid(username)) {
             // 账户已存在
             return new Message().error( "账户已存在");
         }
 
-        authUser.setUid(uid);
+        authUser.setUsername(username);
 
         if (isEncryptPassword) {
             // 从Redis取出密码传输加密解密秘钥
@@ -125,8 +131,11 @@ public class AccountController extends BaseAction {
         authUser.setPassword(Md5Util.md5(password + salt));
         authUser.setSalt(salt);
         authUser.setCreateTime(new Date());
-        if (!StringUtils.isEmpty(params.get(STR_USERNAME))) {
-            authUser.setUsername(params.get(STR_USERNAME));
+        if (!StringUtils.isEmpty(params.get(STR_CODE))) {
+            authUser.setCode(params.get(STR_CODE));
+        }
+        if (!StringUtils.isEmpty(params.get(STR_LEVEL))) {
+            authUser.setUserLevel(params.get(STR_LEVEL));
         }
         if (!StringUtils.isEmpty(params.get(STR_REALNAME))) {
             authUser.setRealName(params.get(STR_REALNAME));
@@ -150,11 +159,11 @@ public class AccountController extends BaseAction {
 
         if (accountService.registerAccount(authUser)) {
             //插入日志
-            LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog("accountRegister", "1", IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "注册成功"));
+            LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1, IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "注册成功"));
             return new Message().ok("注册成功","");
         } else {
             //插入日志
-            LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog("accountRegister", "1", IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "注册失败"));
+            LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1, IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "注册失败"));
 
             return new Message().error("注册失败");
         }

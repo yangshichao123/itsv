@@ -1,7 +1,5 @@
 package com.data.itsv;
 
-import com.data.itsv.netty.client.nettyThread;
-import com.data.itsv.netty.server.nettyServerThread;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -25,8 +23,8 @@ public class MuApplication  {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(MuApplication.class, args);
 
-        new nettyThread(run);
-        new nettyServerThread(run);
+        //new nettyThread(run);
+        //new nettyServerThread(run);
         //new taskThread(run);
     }
 

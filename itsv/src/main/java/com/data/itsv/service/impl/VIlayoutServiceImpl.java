@@ -25,7 +25,7 @@ public class VIlayoutServiceImpl implements VIlayoutService {
     public PageInfo<VIlayoutVo> getILayout(String id, String layoutId, String id1, String pageSize, String pageIndex) {
         PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
         PageInfo<VIlayoutVo> pageInfo = new PageInfo<>(vIlayoutMapper.selectVIlayouVo(id,layoutId,id1));
-
+        pageInfo.getTotal();
         return pageInfo;
     }
 

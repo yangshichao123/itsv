@@ -18,10 +18,10 @@ public interface UserService {
     /**
      * description TODO
      *
-     * @param appId 1
+     * @param id 1
      * @return java.lang.String
      */
-    String loadAccountRole(String appId);
+    String loadAccountRole(String id);
 
     /**
      * description TODO
@@ -41,28 +41,28 @@ public interface UserService {
     /**
      * description TODO
      *
-     * @param appId 1
+     * @param id 1
      * @param roleId 2
      * @return boolean
      */
-    boolean authorityUserRole(String appId, int roleId);
+    boolean authorityUserRole(String id, int roleId);
 
     /**
      * description TODO
      *
-     * @param uid 1
+     * @param id 1
      * @param roleId 2
      * @return boolean
      */
-    boolean deleteAuthorityUserRole(String uid,int roleId);
+    boolean deleteAuthorityUserRole(String id,int roleId);
 
     /**
      * description TODO
      *
-     * @param appId 1
+     * @param userName 1
      * @return com.usthe.bootshiro.domain.bo.AuthUser
      */
-    AuthUser getUserByAppId(String appId);
+    AuthUser getUserByAppId(String userName);
 
     /**
      * description TODO

@@ -189,7 +189,7 @@
 	vf.PORT FD_PORT,
 	vat.NAME ALARM_TYPES,
 	vast.START_TIME,
-	vast.END_TIME,
+	vast.END_TIME
 
     from v_alarm_set vas
     left join

@@ -150,7 +150,7 @@ public class ProtocolServiceImpl implements ProtocolService {
        /* HashMapHelper.getLogMap().put(UUIDHelper.getUUID(),
                 new LogModel("1", "编号为" + userCode + "服务向ITSV进行心跳保持操作！"));*/
         // 判断心跳是否超时
-        resultCode = checkUserHeartBeat(userCode);
+        resultCode = this.checkUserHeartBeat(userCode);
         // LoginUserModel um=HashMapHelper.getLoginUserMap().get(userCode);
         // if (um == null) {
         // resultCode="-1";
@@ -975,7 +975,7 @@ public class ProtocolServiceImpl implements ProtocolService {
         }*/
     }
 
-    @Override
+  /*  @Override
     public void updateMyCatologRes(RequestModel rm, String optType,
                                    String useId, ArrayList<Map> list, String treeType) {
         // TODO Auto-generated method stub
@@ -1031,7 +1031,7 @@ public class ProtocolServiceImpl implements ProtocolService {
             SocketHelper.sendResponse(rm.getSession(), rm.getBm(), sf
                     .toString());
         }
-    }
+    }*/
 
     @Override
     public void updateTourGroup(RequestModel rm, String optType, String useId,
@@ -1123,17 +1123,17 @@ public class ProtocolServiceImpl implements ProtocolService {
                                   HashMap<String,String> map) {
         List<Element> children = rootElement.getChildren();
         for (Element element : children) {
-            Element e = (Element) i.next();
-            String id = e.getAttributeValue("id");
-            String name = e.getAttributeValue("name");
-            String type = e.getAttributeValue("type");
-            String parentId = e.getAttributeValue("parentId");
-            String getVideoFlag = e.getAttributeValue("getVideoFlag");
+
+            String id = element.getAttributeValue("id");
+            String name = element.getAttributeValue("name");
+            String type = element.getAttributeValue("type");
+            String parentId = element.getAttributeValue("parentId");
+            String getVideoFlag = element.getAttributeValue("getVideoFlag");
             String eStr = "<node getVideoFlag=\"" + getVideoFlag + "\" id=\""
                     + id + "\" name=\"" + name + "\" parentId=\"" + parentId
                     + "\" type=\"" + type + "\"/>";
             map.put(id, eStr);
-            analyzeXml(e, map);
+            analyzeXml(element, map);
         }
 
 
@@ -2050,7 +2050,7 @@ public class ProtocolServiceImpl implements ProtocolService {
 
     }
 
-    public static String checkUserHeartBeat(String userCode) {
+    public  String checkUserHeartBeat(String userCode) {
         String resultCode = "0";
         // 判断心跳是否超时
         SUser sUser = HashMapHelper.getLoginUserMap().get(userCode);
@@ -2062,7 +2062,7 @@ public class ProtocolServiceImpl implements ProtocolService {
             Date tempDate = sUser.getLastHeartBeatTime();
             Date newTime = new Date();
             // 最后心跳时间 3个心跳周期
-            if (newTime.getTime() - tempDate.getTime() < 3 * heartbeatTime * 1000) {
+            if (newTime.getTime() - tempDate.getTime() < 3 * Integer.parseInt(heartbeatTime) * 1000) {
 
                 sUser.setLastHeartBeatTime(new Date());
             } else {
@@ -2075,7 +2075,7 @@ public class ProtocolServiceImpl implements ProtocolService {
         return resultCode;
     }
 
-    @Override
+   /* @Override
     public void reportCSAlarm4StrProtocol(ChannelHandlerContext session,
                                           ArrayList<Object> list) {
 
@@ -2158,7 +2158,7 @@ public class ProtocolServiceImpl implements ProtocolService {
         bodysf = null;
         sf = null;
     }
-
+*/
     @Override
     public void reportCSCameraState4StrProtocol(ChannelHandlerContext session,
                                                 ArrayList<Object> list) {

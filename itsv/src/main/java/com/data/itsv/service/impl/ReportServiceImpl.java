@@ -83,7 +83,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     private void getNVRChannelInfo(String userCode, String fdCode) {
-        BootNettyChannelInboundHandlerAdapter.ctx.write(protocolRequest.requestGetNVRChannelInfo(fdCode));
+        BootNettyChannelInboundHandlerAdapter.sendData(protocolRequest.requestGetNVRChannelInfo(fdCode));
         log.info("调用接口getNVRChannelInfo，传入参数为：userCode=" + userCode
                 + ",fdCode=" + fdCode + ",结果：result=true");
     }
@@ -168,7 +168,7 @@ public class ReportServiceImpl implements ReportService {
         if(sessionId!=null && !"".equals(sessionId)){
             vServer.setSessionId(sessionId);
         }
-        serverMapper.updateByExample(vServer,example);
+        serverMapper.updateByExampleSelective(vServer,example);
     }
 
     @Override

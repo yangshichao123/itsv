@@ -2,14 +2,17 @@ package com.data.itsv.util;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.data.itsv.support.XssSqlHttpServletRequestWrapper;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -60,7 +63,9 @@ public class RequestResponseUtil {
             return (Map<String,String>)request.getAttribute(STR_BODY);
         } else {
             try {
-                Map<String, Object> maps = JSON.parseObject(request.getInputStream(),Map.class);
+
+                ServletInputStream inputStream = request.getInputStream();
+                Map<String, Object> maps = JSON.parseObject(inputStream,Map.class);
                 maps.forEach((key, value) -> dataMap.put(key, String.valueOf(value)));
                 request.setAttribute(STR_BODY,dataMap);
             }catch (IOException e) {
@@ -69,6 +74,9 @@ public class RequestResponseUtil {
             return dataMap;
         }
     }
+
+
+
 
     /**
      * description 读取request 已经被防止XSS，SQL注入过滤过的 请求参数key 对应的value
@@ -125,9 +133,13 @@ public class RequestResponseUtil {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=utf-8");
+
         PrintWriter printWriter;
         try {
-            printWriter = WebUtils.toHttp(response).getWriter();
+            HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
+            httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+            httpServletResponse.setHeader("Cache-Control","no-cache");
+            printWriter = httpServletResponse.getWriter();
             printWriter.write(outStr);
         }catch (Exception e) {
             LOGGER.error(e.getMessage(),e);

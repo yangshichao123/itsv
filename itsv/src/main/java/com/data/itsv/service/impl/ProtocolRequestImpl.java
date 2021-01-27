@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @Service("ProtocolRequest")
 @Slf4j
-public class ProtocolRequestImpl extends ProtocolRequest {
+public class ProtocolRequestImpl implements ProtocolRequest {
     /**
      * @author ghj
      * @说明：xml头
@@ -89,7 +89,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         return ProtocolWrapper.wrap(sf.toString());
     }
 
-    @Override
+    /*@Override
     public BaseMsg changeStoragePlan(String opt, ArrayList<StroePlanModel> list) {
         StringBuffer sf = new StringBuffer();
 
@@ -199,8 +199,8 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
     }
-
-    @Override
+*/
+   /* @Override
     public BaseMsg changeServiceResource(String opt,
                                          ArrayList<ServiceModel> list) {
         StringBuffer sf = new StringBuffer();
@@ -298,9 +298,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
 
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
-    }
+    }*/
 
-    @Override
+   /* @Override
     public BaseMsg changeDeviceResource(String opt, ArrayList<FDModel> list) {
         StringBuffer sf = new StringBuffer();
 
@@ -411,7 +411,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
     }
-
+*/
     @Override
     public BaseMsg changeCamResource(String opt, ArrayList<VVideoVo> list) {
         StringBuffer sf = new StringBuffer();
@@ -613,7 +613,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
                     sf.append("</childStmBitrate>");
 
                     sf.append("<childEnable>");
-                    sf.append(temp.getChildenable());
+                    sf.append("");
                     sf.append("</childEnable>");
 
                     sf.append("<childStmFrameRate>");
@@ -673,7 +673,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         return ProtocolWrapper.wrap(sf.toString());
     }
 
-    @Override
+   /* @Override
     public BaseMsg changeAlarmResource(String opt, ArrayList<AlarmResModel> list) {
 
         StringBuffer sf = new StringBuffer();
@@ -868,9 +868,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
 
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
-    }
+    }*/
 
-    @Override
+   /* @Override
     public BaseMsg changeVoiceResource(String opt, ArrayList<PhonicsModel> list) {
         StringBuffer sf = new StringBuffer();
 
@@ -983,7 +983,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
 
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
-    }
+    }*/
 
     @Override
     public BaseMsg sendVideo2ScreenSystem2Server(String videoCode,
@@ -1140,7 +1140,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
             sf
                     .append("<deviceCode>" + temp.getParentFdCode()
                             + "</deviceCode>");
-            sf.append("<ip>" + temp.getIP() + "</ip>");
+            sf.append("<ip>" + temp.getIp() + "</ip>");
             sf.append("<port>" + temp.getPort() + "</port>");
             sf.append("<userName>" + temp.getAccount() + "</userName>");
             sf.append("<password>" + temp.getPassword() + "</password>");
@@ -1189,7 +1189,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
     }
-
+/*
     @Override
     public BaseMsg requestSetCameraOSD(
             ArrayList<CameraOSDInfoModel> cameraOSDList) {
@@ -1205,7 +1205,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
             sf.append("<resCode>" + cameraOSD.getVideoCode() + "</resCode>");
             sf.append("<channelNum>" + cameraOSD.getChannelNum()
                     + "</channelNum>");
-            /******************* begin*******时间OSD *********************************/
+            *//******************* begin*******时间OSD *********************************//*
             sf.append("<timeOSD>");
             if (cameraOSD.getTimeOSD() != null) {
                 sf.append("<enableHide>"
@@ -1226,9 +1226,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
             }
 
             sf.append("</timeOSD>");
-            /******************* end*******时间OSD *********************************/
+            *//******************* end*******时间OSD *********************************//*
 
-            /******************* begin*******名称OSD *********************************/
+            *//******************* begin*******名称OSD *********************************//*
             sf.append("<channelNameOSD>");
             if (cameraOSD.getNameOSD() != null) {
                 sf.append("<enableHide>"
@@ -1249,9 +1249,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
             }
 
             sf.append("</channelNameOSD>");
-            /******************* end*******名称OSD *********************************/
+            *//******************* end*******名称OSD *********************************//*
 
-            /******************* begin*******追加OSD *********************************/
+            *//******************* begin*******追加OSD *********************************//*
             sf.append("<appendOSDGroup>");
             if (cameraOSD != null && cameraOSD.getAppendOSDList() != null) {
                 for (OSDModel osd : cameraOSD.getAppendOSDList()) {
@@ -1273,7 +1273,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
             }
             sf.append("</appendOSDGroup>");
 
-            /******************* end*******追加OSD *********************************/
+            *//******************* end*******追加OSD *********************************//*
 
             sf.append("</url>");
         }
@@ -1282,9 +1282,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         sf.append("</request>");
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
-    }
+    }*/
 
-    @Override
+  /*  @Override
     public BaseMsg requestStartRecord4RealTimeVideo(
             ArrayList<VideoRecordFileModel> requestList) {
         StringBuffer sf = new StringBuffer();
@@ -1304,9 +1304,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         sf.append("</request>");
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
-    }
+    }*/
 
-    @Override
+   /* @Override
     public BaseMsg requestStopRecord4RealTimeVideo(
             ArrayList<VideoRecordFileModel> requestList) {
         StringBuffer sf = new StringBuffer();
@@ -1327,7 +1327,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
     }
-
+*/
     @Override
     public String reportCSAlarm4StrProtocol(VAlarm alarm) {
         // 构造返回命令
@@ -1528,7 +1528,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
             sf
                     .append("<deviceCode>" + temp.getParentFdCode()
                             + "</deviceCode>");
-            sf.append("<ip>" + temp.getIP() + "</ip>");
+            sf.append("<ip>" + temp.getIp() + "</ip>");
             sf.append("<port>" + temp.getPort() + "</port>");
             sf.append("<userName>" + temp.getAccount() + "</userName>");
             sf.append("<password>" + temp.getPassword() + "</password>");
@@ -1592,7 +1592,7 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         return result.substring(0, result.length() - 1);
     }
 
-    @Override
+   /* @Override
     public BaseMsg changeVideoAlgorithm(int opt,
                                         ArrayList<VideoAlgorithmModel> list) {
         StringBuffer sf = new StringBuffer();
@@ -1685,9 +1685,9 @@ public class ProtocolRequestImpl extends ProtocolRequest {
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
     }
+*/
 
-
-    public BaseMsg changeEmployee(String serverCode, int opt, ArrayList<EmployeeModel> list) {
+   /* public BaseMsg changeEmployee(String serverCode, int opt, ArrayList<EmployeeModel> list) {
         StringBuffer sf = new StringBuffer();
         int totalPackage = 0;
         int packageSize = 100;
@@ -1750,5 +1750,5 @@ public class ProtocolRequestImpl extends ProtocolRequest {
 
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
-    }
+    }*/
 }

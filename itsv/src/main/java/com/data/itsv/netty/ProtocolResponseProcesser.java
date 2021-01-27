@@ -476,30 +476,26 @@ public class ProtocolResponseProcesser {
 	 * */
 	public  void orderMessage() {
 
-		if(BootNettyChannelInboundHandlerAdapter.ctx!=null){
 
 			// 发送订阅告警信息
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.applyAlarm(serverCode));
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.applyAlarm(serverCode));
 			// 发送订阅设备通道上下线信息
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.applyDeviceChannelOnlineState(serverCode));
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.applyDeviceChannelOnlineState(serverCode));
 			// 发送订阅上报录像结果
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.applyCameraRecordFinished(serverCode));
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.applyCameraRecordFinished(serverCode));
 			// 发送订阅上报图像抓拍结果
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.applySnapPicFinished(serverCode));
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.applySnapPicFinished(serverCode));
 			// 发送订阅设备上下线信息
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.applyDeviceOnlineState(serverCode));
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.applyDeviceOnlineState(serverCode));
 			// 发送订阅服务上下线信息
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.applyServiceOnlineState(serverCode));
-		}
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.applyServiceOnlineState(serverCode));
 
 	}
 
 	public  void register2CMS() {
-		if(BootNettyChannelInboundHandlerAdapter.ctx!=null){
 
 			// 发送订阅告警信息
-			BootNettyChannelInboundHandlerAdapter.ctx.write(pro.register2CMS(serverCode, userName,password));
-		}
+			BootNettyChannelInboundHandlerAdapter.sendData(pro.register2CMS(serverCode, userName,password));
 	}
 
 }

@@ -8,6 +8,29 @@
     <result column="ALARM_TIME" jdbcType="TIMESTAMP" property="alarmTime" />
     <result column="SERVICE_CODE" jdbcType="VARCHAR" property="serviceCode" />
   </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VAlarmEvidenceVo">
+    <result column="ALARM_ID" jdbcType="VARCHAR" property="alarmId" />
+    <result column="EVIDENCE_TYPE" jdbcType="INTEGER" property="evidenceType" />
+    <result column="EVIDENCE" jdbcType="VARCHAR" property="evidence" />
+    <result column="ALARM_TIME" jdbcType="TIMESTAMP" property="alarmTime" />
+    <result column="SERVICE_CODE" jdbcType="VARCHAR" property="serviceCode" />
+    <result column="EVIDENCE_TYPES" jdbcType="VARCHAR" property="evidenceTypes" />
+  </resultMap>
+
+  <select id="getAlarmEvidence" parameterType="com.data.itsv.model.vo.VAlarmEvidenceVo" resultMap="BaseResultMapVo">
+    select
+    T.ALARM_ID,
+	T.EVIDENCE_TYPE,
+	(case when T.EVIDENCE_TYPE = 1 then  '图片' when  2 then '录音' else '录像' end ) EVIDENCE_TYPES,
+	T.EVIDENCE EVIDENCE
+    from  v_alarm_evidence t
+    <where>
+      <if test="alarmId != null and alarmId != '' ">
+        and t.ALARM_ID = #{alarmId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
   <insert id="insert" parameterType="com.data.itsv.model.VAlarmEvidence">
     insert into v_alarm_evidence (ALARM_ID, EVIDENCE_TYPE, EVIDENCE, 
       ALARM_TIME, SERVICE_CODE)

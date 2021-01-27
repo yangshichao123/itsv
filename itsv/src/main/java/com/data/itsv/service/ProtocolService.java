@@ -82,8 +82,8 @@ public interface ProtocolService {
      * @author wym
      * @说明 更新我的目录资源 totalPkt:资源总包数 pktNum:资源当前分包序号，从0开始 optType:操作类型1==添加，2==删除
      * */
-    public void updateMyCatologRes(RequestModel rm, String optType,
-                                   String useId, ArrayList<Map> list, String treeType);
+   /* public void updateMyCatologRes(RequestModel rm, String optType,
+                                   String useId, ArrayList<Map> list, String treeType);*/
 
     /**
      * @author wym
@@ -173,7 +173,7 @@ public interface ProtocolService {
      * @author ghj
      * @说明 上报告警信息
      * */
-    public void reportCSAlarm4StrProtocol(ChannelHandlerContext session, ArrayList<Object> list);
+   // public void reportCSAlarm4StrProtocol(ChannelHandlerContext session, ArrayList<Object> list);
     /**
      * @author wym
      * @说明 上报通道状态

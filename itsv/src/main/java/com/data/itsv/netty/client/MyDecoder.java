@@ -70,9 +70,9 @@ public class MyDecoder<T> extends ByteToMessageDecoder {
             // 防止socket字节流攻击
             // 防止，客户端传来的数据过大
             // 因为，太大的数据，是不合理的
-            if (buffer.readableBytes() > 2048) {
+           /* if (buffer.readableBytes() > 2048) {
                 buffer.skipBytes(buffer.readableBytes());
-            }
+            }*/
 
             // 记录包头开始的index
             int beginReader;
@@ -112,7 +112,7 @@ public class MyDecoder<T> extends ByteToMessageDecoder {
 
             byte[] tmp = new byte[4];
             buffer.readBytes(tmp);
-            type= UtilHelper.hBytesToInt(tmp);
+            type = UtilHelper.hBytesToInt(tmp);
             baseMsg.setType(type);
             buffer.readBytes(tmp);
             bodySize = UtilHelper.hBytesToInt(tmp);
@@ -123,7 +123,7 @@ public class MyDecoder<T> extends ByteToMessageDecoder {
             baseMsg.setSeq(seq);
 
             buffer.readBytes(tmp);
-            version= UtilHelper.bytesToInt(tmp);
+            version = UtilHelper.bytesToInt(tmp);
             baseMsg.setVersion(version);
 
             buffer.readBytes(callId);
@@ -134,11 +134,17 @@ public class MyDecoder<T> extends ByteToMessageDecoder {
 
             buffer.readBytes(dest);
             baseMsg.setDest(dest);
-
-            body =new byte[bodySize];
-            buffer.readBytes(body);
-            baseMsg.setBody(body);
-            out.add(baseMsg);
+            int i = buffer.readableBytes();
+            if (i >= bodySize) {
+                body = new byte[bodySize];
+                buffer.readBytes(body);
+                baseMsg.setBody(body);
+                out.add(baseMsg);
+            }else{
+                buffer.readerIndex(beginReader);
+                int i1 = buffer.readableBytes();
+                System.out.println(i1);
+            }
         }
 
     }

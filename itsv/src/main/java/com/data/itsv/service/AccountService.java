@@ -13,10 +13,10 @@ public interface AccountService {
     /**
      * description TODO
      *
-     * @param appId 1
+     * @param userName 1
      * @return com.usthe.bootshiro.domain.vo.Account
      */
-    Account loadAccount(String appId);
+    Account loadAccount(String userName);
     /**
      * description TODO
      *
@@ -34,8 +34,8 @@ public interface AccountService {
     /**
      * description TODO
      *
-     * @param appId 1
+     * @param userName 1
      * @return java.lang.String
      */
-    String loadAccountRole(String appId);
+    String loadAccountRole(String userName);
 }

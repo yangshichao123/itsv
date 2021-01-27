@@ -7,6 +7,7 @@ import com.data.itsv.netty.ITSV2CMSClientHeartBeatJob;
 import com.data.itsv.netty.ProtocolDecoderProcesser;
 import com.data.itsv.model.RequestModel;
 import com.data.itsv.netty.ProtocolResponseProcesser;
+import com.data.itsv.netty.UserClientProtocolRequestProcesser;
 import com.data.itsv.netty.vo.BaseMsg;
 import com.data.itsv.service.ProtocolService;
 import com.data.itsv.service.UserService;
@@ -27,8 +28,8 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
  */
 public class BootNettyChannelInboundHandlerAdapter extends ChannelInboundHandlerAdapter{
 
-    public static Long keepAlivePeriod;
-    private UserService serviceNetty;
+    public static Long keepAlivePeriod =60L;
+    //private UserService serviceNetty;
     public static ChannelHandlerContext ctx;
     public static Boolean boo=false;
     private ByteBuf buf;
@@ -45,7 +46,7 @@ public class BootNettyChannelInboundHandlerAdapter extends ChannelInboundHandler
 
 
     public BootNettyChannelInboundHandlerAdapter() {
-      //  serviceNetty=(UserService)nettyThread.applicationContext.getBean("ServiceNetty");
+        this.protocolDecoderProcesser = SpringContextHolder.getBean(ProtocolDecoderProcesser.class);
     }
 
 
@@ -157,9 +158,7 @@ public class BootNettyChannelInboundHandlerAdapter extends ChannelInboundHandler
      * @说明：向CMS服務器发送心跳
      * */
     public static void heartBeat() {
-        if(ctx!=null){
-            ctx.write(BootNettyChannelInboundHandlerAdapter.keepAlive(keepAlivePeriod+""));
-        }
+       BootNettyChannelInboundHandlerAdapter.sendData(BootNettyChannelInboundHandlerAdapter.keepAlive(keepAlivePeriod+""));
 
     }
     private static String XMLHEADER = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
@@ -177,5 +176,11 @@ public class BootNettyChannelInboundHandlerAdapter extends ChannelInboundHandler
         return ProtocolWrapper.wrap(sf.toString());
     }
 
+    public static void sendData(BaseMsg baseMsg){
+        if(ctx!=null){
+
+            ctx.writeAndFlush(baseMsg);
+        }
+    }
 
 }

@@ -1,12 +1,9 @@
 package com.data.itsv.util;
 
 import com.alibaba.fastjson.JSON;
+import com.data.itsv.webService.LoginUserModel;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
-import org.apache.axis.encoding.ser.BeanDeserializerFactory;
-import org.apache.axis.encoding.ser.BeanSerializerFactory;
-import org.apache.axis.message.SOAPHeaderElement;
-import org.apache.axis.utils.JavaUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.endpoint.ClientImpl;
 import org.apache.cxf.endpoint.Endpoint;
@@ -27,10 +24,9 @@ import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
 import javax.xml.rpc.ServiceException;
 import javax.xml.rpc.encoding.XMLType;
-import javax.xml.soap.SOAPException;
-import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +77,21 @@ public class webServiceUtils {
         return retStr;
     }
 
+    public static void main(String[] args) {
+        String wsdlUrl = "http://172.23.37.86:8888/ITSV/services/MOMPService?wsdl";
+        String methodName ="userLogin";
+        String targetNamespace = "http://webService.itsv.data.com";
+        String name = "MOMPService";
+        List<Object> paramList =new ArrayList<>();
+        paramList.add("admin");
+        paramList.add("1cd8e7658bb6db26fed1ce17940b7dbd");
+        try {
+            String s = dynamicCallWebServiceByCXF(wsdlUrl, methodName, targetNamespace, name, paramList);
+            System.out.println(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param wsdlUrl         wsdl的地址：http://localhost:8001/demo/HelloServiceDemoUrl?wsdl
@@ -222,6 +233,9 @@ public class webServiceUtils {
 
         logger.info("公务--------------------------------接收到得数据为 ：" + result.toString());
         if (result.length > 0) {
+
+            LoginUserModel loginUserModel=(LoginUserModel)result[0];
+            System.out.println(loginUserModel.toString());
 			/*System.out.println(result[0]);
 			Object json = JSON.toJSON(result[0]);
 			System.out.println(json);
@@ -230,6 +244,7 @@ public class webServiceUtils {
 
             //return JSON.toJSONString(result[0]);
             logger.info("公务--------------------------------接收到得数据为 ：" + (String) result[0]);
+
             return (String) result[0];
 
         }
