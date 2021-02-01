@@ -1,13 +1,11 @@
 package com.data.itsv.service;
 
-import com.data.itsv.model.AMQDeviceStateModel;
-import com.data.itsv.model.NVRChannelInfoModel;
-import com.data.itsv.model.VAlarm;
-import com.data.itsv.model.VVideo;
+import com.data.itsv.model.*;
 import com.data.itsv.model.vo.VVideoVo;
 import com.data.itsv.netty.vo.BaseMsg;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -50,8 +48,9 @@ public interface ProtocolRequest {
 	/**
 	 * @author ghj
 	 * @说明 设备资源更新变更
-	 * *//*
-	public BaseMsg changeDeviceResource(String opt,ArrayList<FDModel> sp);*/
+	 * */
+	public BaseMsg changeDeviceResource(String opt,
+										List<VFdevice> sp);
 	/**
 	 * @author ghj
 	 * @说明 镜头资源更新变更

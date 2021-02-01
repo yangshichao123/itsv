@@ -11,4 +11,6 @@ public class VFdeviceVo extends VFdevice {
     private VFdtemplateVo fdTemplate;
     //所属服务名称
     private String pagNmae;
+    //目录id
+    private  String dirId;
 }

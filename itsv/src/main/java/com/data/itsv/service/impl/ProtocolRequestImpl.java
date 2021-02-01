@@ -1,9 +1,6 @@
 package com.data.itsv.service.impl;
 
-import com.data.itsv.model.AMQDeviceStateModel;
-import com.data.itsv.model.NVRChannelInfoModel;
-import com.data.itsv.model.VAlarm;
-import com.data.itsv.model.VVideo;
+import com.data.itsv.model.*;
 import com.data.itsv.model.vo.VVideoVo;
 import com.data.itsv.netty.vo.BaseMsg;
 import com.data.itsv.service.ProtocolRequest;
@@ -12,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service("ProtocolRequest")
 @Slf4j
@@ -300,8 +298,8 @@ public class ProtocolRequestImpl implements ProtocolRequest {
         return ProtocolWrapper.wrap(sf.toString());
     }*/
 
-   /* @Override
-    public BaseMsg changeDeviceResource(String opt, ArrayList<FDModel> list) {
+    @Override
+    public BaseMsg changeDeviceResource(String opt, List<VFdevice> list) {
         StringBuffer sf = new StringBuffer();
 
         // totalPackage
@@ -356,7 +354,7 @@ public class ProtocolRequestImpl implements ProtocolRequest {
 
                 // 遍历结果集
                 for (int i = 0; i < list.size(); i++) {
-                    FDModel temp = list.get(i);
+                    VFdevice temp = list.get(i);
                     sf.append("<URL>");
                     sf.append("<opt>");
                     sf.append(opt);
@@ -370,7 +368,7 @@ public class ProtocolRequestImpl implements ProtocolRequest {
                     sf.append("</name>");
 
                     sf.append("<fdtempleteCode>");
-                    sf.append(temp.getFdTemplateId());
+                    sf.append(temp.getFdtempleteId());
                     sf.append("</fdtempleteCode>");
 
                     sf.append("<account>");
@@ -382,7 +380,7 @@ public class ProtocolRequestImpl implements ProtocolRequest {
                     sf.append("</password>");
 
                     sf.append("<ip>");
-                    sf.append(temp.getIP());
+                    sf.append(temp.getIp());
                     sf.append("</ip>");
 
                     sf.append("<port>");
@@ -394,7 +392,7 @@ public class ProtocolRequestImpl implements ProtocolRequest {
                     sf.append("</serverCode>");
 
                     sf.append("<typeCode>");
-                    sf.append(temp.getFdTemplate().getFdTypeCode());
+                    sf.append(temp.getCode().substring(10,13));
                     sf.append("</typeCode>");
 
                     sf.append("</URL>");
@@ -411,7 +409,6 @@ public class ProtocolRequestImpl implements ProtocolRequest {
         log.info("发送给CMS数据为：" + sf.toString());
         return ProtocolWrapper.wrap(sf.toString());
     }
-*/
     @Override
     public BaseMsg changeCamResource(String opt, ArrayList<VVideoVo> list) {
         StringBuffer sf = new StringBuffer();

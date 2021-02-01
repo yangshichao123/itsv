@@ -10,9 +10,11 @@ import com.data.itsv.model.VVideo;
 import com.data.itsv.service.VDirectoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,10 +32,22 @@ public class VDirectoryServiceImpl implements VDirectoryService {
      * @param directory
      * @return
      */
-    public boolean accountLogin(VDirectory directory) {
-
+    public VDirectory addDirectory(VDirectory directory) {
+        directory.setCreateTime(new Date());
+        String fullPath="";
+        //获取父节点信息
+        if(0!=directory.getParentId()){
+            VDirectory vDirectory = vDirectoryMapper.selectByPrimaryId(directory.getParentId());
+            fullPath=vDirectory.getFullPath()+",";
+        }
         int i = vDirectoryMapper.insertSelective(directory);
-        return i>0?true:false;
+        if(i>0){
+            VDirectory directory1=new VDirectory();
+            directory1.setId(directory.getId());
+            directory1.setFullPath(fullPath+directory.getId());
+            vDirectoryMapper.updateByPrimaryKeySelective(directory1);
+        }
+        return directory;
     }
 
     /**
@@ -54,7 +68,7 @@ public class VDirectoryServiceImpl implements VDirectoryService {
     public boolean deleteDirectory(VDirectory directory) {
         Example example = new Example(VDirectory.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andLike("fullPath",directory.getId()+"");
+        criteria.andLike("fullPath","%"+directory.getId()+"%");
         int i = vDirectoryMapper.deleteByExample(example);
         if(i>0){
             SRoleDirPrivilege sRoleDirPrivilege=new SRoleDirPrivilege();
@@ -73,7 +87,7 @@ public class VDirectoryServiceImpl implements VDirectoryService {
      * @return
      */
     public List<VDirectory> getDirectory(VDirectory directory) {
-        List<VDirectory> vDirectoryList= vDirectoryMapper.getDirByUserId(directory.getUserId());
+        List<VDirectory> vDirectoryList= vDirectoryMapper.getDir(directory);
         List<VDirectory> vDirectories=new ArrayList<>();
         List<VDirectory> tree = this.getTree(vDirectories, vDirectoryList, 1, 0);
         return tree;

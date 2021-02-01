@@ -8,6 +8,8 @@ import com.data.itsv.service.AccountService;
 import com.data.itsv.service.UserService;
 import com.data.itsv.util.*;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,7 @@ import java.util.concurrent.TimeUnit;
  * @author tomsun28
  * @date 14:40 2018/3/8
  */
+@Api(value = "用户登陆注册接口")
 @RestController
 @RequestMapping("/account")
 public class AccountController extends BaseAction {
@@ -71,7 +74,7 @@ public class AccountController extends BaseAction {
      * @param response 2
      * @return com.usthe.bootshiro.domain.vo.Message
      */
-    //@ApiOperation(value = "用户登录", notes = "POST用户登录签发JWT")
+    @ApiOperation(value = "用户登录", notes = "POST用户登录签发JWT")
     @PostMapping("/login")
     @CrossOrigin
     public Message accountLogin(HttpServletRequest request, HttpServletResponse response) {
@@ -80,7 +83,7 @@ public class AccountController extends BaseAction {
         // 根据appId获取其对应所拥有的角色(这里设计为角色对应资源，没有权限对应资源)
         String roles = accountService.loadAccountRole(userName);
         // 时间以秒计算,token有效刷新时间是token有效过期时间的2倍
-        long refreshPeriodTime = 10000000L;
+        long refreshPeriodTime = 1000L;
         String jwt = JsonWebTokenUtil.issueJWT(UUID.randomUUID().toString(), userName,
                 "token-server", refreshPeriodTime << 1, roles, null, SignatureAlgorithm.HS512);
         // 将签发的JWT存储到Redis： {JWT-SESSION-{appID} , jwt}
@@ -100,7 +103,7 @@ public class AccountController extends BaseAction {
      * @param response 2
      * @return com.usthe.bootshiro.domain.vo.Message
      */
-   // @ApiOperation(value = "用户注册", notes = "POST用户注册")
+    @ApiOperation(value = "用户注册", notes = "POST用户注册")
     @PostMapping("/register")
     @CrossOrigin
     public Message accountRegister(HttpServletRequest request, HttpServletResponse response) {

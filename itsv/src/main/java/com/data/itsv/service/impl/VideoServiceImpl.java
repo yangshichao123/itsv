@@ -1,9 +1,6 @@
 package com.data.itsv.service.impl;
 
-import com.data.itsv.mapper.VMasterSlaveFdMapper;
-import com.data.itsv.mapper.VVideoAppendOsdMapper;
-import com.data.itsv.mapper.VVideoMapper;
-import com.data.itsv.mapper.VVssVideoMapper;
+import com.data.itsv.mapper.*;
 import com.data.itsv.model.*;
 import com.data.itsv.model.vo.VFdeviceVo;
 import com.data.itsv.model.vo.VMasterSlaveFdVo;
@@ -37,6 +34,8 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private ProtocolRequest protocolRequest;
     @Autowired
+    private VResOnlineStateMapper vResOnlineStateMapper;
+    @Autowired
     private ProtocolRequestProcesser protocolRequestProcesser;
     @Autowired
     private VVideoMapper videoMapper;
@@ -46,6 +45,29 @@ public class VideoServiceImpl implements VideoService {
     private VVideoAppendOsdMapper videoAppendOsdMapper;
     @Autowired
     private VMasterSlaveFdMapper vMasterSlaveFdMapper;
+
+    @Autowired
+    private VVideoPresetMapper videoPresetMapper;
+    @Autowired
+    private VAlarmSetMapper vAlarmSetMapper;
+    @Autowired
+    private VAlarmSetVideolinkMapper vAlarmSetVideolinkMapper;
+    @Autowired
+    private VDirectoryResMapper  vDirectoryResMapper;
+    @Autowired
+    private VIgroupVideoMapper  vIgroupVideoMapper;
+    @Autowired
+    private VMaskcameraMapper  vMaskcameraMapper;
+    @Autowired
+    private VItourVideoMapper  vItourVideoMapper;
+    @Autowired
+    private VIlayoutDetailMapper  vIlayoutDetailMapper;
+    @Autowired
+    private VEvssPlanMapper  vEvssPlanMapper;
+    @Autowired
+    private VStorageplansMapper  vStorageplansMapper;
+    @Autowired
+    private VVideoStoreStateMapper  vVideoStoreStateMapper;
 
     @Override
     public void reportCameraState(ArrayList<AMQDeviceStateModel> list) {
@@ -156,12 +178,11 @@ public class VideoServiceImpl implements VideoService {
                              String desc, String bLocal, String reserve) {
 
 
-        if(channelNum==null && "".equals(channelNum)){
-            VVideo vVideo=new VVideo();
-            vVideo.setFdCode(fdCode);
-            vVideo= videoMapper.selectChannelNum(vVideo);
-            channelNum=vVideo.getVchannel()+"";
-        }
+        int id=0;
+            VVideo vVideo1=new VVideo();
+            vVideo1.setFdCode(fdCode);
+            vVideo1= videoMapper.selectChannelNum(vVideo1);
+            id=vVideo1.getId();
         VVideo vVideo=new VVideo();
         vVideo.setFdCode(fdCode);
         vVideo.setName(name);
@@ -169,7 +190,7 @@ public class VideoServiceImpl implements VideoService {
         vVideo.setVchannel(Integer.parseInt(channelNum));
         vVideo.setBlocal(Integer.parseInt(bLocal));
         vVideo.setReserve(reserve);
-        String code=fdCode.substring(0,10)+"1315"+ (DateUtils.formatDate(new Date(),"HHmmss"));
+        String code=fdCode.substring(0,10)+"1315"+ this.getUserCode(id);
         vVideo.setCode(code);
         int i = videoMapper.insertSelective(vVideo);
         if(i>0){
@@ -185,6 +206,17 @@ public class VideoServiceImpl implements VideoService {
             return "";
         }
 
+    }
+    private String getUserCode(int id){
+        String idstar=id+"";
+        if(idstar.length()<6){
+            for(int i=1;i<6;i++){
+                if((idstar.length()+1)==i){
+                    idstar= 0+idstar;
+                }
+            }
+        }
+        return idstar;
     }
     @Override
     public PageInfo<VVideoVo> getVideo(String userId, String code,
@@ -477,5 +509,68 @@ public class VideoServiceImpl implements VideoService {
             }*/
         }
         return false;
+    }
+
+    @Override
+    public void deleteVideoByFDCode(String code) {
+        VVideo vVideo=new VVideo();
+        vVideo.setFdCode(code);
+        List<VVideo> select = videoMapper.select(vVideo);
+        int delete = videoMapper.delete(vVideo);
+        if(delete>0){
+            for (VVideo video : select) {
+                //删除视频通道是否在线类数据
+                VResOnlineState vResOnlineState=new VResOnlineState();
+                vResOnlineState.setResCode(video.getCode());
+                vResOnlineState.setType(3);
+                vResOnlineStateMapper.delete(vResOnlineState);
+                //删除摄像机守望位
+                VVideoPreset vVideoPreset=new VVideoPreset();
+                vVideoPreset.setVideoCode(video.getCode());
+                videoPresetMapper.delete(vVideoPreset);
+                //删除告警设置信息
+                VAlarmSet vAlarmSet=new VAlarmSet();
+                vAlarmSet.setAlarmResId(video.getCode());
+                vAlarmSetMapper.delete(vAlarmSet);
+                //删除告警设置关联摄像机通道信息 联动信息
+                VAlarmSetVideolink vAlarmSetVideolink=new VAlarmSetVideolink();
+                vAlarmSetVideolink.setResid(video.getCode());
+                vAlarmSetVideolinkMapper.delete(vAlarmSetVideolink);
+
+                //删除我的分组视频资源
+                VIgroupVideo vIgroupVideo=new VIgroupVideo();
+                vIgroupVideo.setVideoCode(video.getCode());
+                vIgroupVideoMapper.delete(vIgroupVideo);
+                //删除屏蔽计划的镜头信息
+                VMaskcamera vMaskcamera=new VMaskcamera();
+                vMaskcamera.setVideoinputCode(video.getCode());
+                vMaskcameraMapper.delete(vMaskcamera);
+                //删除我的巡视组
+                VItourVideo vItourVideo=new VItourVideo();
+                vItourVideo.setVideoCode(video.getCode());
+                vItourVideoMapper.delete(vItourVideo);
+                //删除我的布局详情
+                VIlayoutDetail vIlayoutDetail=new VIlayoutDetail();
+                vIlayoutDetail.setVideoCode(video.getCode());
+                vIlayoutDetailMapper.delete(vIlayoutDetail);
+
+                //删除事件存储配置
+                VEvssPlan vEvssPlan=new VEvssPlan();
+                vEvssPlan.setVideoCode(video.getCode());
+                vEvssPlanMapper.delete(vEvssPlan);
+                //删除存储计划表
+                VStorageplans vStorageplans=new VStorageplans();
+                vStorageplans.setVideoCode(video.getCode());
+                vStorageplansMapper.delete(vStorageplans);
+                //删除存储服务视频关联关系表
+                VVssVideo vVssVideo=new VVssVideo();
+                vVssVideo.setVideoCode(video.getCode());
+                vssVideoMapper.delete(vVssVideo);
+                //视频存储状态信息
+                VVideoStoreState vVideoStoreState=new VVideoStoreState();
+                vVideoStoreState.setVideoCode(video.getCode());
+                vVideoStoreStateMapper.delete(vVideoStoreState);
+            }
+        }
     }
 }

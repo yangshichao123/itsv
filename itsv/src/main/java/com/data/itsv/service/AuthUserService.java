@@ -10,7 +10,7 @@ public interface AuthUserService {
      * @param user
      * @return
      */
-    boolean addUser(AuthUser user);
+    boolean  addUser(AuthUser user);
 
     /**
      * 修改用户

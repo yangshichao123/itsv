@@ -47,7 +47,8 @@ public interface VideoService {
      */
     String getVideoByTourId(String useId, String tourId);
 
-    String addVideoIn(String ip, String fdCode, String s, String s1, String s2, String s3);
+    String addVideoIn(String name, String fdCode, String channelNum,
+                      String desc, String bLocal, String reserve);
      void noticeChangeCamResource(String opt, ArrayList<VVideoVo> list);
 
     PageInfo<VVideoVo> getVideo(String userId, String code,
@@ -105,4 +106,10 @@ public interface VideoService {
      boolean addMasterSlaveFd(String userId, String fdCode, String slaveFdChannelCode,
                                      String channelNum, String slaveFDAccount,
                                      String slaveFDPassword, String slaveFDIP, String slaveFDPort);
+
+    /**
+     * 删除摄像机通道 根据设备编号
+     * @param code
+     */
+    void deleteVideoByFDCode(String code);
 }

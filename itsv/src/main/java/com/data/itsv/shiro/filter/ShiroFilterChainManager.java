@@ -65,13 +65,14 @@ public class ShiroFilterChainManager {
     }
     /**
      * description 初始化获取过滤链规则
-     *
+     *webjars/springfox-swagger-ui/swagger-ui-standalone-preset.js
+     * /swagger-resources/configuration/ui
      * @return java.util.Map<java.lang.String,java.lang.String>
      */
     public Map<String,String> initGetFilterChain() {
         Map<String,String> filterChain = new LinkedHashMap<>();
         // -------------anon 默认过滤器忽略的URL
-        List<String> defalutAnon = Arrays.asList("/css/**","/js/**");
+        List<String> defalutAnon = Arrays.asList("/css/**","/js/**","/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/**","/csrf/**");
         defalutAnon.forEach(ignored -> filterChain.put(ignored,"anon"));
         // -------------auth 默认需要认证过滤器的URL 走auth--PasswordFilter
         List<String> defalutAuth = Arrays.asList("/account/**");

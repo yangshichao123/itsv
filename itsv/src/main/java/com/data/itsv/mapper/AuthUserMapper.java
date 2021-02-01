@@ -21,4 +21,10 @@ public interface AuthUserMapper extends BaseMapper<AuthUser> {
     List<AuthUser> selectUserListByRoleId(Integer roleId);
 
     List<AuthUser> selectUserListExtendByRoleId(Integer roleId);
+
+    /**
+     * 获取最大id
+     * @return
+     */
+    int getMixId();
 }

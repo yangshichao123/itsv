@@ -1,8 +1,16 @@
 package com.data.itsv.model;
 
-import java.io.Serializable;
+import lombok.Data;
 
+import javax.persistence.Id;
+import java.io.Serializable;
+@Data
 public class VAlarmIo implements Serializable {
+    /**
+     * id
+     */
+    @Id
+    private Integer id;
     /**
      * 告警资源编号
      */
@@ -46,77 +54,5 @@ public class VAlarmIo implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getFdCode() {
-        return fdCode;
-    }
-
-    public void setFdCode(String fdCode) {
-        this.fdCode = fdCode == null ? null : fdCode.trim();
-    }
-
-    public Integer getIndexNum() {
-        return indexNum;
-    }
-
-    public void setIndexNum(Integer indexNum) {
-        this.indexNum = indexNum;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Integer longitude) {
-        this.longitude = longitude;
-    }
-
-    public Integer getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Integer latitude) {
-        this.latitude = latitude;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", code=").append(code);
-        sb.append(", name=").append(name);
-        sb.append(", fdCode=").append(fdCode);
-        sb.append(", indexNum=").append(indexNum);
-        sb.append(", type=").append(type);
-        sb.append(", longitude=").append(longitude);
-        sb.append(", latitude=").append(latitude);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

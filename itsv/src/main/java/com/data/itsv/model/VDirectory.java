@@ -2,6 +2,7 @@ package com.data.itsv.model;
 
 import lombok.Data;
 
+import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +13,7 @@ public class VDirectory implements Serializable {
     /**
      * 序号
      */
+    @Id
     private Integer id;
 
     /**

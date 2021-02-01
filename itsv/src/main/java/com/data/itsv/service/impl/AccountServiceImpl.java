@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
 
         int i = userMapper.insertSelective(account);
         // 给新用户授权访客角色
-        boolean b = userService.authorityUserRole(account.getId() + "", 103);
+        boolean b = userService.authorityUserRole(account.getId() + "", 100);
 
         return  b;
     }

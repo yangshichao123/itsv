@@ -95,7 +95,7 @@ public class ReportServiceImpl implements ReportService {
                                  String pageSize, String pageIndex) {
 
         PageHelper.startPage(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
-        PageInfo<VFdeviceVo> pageInfo = new PageInfo<>(vFdeviceMapper.getFD(pUserId,fdTemplateCode,longitude,latitude,code,serverCode));
+        PageInfo<VFdeviceVo> pageInfo = new PageInfo<>(vFdeviceMapper.getFD(pUserId,fdTemplateCode,longitude,latitude,code,serverCode,"",""));
         List<VFdeviceVo> list = pageInfo.getList();
         for (VFdeviceVo vFdeviceVo : list) {
             vFdeviceVo.setTotalNumI(pageInfo.getSize());
@@ -180,7 +180,7 @@ public class ReportServiceImpl implements ReportService {
         // 查找设备下通道是否存在，如果不存在进行添加通道
         String addVideoCode = null;
         if (videoCode == null || videoCode.trim().length() == 0) {
-            addVideoCode = videoService.addVideoIn(ip, fdCode, "", "", "", "");
+            addVideoCode = videoService.addVideoIn(ip, fdCode, "0", "", "", "");
             if (addVideoCode == null || addVideoCode.trim().length() == 0) {
                 return false;
             }

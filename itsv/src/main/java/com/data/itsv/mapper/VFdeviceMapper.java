@@ -13,5 +13,6 @@ public interface VFdeviceMapper extends BaseMapper<VFdevice> {
 
     VFdevice selectByPrimaryId(String code);
 
-    List<VFdeviceVo> getFD(String pUserId, String fdTemplateCode, String longitude, String latitude, String code, String serverCode);
+    List<VFdeviceVo> getFD(String pUserId, String fdTemplateCode, String longitude, String latitude, String code, String serverCode,String dirId,String name);
+
 }

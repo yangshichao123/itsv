@@ -13,4 +13,6 @@ public interface VDirectoryMapper extends BaseMapper<VDirectory> {
     VDirectory selectByPrimaryId(Integer id);
 
     List<VDirectory> getDirByUserId(String useId);
+
+    List<VDirectory> getDir(VDirectory directory);
 }

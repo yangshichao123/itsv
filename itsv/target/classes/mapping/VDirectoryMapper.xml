@@ -27,13 +27,19 @@
     from v_directory
     where ID = #{id,jdbcType=INTEGER}
   </select>
-  <select id="getDirByUserId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+  <select id="getDir" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select
         d.*
     from v_directory d
-    left join S_ROLE_DIR_PRIVILEGE srdp on  d.id = srdp.DIR_ID
-    left  join auth_user_role sru on sru.ROLE_ID=srdp.ROLE_ID
-    where sru.USER_ID = #{userId,jdbcType=VARCHAR}
+    <if test="userId != null and userId != '' ">
+      left join S_ROLE_DIR_PRIVILEGE srdp on  d.id = srdp.DIR_ID
+      left  join auth_user_role sru on sru.ROLE_ID=srdp.ROLE_ID
+    </if>
+    <where>
+      <if test="userId != null and userId != '' ">
+        sru.USER_ID = #{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
     ORDER BY d.DIR_LEVEL,d.ID
   </select>
   <insert id="insert" parameterType="com.data.itsv.model.VDirectory">
@@ -44,7 +50,7 @@
       #{code,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{dirLevel,jdbcType=INTEGER}, #{fullPath,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.data.itsv.model.VDirectory">
+  <insert id="insertSelective" parameterType="com.data.itsv.model.VDirectory" useGeneratedKeys="true" keyProperty="id" >
     insert into v_directory
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.data.itsv.mapper.AuthUserMapper">
   <resultMap id="BaseResultMap" type="com.data.itsv.model.AuthUser">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="TINYINT" property="id" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -12,6 +12,7 @@
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="roleMenuPrivilege" jdbcType="VARCHAR" property="roleMenuPrivilege" />
     <result column="sex" jdbcType="TINYINT" property="sex" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
@@ -26,7 +27,7 @@
     select 
     <include refid="Base_Column_List" />
     from auth_user
-    where `uid` = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=TINYINT}
   </select>
   <insert id="insert" parameterType="com.data.itsv.model.AuthUser">
     insert into auth_user (code,user_level, username, `password`,
@@ -47,7 +48,7 @@
         code,
       </if>
       <if test="userLevel != null">
-        user_level
+        user_level,
       </if>
       <if test="username != null">
         username,
@@ -142,9 +143,10 @@
   </select>
 
   <select id="selectByUniqueKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT id, username, password, salt, real_name, avatar, phone, email, sex, status, CREATE_TIME,
-    UPDATE_TIME, CREATE_WHERE
-    FROM auth_user user
+    SELECT user.*,ar.MENU_PRIVILEGE roleMenuPrivilege
+    FROM auth_user  user
+    left join  auth_user_role aur on user.id=aur.user_id
+    left join  auth_role ar on aur.role_id = ar.id
     WHERE user.username = #{appId,jdbcType=VARCHAR} or user.phone = #{appId,jdbcType=VARCHAR} or user.email = #{appId,jdbcType=VARCHAR}
   </select>
 
@@ -167,6 +169,12 @@
   	   select 1 from auth_user_role c
   	   where b.id = c.user_id and c.role_id = #{roleId,jdbcType=INTEGER}
 	)
+  </select>
+
+  <select id="getMixId" resultType="java.lang.Integer">
+    select MAX(id)
+    from auth_user b
+
   </select>
 
 </mapper>

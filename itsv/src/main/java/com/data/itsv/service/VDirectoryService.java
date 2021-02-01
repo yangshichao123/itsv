@@ -11,7 +11,7 @@ public interface VDirectoryService {
      * @param directory
      * @return
      */
-     boolean accountLogin(VDirectory directory);
+    VDirectory addDirectory(VDirectory directory);
 
     /**
      * 修改组织机构目录

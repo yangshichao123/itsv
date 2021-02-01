@@ -5,12 +5,14 @@
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="MENU_PRIVILEGE" jdbcType="VARCHAR" property="menuPrivilege" />
+    <result column="directory_id" jdbcType="VARCHAR" property="directoryId" />
     <result column="STATUS" jdbcType="SMALLINT" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, CODE, `NAME`, `STATUS`, CREATE_TIME, UPDATE_TIME
+    ID, CODE, `NAME`, `STATUS`, CREATE_TIME, UPDATE_TIME,MENU_PRIVILEGE,directory_id
   </sql>
   <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,13 +22,13 @@
   </select>
   <insert id="insert" parameterType="com.data.itsv.model.AuthRole">
     insert into auth_role (ID, CODE, `NAME`, 
-      `STATUS`, CREATE_TIME, UPDATE_TIME
+      `STATUS`, CREATE_TIME, UPDATE_TIME,MENU_PRIVILEGE,directory_id
       )
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{status,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{menuPrivilege,jdbcType=VARCHAR}
+      , #{directoryId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.data.itsv.model.AuthRole">
+  <insert id="insertSelective" parameterType="com.data.itsv.model.AuthRole" useGeneratedKeys="true" keyProperty="id">
     insert into auth_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,6 +49,12 @@
       <if test="updateTime != null">
         UPDATE_TIME,
       </if>
+      <if test="menuPrivilege != null">
+        MENU_PRIVILEGE,
+      </if>
+      <if test="directoryId != null">
+        directory_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -66,6 +74,12 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuPrivilege != null">
+        #{menuPrivilege,jdbcType=VARCHAR},
+      </if>
+      <if test="directoryId != null">
+        #{directoryId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
