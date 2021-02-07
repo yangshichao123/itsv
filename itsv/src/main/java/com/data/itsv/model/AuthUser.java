@@ -63,7 +63,7 @@ public class AuthUser implements Serializable {
     /**
      * 性别(1.男 2.女)
      */
-    private Byte sex;
+    private int sex;
 
     /**
      * 账户状态(1.正常 2.锁定 3.删除 4.非法)
@@ -83,7 +83,7 @@ public class AuthUser implements Serializable {
     /**
      * 创建来源(1.web 2.android 3.ios 4.win 5.macos 6.ubuntu)
      */
-    private Byte createWhere;
+    private int createWhere;
     /**
      * 创建来源(1.web 2.android 3.ios 4.win 5.macos 6.ubuntu)
      */

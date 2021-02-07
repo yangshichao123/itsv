@@ -1,12 +1,12 @@
 package com.data.itsv.mapper;
 
-import com.data.itsv.base.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.data.itsv.model.AuthResource;
 import com.data.itsv.shiro.rule.RolePermRule;
 
 import java.util.List;
 
-public interface AuthResourceMapper extends BaseMapper<AuthResource> {
+public interface AuthResourceMapper extends BaseMapper {
     int insert(AuthResource record);
 
     int insertSelective(AuthResource record);

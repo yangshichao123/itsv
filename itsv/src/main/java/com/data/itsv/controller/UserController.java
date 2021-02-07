@@ -1,5 +1,8 @@
 package com.data.itsv.controller;
 
+import com.data.itsv.aspect.BusinessType;
+import com.data.itsv.aspect.Log;
+import com.data.itsv.aspect.OperatorType;
 import com.data.itsv.log.LogExeManager;
 import com.data.itsv.log.LogTaskFactory;
 import com.data.itsv.model.AuthUser;
@@ -8,6 +11,7 @@ import com.data.itsv.service.UserService;
 import com.data.itsv.util.JsonWebTokenUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,8 +93,9 @@ public class UserController extends BaseAction {
     }
 
 
-    //@ApiOperation(value = "用户登出", httpMethod = "POST")
+    @ApiOperation(value = "用户登出", httpMethod = "POST")
     @PostMapping("/exit")
+    @Log(title = "用户登出",logType = BusinessType.OPT_LOG,operatorType = OperatorType.USER)
     public Message accountExit(HttpServletRequest request) {
         SecurityUtils.getSubject().logout();
         Map<String,String > map = getRequestHeader(request);
@@ -101,9 +106,10 @@ public class UserController extends BaseAction {
        /* String jwt = redisTemplate.opsForValue().get("JWT-SESSION-"+appId);
         if (StringUtils.isEmpty(jwt)) {
             return new Message().error( "用户未登录无法登出");
-        }
-        redisTemplate.opsForValue().getOperations().delete("JWT-SESSION-"+appId);*/
-        LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1,appId,request.getRemoteAddr(),"用户登出"));
+        }*/
+        redisTemplate.opsForValue().getOperations().delete("JWT-Login-"+appId);
+        redisTemplate.opsForValue().getOperations().delete("JWT-continuity-"+appId);
+       // LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1,appId,request.getRemoteAddr(),"用户登出"));
 
         return new Message().ok("用户退出成功");
     }

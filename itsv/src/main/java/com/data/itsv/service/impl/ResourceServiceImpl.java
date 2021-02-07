@@ -41,13 +41,14 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Boolean modifyMenu(AuthResource menu) throws DataAccessException {
-        int num = authResourceMapper.updateByPrimaryKeySelective(menu);
+        int num = authResourceMapper.updateById(menu);
+        //int num = authResourceMapper.updateByPrimaryKeySelective(menu);
         return num == 1 ? Boolean.TRUE : Boolean.FALSE;
     }
 
     @Override
     public Boolean deleteMenuByMenuId(Integer menuId) throws DataAccessException {
-        int num = authResourceMapper.deleteByPrimaryKey(menuId);
+        int num = authResourceMapper.deleteById(menuId);
         return num == 1 ? Boolean.TRUE : Boolean.FALSE;
     }
 

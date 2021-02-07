@@ -1,13 +1,12 @@
 server:
-  port: 12003
+  port: 8888
 
 
 spring:
   datasource:
-    username: admin
-    password: 1qaz!QAZ
-    #url: jdbc:mysql://10.3.78.209:13306/video_db?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    url: jdbc:mysql://127.0.0.1:13306/chuanzang?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password:
+    url: jdbc:mysql://172.16.149.239:3306/chuanzang?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -19,16 +18,6 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
-    test-on-borrow: false
-    test-while-idle: true
-    time-between-eviction-runs-millis: 3600000
-
-  #MQ配置IP 端口
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
   freemarker:
     request-context-attribute: req  #req访问request
     suffix: .html  #后缀名
@@ -39,9 +28,57 @@ spring:
     charset: UTF-8 #编码格式
     settings:
       number_format: '0.##'   #数字格式化，无小数点
-mybatis:
+  #MQ配置IP 端口
+  rabbitmq:
+    host: 47.92.100.23
+    port: 5673
+    username: admin
+    password: 1qaz!QAZ
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
+  redis:
+    # 数据库索引，默认0
+    database: 0
+    #    # 服务器IP地址
+    host: 172.16.149.220
+    #    # 连接端口
+    port: 6379
+    #    # Redis服务器连接密码（默认为空）
+    #    password:
+
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 800
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000
+        # 连接池中的最大空闲连接
+        max-idle: 20
+        # 连接池中的最小空闲连接
+        min-idle: 2
+    # 连接超时时间（毫秒）
+    timeout: 30000
+#mybatis:
+#  mapper-locations: classpath:mapping/*.xml
+#  type-aliases-package: com.data.itsv.model
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.data.itsv.model
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+
 
 #分页
 pagehelper:
@@ -61,32 +98,29 @@ logging:
     org.springframework.boot.autoconfigure: ERROR
 
 
-
-
 bootshiro:
-  enableEncryptPassword: false
+  enableEncryptPassword: true
 
 
 cms:
-  ip: "11030"
-  port: "127.0.0.1"
+  ip: "127.0.0.1"
+  port: "9001"
 
-#防灾配置
+
 netty:
-  #host: "39.103.130.69"
-  host: "127.0.0.1"
-  port: "11029"
+  client:
+    #host: "39.103.130.69"
+    host: "172.23.37.86"
+    port: "9001"
+  server:
+    port: "30002"
+
 
 heartbeatTime: "120"
 
 setVideoCode: "01010207013005000135"
 userName: "admin"
 password: "admin"
-
-
-
-
-
-
-
-
+jwt:
+  timeOut: 10000 #超时时间
+  intervalTime: 1800 #在和超时时间相差1800秒之内 重新下发jwt token

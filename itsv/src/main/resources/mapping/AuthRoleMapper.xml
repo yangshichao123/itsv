@@ -7,12 +7,14 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="MENU_PRIVILEGE" jdbcType="VARCHAR" property="menuPrivilege" />
     <result column="directory_id" jdbcType="VARCHAR" property="directoryId" />
+    <result column="directory_name" jdbcType="VARCHAR" property="directoryName" />
+    <result column="DESCS" jdbcType="VARCHAR" property="descs" />
     <result column="STATUS" jdbcType="SMALLINT" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, CODE, `NAME`, `STATUS`, CREATE_TIME, UPDATE_TIME,MENU_PRIVILEGE,directory_id
+    ID, CODE, `NAME`, `STATUS`, CREATE_TIME, UPDATE_TIME,MENU_PRIVILEGE,directory_id,directory_name,DESCS
   </sql>
   <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,11 +24,11 @@
   </select>
   <insert id="insert" parameterType="com.data.itsv.model.AuthRole">
     insert into auth_role (ID, CODE, `NAME`, 
-      `STATUS`, CREATE_TIME, UPDATE_TIME,MENU_PRIVILEGE,directory_id
+      `STATUS`, CREATE_TIME, UPDATE_TIME,MENU_PRIVILEGE,directory_id,DESCS,directory_name
       )
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{status,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{menuPrivilege,jdbcType=VARCHAR}
-      , #{directoryId,jdbcType=VARCHAR})
+      , #{directoryId,jdbcType=VARCHAR} , #{descs,jdbcType=VARCHAR} , #{directoryName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.data.itsv.model.AuthRole" useGeneratedKeys="true" keyProperty="id">
     insert into auth_role
@@ -55,6 +57,12 @@
       <if test="directoryId != null">
         directory_id,
       </if>
+      <if test="descs != null">
+        DESCS,
+      </if>
+      <if test="directoryName != null">
+        directory_name ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -80,6 +88,12 @@
       </if>
       <if test="directoryId != null">
         #{directoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+         #{descs,jdbcType=VARCHAR} ,
+      </if>
+      <if test="directoryName != null">
+       #{directoryName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

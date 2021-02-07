@@ -61,9 +61,24 @@ spring:
         min-idle: 2
     # 连接超时时间（毫秒）
     timeout: 30000
-mybatis:
+#mybatis:
+#  mapper-locations: classpath:mapping/*.xml
+#  type-aliases-package: com.data.itsv.model
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.data.itsv.model
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
+
 
 #分页
 pagehelper:
@@ -106,3 +121,6 @@ heartbeatTime: "120"
 setVideoCode: "01010207013005000135"
 userName: "admin"
 password: "admin"
+jwt:
+  timeOut: 500 #超时时间
+  intervalTime: 180 #在和超时时间相差1800秒之内 重新下发jwt token

@@ -1,21 +1,36 @@
 package com.data.itsv.shiro.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.data.itsv.lock.SpinLockDemo;
+import com.data.itsv.model.vo.JwtAccount;
 import com.data.itsv.model.vo.Message;
 import com.data.itsv.shiro.token.JwtToken;
+import com.data.itsv.util.JsonWebTokenUtil;
 import com.data.itsv.util.RequestResponseUtil;
+import com.data.itsv.util.ReturnStatusConstant;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 /**
@@ -23,11 +38,15 @@ import java.util.stream.Stream;
  * @author tomsun28
  * @date 0:04 2018/4/20
  */
+@Slf4j
+@Data
 public class BonJwtFilter extends AbstractPathMatchingFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BonJwtFilter.class);
     private static final String STR_EXPIRED = "expiredJwt";
 
+    private String intervalTime;
+    private String jwtTimeOut;
 
     private StringRedisTemplate redisTemplate;
    // private AccountService accountService;
@@ -35,6 +54,7 @@ public class BonJwtFilter extends AbstractPathMatchingFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object mappedValue) throws Exception {
         Subject subject = getSubject(servletRequest,servletResponse);
+
 
       /*  //记录调用api日志到数据库
         LogExeManager.getInstance().executeLogTask(LogTaskFactory.bussinssLog(WebUtils.toHttp(servletRequest).getHeader("appId"),
@@ -46,6 +66,41 @@ public class BonJwtFilter extends AbstractPathMatchingFilter {
             AuthenticationToken token = createJwtToken(servletRequest);
             try {
                 subject.login(token);
+
+                JwtToken jwtToken = (JwtToken)token;
+                JwtAccount jwtAccount = JsonWebTokenUtil.parseJwt(jwtToken.getJwt(),JsonWebTokenUtil.SECRET_KEY);
+                HttpServletResponse httpResponse = WebUtils.toHttp(servletResponse);;
+                //判断是否在规则内   即离过期时间达到
+                long time = jwtAccount.getIssuedAt().getTime()+Long.parseLong(intervalTime)*1000;
+                long timeEnd= new Date().getTime();
+                if(time<timeEnd){
+                    try {
+                        SpinLockDemo.myLock();
+                        String logToke = redisTemplate.opsForValue().get("JWT-Login-" + jwtAccount.getAppId());
+                        String logTokeNew = redisTemplate.opsForValue().get("JWT-continuity-" + jwtAccount.getAppId());
+
+                        if(logTokeNew==null||logToke==null){
+                            String uuidStr = UUID.randomUUID().toString();
+                            String jwt = JsonWebTokenUtil.issueJWT(uuidStr,jwtAccount.getAppId(),
+                                    "token-server", Long.parseLong(jwtTimeOut) , jwtAccount.getRoles(), null, SignatureAlgorithm.HS512);
+                            httpResponse.setHeader("Access-Control-Expose-Headers","x-auth-token");
+                            httpResponse.setHeader("x-auth-token", jwt);
+                            if(logToke!=null) {
+                                redisTemplate.opsForValue().set("JWT-Login-" + jwtAccount.getAppId(), logToke, 30, TimeUnit.SECONDS);
+                            }else{
+                                redisTemplate.opsForValue().set("JWT-Login-" + jwtAccount.getAppId(), redisTemplate.opsForValue().get("JWT-continuity-" + jwtAccount.getAppId()), 30, TimeUnit.SECONDS);
+
+                            }
+                            redisTemplate.opsForValue().set("JWT-continuity-" + jwtAccount.getAppId(),uuidStr,  Long.parseLong(jwtTimeOut), TimeUnit.SECONDS);
+                        }
+                    }catch (Exception e){
+                        log.error(e.getMessage(),e);
+                    }finally {
+                        SpinLockDemo.myUnLock();
+                    }
+
+                }
+
                 return this.checkRoles(subject,mappedValue);
             }catch (AuthenticationException e) {
 
@@ -79,12 +134,12 @@ public class BonJwtFilter extends AbstractPathMatchingFilter {
                         return false;
                     }*/
                     // jwt时间失效过期,jwt refresh time失效 返回jwt过期客户端重新登录
-                    Message message = new Message().error("jwtToken过期 请重新登陆");
+                    Message message = new Message().error("jwtToken过期 请重新登陆", ReturnStatusConstant.TOKEN_OVERTIME);
                     RequestResponseUtil.responseWrite(JSON.toJSONString(message),servletResponse);
                     return false;
                 }
                 // 其他的判断为JWT错误无效
-                Message message = new Message().error("无效dJwtToken 请重新登陆");
+                Message message = new Message().error("无效dJwtToken 请重新登陆",ReturnStatusConstant.TOKEN_INVALID);
                 RequestResponseUtil.responseWrite(JSON.toJSONString(message),servletResponse);
                 return false;
 
@@ -92,13 +147,13 @@ public class BonJwtFilter extends AbstractPathMatchingFilter {
                 // 其他错误
                 //LOGGER.error(IpUtil.getIpFromRequest(WebUtils.toHttp(servletRequest))+"--JWT认证失败"+e.getMessage(),e);
                 // 告知客户端JWT错误1005,需重新登录申请jwt
-                Message message = new Message().error("无效dJwtToken 请重新登陆");
+                Message message = new Message().error("无效dJwtToken 请重新登陆",ReturnStatusConstant.TOKEN_INVALID);
                 RequestResponseUtil.responseWrite(JSON.toJSONString(message),servletResponse);
                 return false;
             }
         }else {
             // 请求未携带jwt 判断为无效请求
-            Message message = new Message().error("未携带token 无效请求 请重新登陆");
+            Message message = new Message().error("未携带token 无效请求 请重新登陆",ReturnStatusConstant.TOKEN_EMPTY);
             RequestResponseUtil.responseWrite(JSON.toJSONString(message),servletResponse);
             return false;
         }
@@ -112,7 +167,7 @@ public class BonJwtFilter extends AbstractPathMatchingFilter {
         if (subject != null && subject.isAuthenticated()){
             //  已经认证但未授权的情况
             // 告知客户端JWT没有权限访问此资源
-            Message message = new Message().error("没有权限");
+            Message message = new Message().error("没有权限",ReturnStatusConstant.TOKEN_NO_PERMISSION);
             RequestResponseUtil.responseWrite(JSON.toJSONString(message),servletResponse);
         }
         // 过滤链终止
@@ -159,5 +214,51 @@ public class BonJwtFilter extends AbstractPathMatchingFilter {
 
     /*public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
+    }*/
+   /* @Override
+    protected void cleanup(ServletRequest request, ServletResponse response, Exception existing) throws ServletException, IOException {
+
+        JwtToken jwtToken = (JwtToken)createJwtToken(request);
+        JwtAccount jwtAccount = JsonWebTokenUtil.parseJwt(jwtToken.getJwt(),JsonWebTokenUtil.SECRET_KEY);
+        HttpServletResponse httpResponse = WebUtils.toHttp(response);;
+        //判断是否在规则内   即离过期时间达到
+        long time = jwtAccount.getIssuedAt().getTime();
+       long timeEnd= new Date().getTime()+Long.parseLong(intervalTime)*1000;
+        if(time<timeEnd){
+            String jwt = JsonWebTokenUtil.issueJWT(UUID.randomUUID().toString(),jwtAccount.getAppId(),
+                    "token-server", Long.parseLong(jwtTimeOut) , jwtAccount.getRoles(), null, SignatureAlgorithm.HS512);
+            httpResponse.setHeader("Access-Control-Expose-Headers","200");
+            httpResponse.setHeader("x-auth-token", jwt);
+        }
+
+        Exception exception = existing;
+
+        try {
+            this.afterCompletion(request, response, exception);
+            if (log.isTraceEnabled()) {
+                log.trace("Successfully invoked afterCompletion method.");
+            }
+        } catch (Exception var6) {
+            if (existing == null) {
+                exception = var6;
+            } else {
+                log.debug("afterCompletion implementation threw an exception.  This will be ignored to allow the original source exception to be propagated.", var6);
+            }
+        }
+
+        if (exception != null) {
+            if (exception instanceof ServletException) {
+                throw (ServletException)exception;
+            } else if (exception instanceof IOException) {
+                throw (IOException)exception;
+            } else {
+                if (log.isDebugEnabled()) {
+                    String msg = "Filter execution resulted in an unexpected Exception (not IOException or ServletException as the Filter API recommends).  Wrapping in ServletException and propagating.";
+                    log.debug(msg);
+                }
+
+                throw new ServletException(exception);
+            }
+        }
     }*/
 }

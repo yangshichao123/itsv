@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.data.itsv.mapper.VFdeviceMapper">
     <resultMap id="BaseResultMap" type="com.data.itsv.model.VFdevice">
-        <id column="CODE" jdbcType="VARCHAR" property="code"/>
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
         <result column="FDTEMPLETE_ID" jdbcType="INTEGER" property="fdtempleteId"/>
-        <result column="ID" jdbcType="INTEGER" property="id"/>
         <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
         <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
         <result column="IP" jdbcType="VARCHAR" property="ip"/>
@@ -21,25 +21,8 @@
         <result column="OFFLINE_TIME" jdbcType="TIMESTAMP" property="offlineTime"/>
         <result column="ONLINE_STATE" jdbcType="INTEGER" property="onlineState"/>
     </resultMap>
-    <resultMap id="BaseResultMapVo" type="com.data.itsv.model.vo.VFdeviceVo">
-        <id column="CODE" jdbcType="VARCHAR" property="code"/>
-        <result column="FDTEMPLETE_ID" jdbcType="INTEGER" property="fdtempleteId"/>
-        <result column="ID" jdbcType="INTEGER" property="id"/>
-        <result column="ACCOUNT" jdbcType="VARCHAR" property="account"/>
-        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
-        <result column="IP" jdbcType="VARCHAR" property="ip"/>
-        <result column="PORT" jdbcType="INTEGER" property="port"/>
-        <result column="CREATE_USERCODE" jdbcType="VARCHAR" property="createUsercode"/>
-        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="UPDATE_USERCODE" jdbcType="VARCHAR" property="updateUsercode"/>
-        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
-        <result column="SERVER_CODE" jdbcType="VARCHAR" property="serverCode"/>
-        <result column="LONGITUDE" jdbcType="INTEGER" property="longitude"/>
-        <result column="LATITUDE" jdbcType="INTEGER" property="latitude"/>
-        <result column="ONLINE_TIME" jdbcType="TIMESTAMP" property="onlineTime"/>
-        <result column="OFFLINE_TIME" jdbcType="TIMESTAMP" property="offlineTime"/>
-        <result column="ONLINE_STATE" jdbcType="INTEGER" property="onlineState"/>
+    <resultMap extends="ResultMapWithBLOBs" id="BaseResultMapVo" type="com.data.itsv.model.vo.VFdeviceVo">
+
         <result column="PAGNAME" jdbcType="VARCHAR" property="pagNmae"/>
         <collection property="fdTemplate" ofType="com.data.itsv.model.vo.VFdtemplateVo">
             <id column="FDTEMPLETE_ID_id" jdbcType="INTEGER" property="id"/>
@@ -54,6 +37,7 @@
             <result column="DESCS" jdbcType="VARCHAR" property="descs"/>
             <result column="FACTORY_CODE" jdbcType="VARCHAR" property="factoryCode"/>
             <result column="FDTYPE_CODE" jdbcType="VARCHAR" property="fdtypeCode"/>
+            <result column="NAME" jdbcType="VARCHAR" property="name"/>
 
         </collection>
     </resultMap>
@@ -74,7 +58,7 @@
         ,
         <include refid="Blob_Column_List"/>
         from v_fdevice
-        where CODE = #{code,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
     </select>
     <select id="getFD" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
    	SELECT
@@ -108,12 +92,20 @@
         FT.PHONICNUM,
         FT.ALARMIN_NUM,
         FT.FDTYPE_CODE,
+        FT.NAME,
         S.NAME PAGNAME
 			FROM V_FDEVICE T
 			LEFT JOIN V_FDTEMPLATE FT ON t.FDTEMPLETE_ID = FT.ID
 			LEFT JOIN V_SERVER S ON t.SERVER_CODE = S.CODE
-			<where>
-                <if test="fdTemplateCode != null ">
+        <if test="dirId != null and dirId !='' ">
+          left join v_directory_res vds on vds.RES_CODE=T.code
+        </if>
+
+        <where>
+            <if test="dirId != null and dirId !='' ">
+               and vds.DIRECTORY_ID = #{dirId,jdbcType=INTEGER}
+            </if>
+                <if test="fdTemplateCode != null and  fdTemplateCode !='' ">
                   and   t.FDTEMPLETE_ID =#{fdTemplateCode,jdbcType=INTEGER}
                 </if>
                 <if test="code != null and code != '' ">
@@ -121,6 +113,9 @@
                 </if>
                 <if test="serverCode != null and serverCode != '' ">
                   and   t.SERVER_CODE =#{serverCode,jdbcType=VARCHAR}
+                </if>
+                <if test="name != null and name != '' ">
+                  and   t.name  like  concat('%',#{name,jdbcType=VARCHAR},'%')
                 </if>
             </where>
   </select>
@@ -140,7 +135,7 @@
       #{onlineTime,jdbcType=TIMESTAMP}, #{offlineTime,jdbcType=TIMESTAMP}, #{onlineState,jdbcType=INTEGER}, 
       #{name,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.data.itsv.model.VFdevice">
+    <insert id="insertSelective" parameterType="com.data.itsv.model.VFdevice" useGeneratedKeys="true" keyProperty="id">
         insert into v_fdevice
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="code != null">

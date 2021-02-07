@@ -59,7 +59,7 @@ public class AuthRoleServiceImpl implements AuthRoleService {
     @Override
     public boolean updataRole(AuthRole role) {
         role.setUpdateTime(new Date());
-        int i = authRoleMapper.updateByPrimaryKey(role);
+        int i = authRoleMapper.updateByPrimaryKeySelective(role);
         if(i>0){
             SRoleDirPrivilege sRoleDirPrivilege=new SRoleDirPrivilege();
             sRoleDirPrivilege.setRoleId(role.getId());
@@ -107,7 +107,7 @@ public class AuthRoleServiceImpl implements AuthRoleService {
         Example.Criteria criteria = example.createCriteria();
         if(!StringUtils.isEmpty(role.getName())){
 
-            criteria.andLike("name",role.getName());
+            criteria.andLike("name","%"+role.getName()+"%");
         }
         List<AuthRole> authRoles = authRoleMapper.selectByExample(example);
         return authRoles;

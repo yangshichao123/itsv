@@ -19,6 +19,46 @@
     ID, `NAME`, SWVERSION, HDVERSION, BANDWIDTH, VIDEOIN_NUM, AUDIOIN_NUM, PHONICNUM, 
     ALARMIN_NUM, DESCS, FACTORY_CODE, FDTYPE_CODE
   </sql>
+  <select id="getFdtemplate" parameterType="com.data.itsv.model.VFdtemplate" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from v_fdtemplate
+    <where>
+      <if test=" name !=null and name ! = '' ">
+        and  `NAME` like concat("%",#{name,jdbcType=VARCHAR},"%")
+      </if>
+      <if test="swversion != null and  swversion != '' ">
+      and  SWVERSION = #{swversion,jdbcType=VARCHAR}
+      </if>
+      <if test="hdversion != null and  hdversion != ''">
+      and HDVERSION =  #{hdversion,jdbcType=VARCHAR}
+      </if>
+      <if test="bandwidth != null">
+       and BANDWIDTH = #{bandwidth,jdbcType=INTEGER}
+      </if>
+      <if test="videoinNum != null">
+       and VIDEOIN_NUM =  #{videoinNum,jdbcType=INTEGER}
+      </if>
+      <if test="audioinNum != null">
+       and AUDIOIN_NUM = #{audioinNum,jdbcType=INTEGER}
+      </if>
+      <if test="phonicnum != null">
+        and PHONICNUM = #{phonicnum,jdbcType=CHAR}
+      </if>
+      <if test="alarminNum != null">
+       and ALARMIN_NUM = #{alarminNum,jdbcType=INTEGER}
+      </if>
+      <if test="descs != null and  descs != ''">
+        and DESCS = #{descs,jdbcType=VARCHAR}
+      </if>
+      <if test="factoryCode != null and  factoryCode != ''">
+        and FACTORY_CODE = #{factoryCode,jdbcType=VARCHAR}
+      </if>
+      <if test="fdtypeCode != null and  fdtypeCode != ''">
+        and FDTYPE_CODE = #{fdtypeCode,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
   <select id="selectByPrimaryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

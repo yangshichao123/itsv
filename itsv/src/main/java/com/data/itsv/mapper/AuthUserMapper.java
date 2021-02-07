@@ -27,4 +27,11 @@ public interface AuthUserMapper extends BaseMapper<AuthUser> {
      * @return
      */
     int getMixId();
+
+    /**
+     * 查询用户信息
+     * @param user
+     * @return
+     */
+    List<AuthUser> getUser(AuthUser user);
 }

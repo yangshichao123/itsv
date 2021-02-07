@@ -37,7 +37,8 @@ public class VFdeviceServiceImpl implements VFdeviceService {
 
     @Override
     public List<VFdtemplate> getFdtemplate(VFdtemplate vFdtemplate) {
-        return vFdtemplateMapper.select(vFdtemplate);
+
+        return vFdtemplateMapper.getFdtemplate(vFdtemplate);
     }
 
     @Override

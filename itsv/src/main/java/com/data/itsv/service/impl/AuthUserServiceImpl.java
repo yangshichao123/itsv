@@ -101,19 +101,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 
     @Override
     public List<AuthUser> getUser(AuthUser user) {
-        Example example = new Example(AuthRole.class);
-        Example.Criteria criteria = example.createCriteria();
 
-        if(!StringUtils.isEmpty(user.getRoleId())){
-            criteria.andEqualTo("roleId",user.getRoleId());
-        }
-        if(!StringUtils.isEmpty(user.getUsername())){
-            criteria.andLike("username",user.getUsername());
-        }
-        if(!StringUtils.isEmpty(user.getCode())){
-            criteria.andEqualTo("code",user.getCode());
-        }
-        List<AuthUser> authUsers = authUserMapper.selectByExample(example);
+        List<AuthUser> authUsers = authUserMapper.getUser(user);
         return authUsers;
     }
 }

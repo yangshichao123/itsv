@@ -57,4 +57,11 @@ public class Message {
         this.setTimestamp(new Timestamp(System.currentTimeMillis()));
         return this;
     }
+    public Message error(String msg,String status) {
+        this.setStatus(status);
+        this.setSuccess(Boolean.FALSE);
+        this.setMessage(msg);
+        this.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        return this;
+    }
 }

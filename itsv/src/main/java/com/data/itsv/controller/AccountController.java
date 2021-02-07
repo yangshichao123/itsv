@@ -1,5 +1,8 @@
 package com.data.itsv.controller;
 
+import com.data.itsv.aspect.BusinessType;
+import com.data.itsv.aspect.Log;
+import com.data.itsv.aspect.OperatorType;
 import com.data.itsv.log.LogExeManager;
 import com.data.itsv.log.LogTaskFactory;
 import com.data.itsv.model.AuthUser;
@@ -67,6 +70,9 @@ public class AccountController extends BaseAction {
     @Value("${bootshiro.enableEncryptPassword}")
     private boolean isEncryptPassword;
 
+    @Value("${jwt.timeOut}")
+    private String jwtTimeOut;
+
     /**
      * description 登录签发 JWT ,这里已经在 passwordFilter 进行了登录认证
      *
@@ -77,21 +83,24 @@ public class AccountController extends BaseAction {
     @ApiOperation(value = "用户登录", notes = "POST用户登录签发JWT")
     @PostMapping("/login")
     @CrossOrigin
+    @Log(title = "用户登录")
     public Message accountLogin(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> params = RequestResponseUtil.getRequestBodyMap(request);
         String userName = params.get(STR_USERNAME);
         // 根据appId获取其对应所拥有的角色(这里设计为角色对应资源，没有权限对应资源)
         String roles = accountService.loadAccountRole(userName);
         // 时间以秒计算,token有效刷新时间是token有效过期时间的2倍
-        long refreshPeriodTime = 1000L;
-        String jwt = JsonWebTokenUtil.issueJWT(UUID.randomUUID().toString(), userName,
-                "token-server", refreshPeriodTime << 1, roles, null, SignatureAlgorithm.HS512);
+        //long refreshPeriodTime = 1000L;
+        String uuidStr = UUID.randomUUID().toString();
+        String jwt = JsonWebTokenUtil.issueJWT(uuidStr, userName,
+                "token-server", Long.parseLong(jwtTimeOut) , roles, null, SignatureAlgorithm.HS512);
         // 将签发的JWT存储到Redis： {JWT-SESSION-{appID} , jwt}
-       // redisTemplate.opsForValue().set("JWT-SESSION-" + userName, jwt, refreshPeriodTime, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("JWT-Login-" + userName,uuidStr, Long.parseLong(jwtTimeOut), TimeUnit.SECONDS);
+        redisTemplate.delete("JWT-continuity-" + userName);
+
         AuthUser authUser = userService.getUserByAppId(userName);
         authUser.setPassword(null);
         authUser.setSalt(null);
-        LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1, IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "登录成功"));
 
         return new Message().ok("success","").addData("jwt", jwt).addData("user", authUser);
     }
@@ -106,6 +115,7 @@ public class AccountController extends BaseAction {
     @ApiOperation(value = "用户注册", notes = "POST用户注册")
     @PostMapping("/register")
     @CrossOrigin
+
     public Message accountRegister(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, String> params = RequestResponseUtil.getRequestBodyMap(request);
@@ -162,12 +172,9 @@ public class AccountController extends BaseAction {
 
         if (accountService.registerAccount(authUser)) {
             //插入日志
-            LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1, IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "注册成功"));
             return new Message().ok("注册成功","");
         } else {
             //插入日志
-            LogExeManager.getInstance().executeLogTask(logTaskFactory.crezteLog(1, IpUtil.getIpFromRequest(WebUtils.toHttp(request)), authUser.toString(), "注册失败"));
-
             return new Message().error("注册失败");
         }
     }

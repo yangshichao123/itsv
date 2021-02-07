@@ -39,6 +39,11 @@ public class ShiroFilterChainManager {
     @Value("${bootshiro.enableEncryptPassword}")
     private boolean isEncryptPassword;
 
+    @Value("${jwt.intervalTime}")
+    private String intervalTime;
+    @Value("${jwt.timeOut}")
+    private String jwtTimeOut;
+
     @Autowired
     public ShiroFilterChainManager(ShiroFilterRulesProvider shiroFilterRulesProvider, StringRedisTemplate redisTemplate, AccountService accountService){
         this.shiroFilterRulesProvider = shiroFilterRulesProvider;
@@ -59,6 +64,8 @@ public class ShiroFilterChainManager {
         filters.put("auth",passwordFilter);
         BonJwtFilter jwtFilter = new BonJwtFilter();
         jwtFilter.setRedisTemplate(redisTemplate);
+        jwtFilter.setJwtTimeOut(jwtTimeOut);
+        jwtFilter.setIntervalTime(intervalTime);
        // jwtFilter.setAccountService(accountService);
         filters.put("jwt",jwtFilter);
         return filters;

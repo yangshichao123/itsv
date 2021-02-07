@@ -134,7 +134,7 @@
     </select>
     <select id="selectChannelNum" parameterType="com.data.itsv.model.VVideo" resultMap="BaseResultMap">
         select
-        max(v.ACHANNEL) ACHANNEL
+        max(v.id) id
 
         from v_video v
         <where>

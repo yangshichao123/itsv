@@ -23,6 +23,25 @@
     id,code,user_level, username, `password`, salt, real_name, avatar, phone, email, sex, `status`,
     CREATE_TIME, UPDATE_TIME, CREATE_WHERE
   </sql>
+  <select id="getUser" resultMap="BaseResultMap" parameterType="com.data.itsv.model.AuthUser">
+    select
+    a.id,a.code,a.user_level, a.username, a.`password`, a.salt, a.real_name, a.avatar, a.phone, a.email, a.sex, a.`status`,
+    a.CREATE_TIME, a.UPDATE_TIME, a.CREATE_WHERE
+    from auth_user  a
+    left join  auth_user_role ar on  a.id = ar.user_id
+    <where>
+      <if test="code != null and code !='' ">
+       and  a.code =  #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="roleId != null and roleId !='' ">
+       and   ar.role_id = #{roleId,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null and username !='' ">
+        and a.username like concat("%",#{username,jdbcType=VARCHAR},"%")
+      </if>
+    </where>
+
+  </select>
   <select id="selectByPrimaryId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -44,31 +63,31 @@
   <insert id="insertSelective" parameterType="com.data.itsv.model.AuthUser" useGeneratedKeys="true" keyProperty="id" >
     insert into auth_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
+      <if test="code != null and code!='' ">
         code,
       </if>
-      <if test="userLevel != null">
+      <if test="userLevel != null  and userLevel!='' ">
         user_level,
       </if>
-      <if test="username != null">
+      <if test="username != null  and username!='' ">
         username,
       </if>
-      <if test="password != null">
+      <if test="password != null  and password!='' ">
         `password`,
       </if>
-      <if test="salt != null">
+      <if test="salt != null  and salt!='' ">
         salt,
       </if>
-      <if test="realName != null">
+      <if test="realName != null  and realName!='' ">
         real_name,
       </if>
-      <if test="avatar != null">
+      <if test="avatar != null  and avatar!='' ">
         avatar,
       </if>
-      <if test="phone != null">
+      <if test="phone != null  and phone!='' ">
         phone,
       </if>
-      <if test="email != null">
+      <if test="email != null  and email!='' ">
         email,
       </if>
       <if test="sex != null">
@@ -88,31 +107,31 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
+      <if test="code != null and code!='' ">
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="userLevel != null">
+      <if test="userLevel != null and userLevel!='' ">
         #{userLevel,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
+      <if test="username != null and username!='' ">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null and password!='' ">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null">
+      <if test="salt != null and salt!='' ">
         #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="realName != null">
+      <if test="realName != null and realName!='' ">
         #{realName,jdbcType=VARCHAR},
       </if>
-      <if test="avatar != null">
+      <if test="avatar != null and avatar!='' ">
         #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
+      <if test="phone != null and phone!='' ">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
+      <if test="email != null and email!='' ">
         #{email,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">

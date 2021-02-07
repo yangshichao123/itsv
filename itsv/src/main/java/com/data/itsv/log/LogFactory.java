@@ -26,11 +26,11 @@ public class LogFactory {
      */
     public static SLog createAccountLog(Integer type,String username, String clientaddr, String content) {
         SLog sLog = new SLog();
-        sLog.setClientaddr(clientaddr);
+      /*  sLog.setClientaddr(clientaddr);
         sLog.setType(type);
         sLog.setContent(content);
         sLog.setUsername(username);
-        sLog.setCreatetime(new Date());
+        sLog.setCreatetime(new Date());*/
         return sLog;
     }
 /*

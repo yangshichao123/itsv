@@ -105,7 +105,7 @@
             <if test="dirId != null and dirId !='' ">
                and vds.DIRECTORY_ID = #{dirId,jdbcType=INTEGER}
             </if>
-                <if test="fdTemplateCode != null ">
+                <if test="fdTemplateCode != null and  fdTemplateCode !='' ">
                   and   t.FDTEMPLETE_ID =#{fdTemplateCode,jdbcType=INTEGER}
                 </if>
                 <if test="code != null and code != '' ">

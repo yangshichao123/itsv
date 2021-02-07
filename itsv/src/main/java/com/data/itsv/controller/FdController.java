@@ -1,5 +1,8 @@
 package com.data.itsv.controller;
 
+import com.data.itsv.aspect.BusinessType;
+import com.data.itsv.aspect.Log;
+import com.data.itsv.aspect.OperatorType;
 import com.data.itsv.model.*;
 import com.data.itsv.model.vo.Message;
 import com.data.itsv.model.vo.VFdeviceVo;
@@ -33,6 +36,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "获取服务列表", notes = "POST请求json格式参数")
     @PostMapping("/server/getServer")
     @CrossOrigin
+    @Log(title = "获取服务列表",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message getServer(@RequestBody VServer vServer) {
         List<VServer> data =vServerService.getServer(vServer);
         return new Message().ok("success",data);
@@ -40,6 +44,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "添加服务", notes = "POST请求json格式参数")
     @PostMapping("/server/addServer")
     @CrossOrigin
+    @Log(title = "添加服务",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message addServer(@RequestBody VServer vServer) {
         boolean isTrue=vServerService.addServer(vServer);
         if (!isTrue)
@@ -49,6 +54,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "删除服务", notes = "POST请求json格式参数")
     @PostMapping("/server/deleteServer")
     @CrossOrigin
+    @Log(title = "删除服务",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message deleteServer(@RequestBody int id) {
         boolean isTrue=vServerService.deleteServer(id);
         if (!isTrue)
@@ -58,6 +64,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "修改服务", notes = "POST请求json格式参数")
     @PostMapping("/server/updateServer")
     @CrossOrigin
+    @Log(title = "修改服务",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message updateServer(@RequestBody VServer vServer) {
         boolean isTrue=vServerService.updateServer(vServer);
         if (!isTrue)
@@ -67,6 +74,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "获取设备模板信息", notes = "POST请求json格式参数")
     @PostMapping("/fdtemplate/getFdtemplate")
     @CrossOrigin
+    @Log(title = "获取设备模板信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message getFdtemplate(@RequestBody VFdtemplate vFdtemplate) {
         List<VFdtemplate> vFdtemplates=vFdeviceService.getFdtemplate(vFdtemplate);
         return new Message().ok("success",vFdtemplates);
@@ -74,6 +82,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "添加设备模板信息", notes = "POST请求json格式参数")
     @PostMapping("/fdtemplate/addFdtemplate")
     @CrossOrigin
+    @Log(title = "添加设备模板信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message addFdtemplate(@RequestBody VFdtemplate vFdtemplate) {
         boolean isTrue=vFdeviceService.addFdtemplate(vFdtemplate);
         if (!isTrue)
@@ -83,6 +92,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "修改设备模板信息", notes = "POST请求json格式参数")
     @PostMapping("/fdtemplate/updateFdtemplate")
     @CrossOrigin
+    @Log(title = "修改设备模板信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message updateFdtemplate(@RequestBody VFdtemplate vFdtemplate) {
         boolean isTrue=vFdeviceService.updateFdtemplate(vFdtemplate);
         if (!isTrue)
@@ -92,6 +102,7 @@ public class FdController extends BaseAction {
     @ApiOperation(value = "删除设备模板信息", notes = "POST请求json格式参数")
     @PostMapping("/fdtemplate/deleteFdtemplate")
     @CrossOrigin
+    @Log(title = "删除设备模板信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message deleteFdtemplate(@RequestBody VFdtemplate vFdtemplate) {
         boolean isTrue=vFdeviceService.deleteFdtemplate(vFdtemplate);
         if (!isTrue)
@@ -102,6 +113,7 @@ public class FdController extends BaseAction {
     @PostMapping("/Fdevice/addFd")
     @CrossOrigin
     @Transactional
+    @Log(title = "添加设备",logType = BusinessType.OPT_LOG,operatorType = OperatorType.FD)
     public Message addFd(@RequestBody VFdeviceVo vFdevice) {
         boolean isTrue=vFdeviceService.addFd(vFdevice);
         if (!isTrue)
@@ -113,6 +125,7 @@ public class FdController extends BaseAction {
     @PostMapping("/Fdevice/deleteFd")
     @CrossOrigin
     @Transactional
+    @Log(title = "删除设备",logType = BusinessType.OPT_LOG,operatorType = OperatorType.FD)
     public Message deleteFd(@RequestBody VFdevice vFdevice) {
         boolean isTrue=vFdeviceService.deleteFd(vFdevice);
         if (!isTrue)
@@ -124,6 +137,7 @@ public class FdController extends BaseAction {
     @PostMapping("/Fdevice/updateFd")
     @CrossOrigin
     @Transactional
+    @Log(title = "更新设备",logType = BusinessType.OPT_LOG,operatorType = OperatorType.FD)
     public Message updateFd(@RequestBody VFdeviceVo vFdevice) {
         boolean isTrue=vFdeviceService.updateFd(vFdevice);
         if (!isTrue)
@@ -131,10 +145,10 @@ public class FdController extends BaseAction {
         return new Message().ok("success","");
     }
 
-    @ApiOperation(value = "更新设备", notes = "POST请求json格式参数")
+    @ApiOperation(value = "获取设备", notes = "POST请求json格式参数")
     @PostMapping("/Fdevice/getFd")
     @CrossOrigin
-    @Transactional
+    @Log(title = "获取设备",logType = BusinessType.OPT_LOG,operatorType = OperatorType.FD)
     public Message getFd(@RequestBody VFdeviceVo vFdevice) {
         List<VFdeviceVo> list=vFdeviceService.getFd(vFdevice);
         if (list.size()<1)

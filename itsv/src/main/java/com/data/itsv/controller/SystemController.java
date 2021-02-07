@@ -1,5 +1,8 @@
 package com.data.itsv.controller;
 
+import com.data.itsv.aspect.BusinessType;
+import com.data.itsv.aspect.Log;
+import com.data.itsv.aspect.OperatorType;
 import com.data.itsv.model.AuthRole;
 import com.data.itsv.model.AuthUser;
 import com.data.itsv.model.VDirectory;
@@ -45,6 +48,7 @@ public class SystemController extends BaseAction {
     @PostMapping("/directory/addDirectory")
     @CrossOrigin
     @Transactional
+    @Log(title = "添加目录信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message addDirectory(@RequestBody VDirectory directory) {
         VDirectory directory1 =vDirectoryService.addDirectory(directory);
          return new Message().ok("success",directory1);
@@ -52,6 +56,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "修改目录信息", notes = "POST请求")
     @PostMapping("/directory/updateDirectory")
     @CrossOrigin
+    @Log(title = "修改目录信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message updateDirectory(@RequestBody VDirectory directory) {
         boolean isTrue =vDirectoryService.updateDirectory(directory);
         if(isTrue)
@@ -62,6 +67,7 @@ public class SystemController extends BaseAction {
     @PostMapping("/directory/deleteDirectory")
     @CrossOrigin
     @Transactional
+    @Log(title = "删除目录信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message deleteDirectory(@RequestBody VDirectory directory) {
         boolean isTrue =vDirectoryService.deleteDirectory(directory);
         if(isTrue)
@@ -71,6 +77,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "获取目录信息", notes = "POST请求json格式参数")
     @PostMapping("/directory/getDirectory")
     @CrossOrigin
+    @Log(title = "获取目录信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message getDirectory(@RequestBody VDirectory directory) {
         List<VDirectory> data =vDirectoryService.getDirectory(directory);
         return new Message().ok("success",data);
@@ -79,6 +86,7 @@ public class SystemController extends BaseAction {
     @PostMapping("/role/addRole")
     @CrossOrigin
     @Transactional
+    @Log(title = "添加角色信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message addRole(@RequestBody AuthRole role) {
         boolean isTrue =authRoleService.addRole(role);
         if(isTrue)
@@ -89,6 +97,7 @@ public class SystemController extends BaseAction {
     @PostMapping("/role/updataRole")
     @CrossOrigin
     @Transactional
+    @Log(title = "修改角色信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message updataRole(@RequestBody AuthRole role) {
         boolean isTrue =authRoleService.updataRole(role);
         if(isTrue)
@@ -100,6 +109,7 @@ public class SystemController extends BaseAction {
     @PostMapping("/role/deleteRole")
     @CrossOrigin
     @Transactional
+    @Log(title = "删除角色信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message deleteRole(@RequestBody AuthRole role) {
         boolean isTrue =authRoleService.deleteRole(role);
         if(isTrue)
@@ -109,6 +119,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "获取角色信息", notes = "POST请求json格式参数")
     @PostMapping("/role/getRole")
     @CrossOrigin
+    @Log(title = "获取角色信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.SYSTEM)
     public Message getRole(@RequestBody AuthRole role) {
         List<AuthRole> authRoles=authRoleService.getRole(role);
         return new Message().ok("success",authRoles);
@@ -116,6 +127,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "添加用户信息", notes = "POST请求json格式参数")
     @PostMapping("/user/addUser")
     @CrossOrigin
+    @Log(title = "添加用户信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.USER)
     public Message addUser(@RequestBody AuthUser user) {
         boolean isTrue=authUserService.addUser(user);
         if(isTrue)
@@ -125,6 +137,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "修改用户信息", notes = "POST请求json格式参数")
     @PostMapping("/user/updateUser")
     @CrossOrigin
+    @Log(title = "修改用户信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.USER)
     public Message updateUser(@RequestBody AuthUser user) {
         boolean isTrue=authUserService.updateUser(user);
         if(isTrue)
@@ -134,6 +147,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "删除用户信息", notes = "POST请求json格式参数")
     @PostMapping("/user/deleteUser")
     @CrossOrigin
+    @Log(title = "删除用户信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.USER)
     public Message deleteUser(@RequestBody AuthUser user) {
         boolean isTrue=authUserService.deleteUser(user);
         if(isTrue)
@@ -143,6 +157,7 @@ public class SystemController extends BaseAction {
     @ApiOperation(value = "获取用户信息", notes = "POST请求json格式参数")
     @PostMapping("/user/getUser")
     @CrossOrigin
+    @Log(title = "获取用户信息",logType = BusinessType.OPT_LOG,operatorType = OperatorType.USER)
     public Message getUser(@RequestBody AuthUser user) {
         List<AuthUser> authUsers=authUserService.getUser(user);
          return new Message().ok("success",authUsers);

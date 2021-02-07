@@ -17,12 +17,12 @@ import org.apache.axis.encoding.ser.BeanDeserializerFactory;
 import org.apache.axis.encoding.ser.BeanSerializerFactory;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.axis.utils.JavaUtils;
-import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.config.Configuration;
-import org.mybatis.generator.config.xml.ConfigurationParser;
-import org.mybatis.generator.exception.InvalidConfigurationException;
-import org.mybatis.generator.exception.XMLParserException;
-import org.mybatis.generator.internal.DefaultShellCallback;
+//import org.mybatis.generator.api.MyBatisGenerator;
+//import org.mybatis.generator.config.Configuration;
+//import org.mybatis.generator.config.xml.ConfigurationParser;
+//import org.mybatis.generator.exception.InvalidConfigurationException;
+//import org.mybatis.generator.exception.XMLParserException;
+//import org.mybatis.generator.internal.DefaultShellCallback;
 
 
 import javax.sound.sampled.Line;

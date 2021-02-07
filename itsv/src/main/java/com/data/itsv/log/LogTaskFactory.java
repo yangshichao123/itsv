@@ -25,13 +25,13 @@ public class LogTaskFactory {
 
     }
 
-    public  TimerTask crezteLog(Integer type,String username, String clientaddr, String content) {
+    public  TimerTask crezteLog(SLog sLog) {
         return new TimerTask() {
             @Override
             public void run() {
                 try {
-                    SLog sLog = LogFactory.createAccountLog(type, username, clientaddr, content);
-                    sLogMapper.insertSelective(sLog);
+
+                    sLogMapper.insert(sLog);
                 } catch (Exception e) {
                     LOGGER.error("写入日志异常", e.getCause().getMessage());
                 }

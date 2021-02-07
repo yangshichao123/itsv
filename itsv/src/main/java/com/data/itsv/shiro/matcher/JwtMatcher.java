@@ -11,6 +11,9 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 
@@ -21,6 +24,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtMatcher implements CredentialsMatcher {
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
@@ -29,6 +34,11 @@ public class JwtMatcher implements CredentialsMatcher {
         JwtAccount jwtAccount = null;
         try{
             jwtAccount = JsonWebTokenUtil.parseJwt(jwt,JsonWebTokenUtil.SECRET_KEY);
+            String uuid = redisTemplate.opsForValue().get("JWT-Login-" + jwtAccount.getAppId());
+            String   newUuid = redisTemplate.opsForValue().get("JWT-continuity-" + jwtAccount.getAppId());
+            if(!jwtAccount.getTokenId().equals(uuid)&&!jwtAccount.getTokenId().equals(newUuid)){//如果用户所保存得uuid
+                throw new AuthenticationException("expiredJwt");
+            }
         } catch(SignatureException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e){
             // 令牌错误
             throw new AuthenticationException("errJwt");
